@@ -1,0 +1,7 @@
+#summary Minutes of the meetings with the supervisor
+#labels Phase-Requirements
+
+= 2008-09-01 =
+
+Meeting with Chris.....
+
