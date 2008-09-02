@@ -13,7 +13,7 @@ The following is meant to identify risks that could potentially enter the SAL In
 || A Poor Development Strategy may result in poor quality deliverables || 4 || 8 || 32 || Seek help from supervisor for an experienced opinion on choosing the right development strategy ||
 || The establishment of the LINUX workspace and development environment takes longer than expected || 3 || 8 || 24 || Ensure we have the necessary resources for creating the correct development environment with no troubles ||
 || Google Project becomes inaccessible -- project development is halted || 1 || 10 || 10 || Create backups of code on JCU servers ||
-|| Communicating insufficiently with Client and supervisor will couse missunderstanding to the requiremwnt of the project || x || x || x || Communicating with client and supervisor frecuently ||
+|| Communicating insufficiently with Client and supervisor will couse missunderstanding to the requiremwnt of the project || 4 || 10 || 40 || Communicating with client and supervisor frecuently ||
 || Inexperienced and unskilled staff || x || x || x || Learing more and follow the command ||
 || Unreliable estimates could couse sunk cost || x || x || x || Doing it and find it earlier ||
 || The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Improveing the code to support the flexibility ||
