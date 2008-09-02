@@ -15,9 +15,9 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Google Project becomes inaccessible -- project development is halted || 1 || 10 || 10 || Create backups of code on JCU servers ||
 || Communicating insufficiently with Client and supervisor will couse the wrong requirment of the project || x || x || x || Communicating with client and supervisor frecuently ||
 || Inexperienced and unskilled staff || x || x || x || Learing more and follow the command ||
-|| Unreliable estimates || x || x || x || Doing it and find it earlier ||
+|| Unreliable estimates could couse sunk cost || x || x || x || Doing it and find it earlier ||
 || The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Improveing the code to support the flexibility ||
 || Client requests added features || 8 || 5 || 40 || Establish base requirements early so adding to the system is relatively easy ||
-|| okay yeah, weak web-development skills could lead to slow coding progress. ||
-||Insuffient cooperation with team mates ||
-|| absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave||
+|| Weak web-development skills could lead to slow coding progress ||
+|| Insuffient cooperation with team mates ||
+|| absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave ||
