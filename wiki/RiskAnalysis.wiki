@@ -18,7 +18,7 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Unreliable estimates could couse sunk cost || 5 || 9 || 45 || Estimating and find the unreliable points earlier ||
 || The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Improveing the code to support the flexibility ||
 || Client requests added features || 8 || 5 || 40 || Establish base requirements early so adding to the system is relatively easy ||
-|| Weak web-development skills could lead to slow coding progress ||
+|| Weak web-development skills could lead to slow coding progress || 4 || 6 || 24 || Developing prototypes to get used to web-development ||
 || Insuffient cooperation with team mates ||
 || absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave ||
 || Our client may lose interest in SAL-I || 1 || 10 || 10 || Providing impactive deliverables to keep the client's interest ||
