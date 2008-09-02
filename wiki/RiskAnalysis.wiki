@@ -19,9 +19,9 @@ The following is meant to identify risks that could potentially enter the SAL In
 || The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Design the code with the support the flexibility in mind ||
 || Client requests added features || 8 || 5 || 40 || Establish base requirements early so adding to the system is relatively easy ||
 || Weak web-development skills could lead to slow coding progress || 4 || 6 || 24 || Develop prototypes to get the team used to web-development ||
-|| Insufficient cooperation with team mates || 
-|| absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave ||
-|| Our client may lose interest in SAL-I || 1 || 10 || 10 || Providing impactive deliverables to keep the client's interest ||
-|| An alternative to SAL-I is provided by another entity || 1 || 5 || 5 ||
-|| Cannot finish our project within time limitation || 3 || 10 || 30 || Design well before act ||
-|| Malicious Users of SAL-I exploit the system ||
+|| Insufficient cooperation and communication with teammates || 5 || 10 || 50 || Establish good communication between project members; Use supervisor as to coordinate internal team issues ||
+|| Scott is planned to be absent for one week sometime in October: Absence of Scott could cause problems with coding progress || 6 || 4 || 24 || Good coordination of workloads before Scott leaves. ||
+|| Our client may lose interest in SAL-I || 1 || 10 || 10 || Provide impactive deliverables to keep the client's interest ||
+|| An alternative to SAL-I is provided by another entity || 1 || 5 || 5 || Provide timely quality deliverables ||
+|| Cannot finish the project within time limitation (November 30th) || 3 || 10 || 30 || Consider using Xu as an extended maintenance representative of the SAL-I project after the other team members have left ||
+|| Malicious Users of SAL-I exploit the system (Uncertainty of security issues) || 7 || 6 || 42 || Address the possibility of security issues with client ||
