@@ -15,3 +15,4 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Google Project becomes inaccessible -- project development is halted || 1 || 10 || 10 || Create backups of code on JCU servers ||
 || Communicating insufficiently with Client and supervisor will couse the wrong requirment of the project || x || x || x || Communicating with client and supervisor frecuently ||
 || Inexperienced and unskilled staff || x || x || x || Learing more and follow the command ||
+|| Unreliable estimates || x || x || x || Doing it and find it earlier ||
