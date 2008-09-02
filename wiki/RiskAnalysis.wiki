@@ -20,4 +20,4 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Client requests added features || 8 || 5 || 40 || Establish base requirements early so adding to the system is relatively easy ||
 || okay yeah, weak web-development skills could lead to slow coding progress. ||
 ||Insuffient cooperation with team mates ||
-|| absence of team mates || 6 || 3 || 18 || Good coordination of workloads before I leave||
+|| absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave||
