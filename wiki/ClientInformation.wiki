@@ -1,4 +1,5 @@
 #summary A description of our client for the SAL interface project
+#labels Client
 
 = Introduction =
 
