@@ -16,3 +16,4 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Communicating insufficiently with Client and supervisor will couse the wrong requirment of the project || x || x || x || Communicating with client and supervisor frecuently ||
 || Inexperienced and unskilled staff || x || x || x || Learing more and follow the command ||
 || Unreliable estimates || x || x || x || Doing it and find it earlier ||
+|| The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Improveing the code to support the flexibility ||
