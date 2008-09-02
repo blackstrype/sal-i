@@ -24,3 +24,4 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Our client may lose interest in SAL-I || 1 || 10 || 10 || Providing impactive deliverables to keep the client's interest ||
 || An alternative to SAL-I is provided by another entity || 1 || 5 || 5 ||
 || Cannot finish our project within time limitation || 3 || 10 || 30 || Design well before act ||
+|| Malicious Users of SAL-I exploit the system ||
