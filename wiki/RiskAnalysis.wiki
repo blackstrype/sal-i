@@ -21,3 +21,4 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Weak web-development skills could lead to slow coding progress ||
 || Insuffient cooperation with team mates ||
 || absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave ||
+|| Our client may lose interest in SAL-I || 1 || 10 || 10 || Providing impactive deliverables to keep the client's interest ||
