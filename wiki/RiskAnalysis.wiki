@@ -18,3 +18,5 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Unreliable estimates || x || x || x || Doing it and find it earlier ||
 || The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Improveing the code to support the flexibility ||
 || Client requests added features || 8 || 5 || 40 || Establish base requirements early so adding to the system is relatively easy ||
+|| okay yeah, weak web-development skills could lead to slow coding progress. ||
+||Insuffient cooperation with team mates ||
