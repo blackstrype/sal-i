@@ -1,0 +1,13 @@
+#summary An assessment of the potential risks involved in the development of SAL-I.
+#labels Risk-Analysis,Risks
+
+= Overview =
+
+The following is meant to identify risks that could potentially enter the SAL Interface project and hinder development progress to a degree.  The list includes a description of the risk involved, the likelihood of the risk's occurrence (scaled 1-10), the perceived impact of the risk on project variables (scaled 1-10), and the overall importance of the risk (_Likelihood * Impact_).
+
+
+= Risk Table =
+
+*|| Description || Likelihood || Impact || Importance || Countermeasures ||*
+|| Choosing the wrong Web API results in debugging difficulties || 6 || 9 || 53 || List, research, and compare candidate APIs ||
+|| 
