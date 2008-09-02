@@ -13,14 +13,14 @@ The following is meant to identify risks that could potentially enter the SAL In
 || A Poor Development Strategy may result in poor quality deliverables || 4 || 8 || 32 || Seek help from supervisor for an experienced opinion on choosing the right development strategy ||
 || The establishment of the LINUX workspace and development environment takes longer than expected || 3 || 8 || 24 || Ensure we have the necessary resources for creating the correct development environment with no troubles ||
 || Google Project becomes inaccessible -- project development is halted || 1 || 10 || 10 || Create backups of code on JCU servers ||
-|| Communicating insufficiently with Client and supervisor will couse missunderstanding to the requiremwnt of the project || 4 || 10 || 40 || Communicating with client and supervisor frecuently ||
-|| Inexperienced and unskilled staff || 10 || 1 || 10 || Learing more and follow the command ||
-|| Unreliable estimates could couse sunk cost || 5 || 9 || 45 || Estimating and find the unreliable points earlier ||
-|| The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Improveing the code to support the flexibility ||
+|| Communicating insufficiently with the client will cause misunderstandings in the requirements of the project || 4 || 10 || 40 || Communicating with client and supervisor frequently -- Establish effective communication mediums ||
+|| Inexperienced and unskilled project team || 10 || 1 || 10 || Establish coding practices and create web-development training ||
+|| Unreliable estimates could cause sunk cost || 5 || 9 || 45 || Estimating and find the unreliable points earlier ||
+|| The system may lose flexibility as more device compatibility is added to it || 5 || 6 || 30 || Design the code with the support the flexibility in mind ||
 || Client requests added features || 8 || 5 || 40 || Establish base requirements early so adding to the system is relatively easy ||
-|| Weak web-development skills could lead to slow coding progress || 4 || 6 || 24 || Developing prototypes to get used to web-development ||
-|| Insuffient cooperation with team mates will couse the falure of the project || 5 || 10 || 50 || 
-|| Absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave ||
+|| Weak web-development skills could lead to slow coding progress || 4 || 6 || 24 || Develop prototypes to get the team used to web-development ||
+|| Insufficient cooperation with team mates || 
+|| absence of Scott could mean less progress on code  || 6 || 3 || 18 || Good coordination of workloads before Scott leave ||
 || Our client may lose interest in SAL-I || 1 || 10 || 10 || Providing impactive deliverables to keep the client's interest ||
 || An alternative to SAL-I is provided by another entity || 1 || 5 || 5 ||
 || Cannot finish our project within time limitation || 3 || 10 || 30 || Design well before act ||
