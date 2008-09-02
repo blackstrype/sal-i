@@ -12,4 +12,5 @@ The following is meant to identify risks that could potentially enter the SAL In
 || Choosing the wrong Web API could result in debugging difficulties || 6 || 9 || 53 || List, research, and compare candidate APIs ||
 || A Poor Development Strategy may result in poor quality deliverables || 4 || 8 || 32 || Seek help from supervisor for an experienced opinion on choosing the right development strategy ||
 || The establishment of the LINUX workspace and development environment takes longer than expected || 3 || 8 || 24 || Ensure we have the necessary resources for creating the correct development environment with no troubles ||
-|| Google Project becomes inaccessible -- project development is halted || 1 || 10 || 10 || Create backups of code on JCU servers || Communicating insufficiently with Client and supervisor will couse the wrong requirment of the project || x || x || x || Communicating with client and supervisor frecuently ||
+|| Google Project becomes inaccessible -- project development is halted || 1 || 10 || 10 || Create backups of code on JCU servers ||
+|| Communicating insufficiently with Client and supervisor will couse the wrong requirment of the project || x || x || x || Communicating with client and supervisor frecuently ||
