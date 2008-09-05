@@ -15,57 +15,13 @@
 
   # *Meetings:* We will have weekly meetings, propably on Tuesday afternoon.
   # *Proposal:* We are asked to do ...
-a literature review (programming language, streaming format, technologies, etc.)
-list the top 10 features (interview clients)
-list the top 10 risks
+    * a literature review (programming language, streaming format, technologies, etc.)
+    * list the top 10 features (interview clients)
+    * list the top 10 risks
   # *Hints*: 
     * Develop a feature set in order to better understand the proposed system
     * Identify all the necessary hardware we will need for developing the proposed system. 
     *Creating some GUI mock-ups for Gilles. Once we are able to lock down the look and feel for the user interface, we won't have to worry about it as much later in development.
-  # *Next Planned Meeting:* Check date and time per email with Chris
 
-
-
-
-
-We met with Chris today to get a better feel for how he will be supervising us in the project.  He said his main role is to make sure we are making sufficient progress and providing quality deliverables to our client, Gilles.  Below summarizes our agenda:
-
-* Thursday is fast approaching and we will need to have our proposal document and a 5-minute proposal presentation ready by then.
-  * The proposal outline has been provided to us by Ian.
-  * Chris has suggested we develop a feature set in order to better understand the proposed system
-    * We went to talk to Gilles to better define this feature set and discuss potential risks with different system architectures.
-      * Display of User Friendly list of components/devices
-        * Find a way to display all devices -- active and inactive
-      * Display of OS configuration details pertinent to SAL.
-      * Display of individual device information
-        * 1-wire sensors
-          * Tempurature
-          * Motion
-          * Humidity
-          * Pressure
-          * Seismic
-          * Infrared
-        * SNMP sensors
-          * Switch for connecting a subnetwork of sensors to SAL
-        * Video/Camera/Audio feed
-          * Provide the ability to display streaming video/audio data to the user.
-      * Provide Graphical User Interface for the following:
-        * Piloting of Sensors -- Ability to change a device's configurations through SAL
-        * Manually add/remove sensors (Useful when SAL doesn't automatically recognize new devices)
-          * Details will be provided by Gilles later
-    * We also discussed with Gilles, documentation of SAL and where to find it.  For the most part, it's in the commenting of the code
-      * .../SAL/svn/common folder will have the most relevant information for us as client-side developers
-      * .../SAL/svn/common/agents/RMiSALclient.java contains the code for the SAL client
-        * According to Gilles, we will be able to use most of this code to develop our own SAL client interface web service.
-          * It will be the communication between the web-browser and the SAL agent (server)
-          * It will use the SAL client object
-      * .../SAL/svn/client/RMiclient.java contains more referencable code for developing our web service component
-  * As part of the project proposal, we need to identify the top 10 risks to the development of our system
-    * Examples:
-      * We all have limited experience in web development
-      * SAL is meant to provide interface to any possible sensor - This means making SAL-I capable of easily supporting new tech devices.
-* Chris has asked us to identify all the necessary hardware we will need for developing the proposed system.  We may be able to work this into the feasibility section of the proposal document by showing we have all the needed resources
-* Chris has suggested also creating some GUI mock-ups for Gilles.  These would look great in the project proposal if we can get to them.
-  * Once we are able to lock down the look and feel for the user interface, we won't have to worry about it as much later in development.
-
-- Scott Messner
+==Next Planned Meeting==
+Check date and time per email with Chris
