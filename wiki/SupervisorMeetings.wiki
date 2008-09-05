@@ -3,6 +3,31 @@
 
 = 2008-09-01 =
 
+==General==
+
+*Where:* Office of Chris Christensen
+
+*When:* 01/09/2008 01:30pm (week 5)
+
+*Who:* Chris Christensen, Joerg Seifert, Marc Hammerton, Scott Messner
+
+==Topics==
+
+  # *Meetings:* We will have weekly meetings, propably on Tuesday afternoon.
+  # *Proposal:* We are asked to do ...
+a literature review (programming language, streaming format, technologies, etc.)
+list the top 10 features (interview clients)
+list the top 10 risks
+  # *Hints*: 
+    * Develop a feature set in order to better understand the proposed system
+    * Identify all the necessary hardware we will need for developing the proposed system. 
+    *Creating some GUI mock-ups for Gilles. Once we are able to lock down the look and feel for the user interface, we won't have to worry about it as much later in development.
+  # *Next Planned Meeting:* Check date and time per email with Chris
+
+
+
+
+
 We met with Chris today to get a better feel for how he will be supervising us in the project.  He said his main role is to make sure we are making sufficient progress and providing quality deliverables to our client, Gilles.  Below summarizes our agenda:
 
 * Thursday is fast approaching and we will need to have our proposal document and a 5-minute proposal presentation ready by then.
