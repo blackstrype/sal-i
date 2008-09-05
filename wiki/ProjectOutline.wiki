@@ -3,6 +3,6 @@
 
 = SAl-I =
 
-You can download the [http://sal-i.googlecode.com/files/SAL-I%20Project%20Overview%20Statement.pdf project outline] as PDF document in the download section. 
+You can download the [http://sal-i.googlecode.com/files/SAL-I%20Project%20Overview%20Statement.pdf project outline as PDF document] in the download section. The document has the status from 03/09/08 will stick to it.
 
-However, updates will only be made in the [http://code.google.com/p/sal-i/w/list Wiki]
+Updates about requirements, infrastructure, risks, etc. will only be made in the [http://code.google.com/p/sal-i/w/list Wiki]
