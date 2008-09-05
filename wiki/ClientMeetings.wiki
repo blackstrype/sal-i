@@ -57,7 +57,7 @@ Check date and time per email with Gilles
 
 *When:* 26/08/2008 (week 4)
 
-*Who:* Chris Christensen, Joerg Seifert, Marc Hammerton, *Scott Messner*, Xu Du
+*Who:* Chris Christensen, Joerg Seifert, Marc Hammerton, *Scott Messner*, Xu Du; SAL-T: Jochen Braun, Andreas Knirsch, Andreas Seemann
 
 ==Topics==
 
