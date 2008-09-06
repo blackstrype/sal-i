@@ -76,8 +76,8 @@ Check date and time per email with Gilles
     * Set up a RMI registry
       * type 'rmi registry'
     * At this point we should be able to run the server and client for SAL.
-      * './run-rmi-server.sh [computerIP] [serverIP]' will run the server
-      * './run-rmi-client.sh [clientIdentifier] [compIP] [serverIP]' will run the client
+      * './run-rmi-server.sh (computerIP) (serverIP)' will run the server
+      * './run-rmi-client.sh (clientIdentifier) (compIP) (serverIP)' will run the client
     * We will need a linux machine with JDK 1.6 and probably a fair amount of patience. Gilles verified that we can run the client and server on one machine.
   * Gilles demoed the following capabilities from the client perspective:
     * SAL provides a base menu for doing a number of things.  I noted the following:
