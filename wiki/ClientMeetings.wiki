@@ -61,34 +61,34 @@ Check date and time per email with Gilles
 
 ==Topics==
 
-- How to access the source code for SAL and other needed softwares
-  - SAL and it's working parts are stored in a Subversion repository
-    - http://www.hpc.jcu.edu.au/projects/SAL/svn
-      - ./SAL/branches/RMi contains the Remote Method Invocation tool used to create the client and servers environments for the SAL system
-      - ./v4l4j/trunk contains the Video 4 Java 4 Linux package.  I found a wiki that describes it: http://www.hpc.jcu.edu.au/projects/SAL/wiki/V4L4J
-      - ./HAL/trunk is also necessary.  From what I remember, it contains software packages for interpreting connected hardware to the SAL server hosting computer (correct me if I'm wrong)
-    - Note: he told us not to check out the trunk - we won't need all the data stored within the repos.
-- How to compile and run SAL
-  - Gilles quickly showed us how to compile, setup, and run the client and server system for SAL.  This is a step-by-step process it seems, so hopefully I haven't missed anything.  If I am, hopefully it won't be too difficult to figure out what's going on.
-  - Use ant (make for java) which is part of JDK 1.6 (or higher if we want to take that risk)
-    - type 'ant clean compile' to completely rebuild the SAL and HAL directories
-    - for the v4l4j directory, type 'and clean jinilib compile
-  - Add rmi to the registry (?)
-    - type 'rmi registry' (Forgive me, I'm not sure if I've correctly defined what this does, I just remember that it's necessary)
-  - At this point we should be able to run the server and client for SAL.
-    - './run-rmi-server.sh [computerIP] [serverIP]' will run the server
-    - './run-rmi-client.sh [clientIdentifier] [compIP] [serverIP]' will run the client
-  - I really hope this is good enough notes to get this working on our own.  We will need a linux machine with JDK 1.6 and probably a fair amount of patience.  Gilles verified that we can run the client and server on one machine, so no worries there.
-- Once we have SAL running, we can practice using the program a bit.  Gilles demoed the following capabilities from the client perspective:
-  - SAL provides a base menu for doing a number of things.  I noted the following:
-    - List all components/devices as xml
-    - List all components/devices (human readable)
-    - Add new component/device
-    - Select component to focus on
-  - SAL provides a submenu for a focused component/device
-    - List commands available for component (xml)
-    - List commands available for component (human readable)
-    - Send command to component
+  * How to access the source code for SAL and other needed softwares
+    * SAL and it's working parts are stored in a Subversion repository
+      * http://www.hpc.jcu.edu.au/projects/SAL/svn
+        * ./SAL/branches/RMi contains the Remote Method Invocation tool used to create the client and servers environments for the SAL system
+        * ./v4l4j/trunk contains the Video 4 Java 4 Linux package.  I found a wiki that describes it: http://www.hpc.jcu.edu.au/projects/SAL/wiki/V4L4J
+        * ./HAL/trunk is also necessary.  From what I remember, it contains software packages for interpreting connected hardware to the SAL server hosting computer (correct me if I'm wrong)
+      * Note: he told us not to check out the trunk - we won't need all the data stored within the repos.
+  * How to compile and run SAL
+    * Gilles quickly showed us how to compile, setup, and run the client and server system for SAL.  This is a step-by-step process it seems, so hopefully I haven't missed anything.  If I am, hopefully it won't be too difficult to figure out what's going on.
+    * Use ant (make for java) which is part of JDK 1.6 (or higher if we want to take that risk)
+      * type 'ant clean compile' to completely rebuild the SAL and HAL directories
+      * for the v4l4j directory, type 'and clean jinilib compile'
+    * Set up a RMI registry
+      * type 'rmi registry'
+    * At this point we should be able to run the server and client for SAL.
+      * './run-rmi-server.sh [computerIP] [serverIP]' will run the server
+      * './run-rmi-client.sh [clientIdentifier] [compIP] [serverIP]' will run the client
+    * We will need a linux machine with JDK 1.6 and probably a fair amount of patience. Gilles verified that we can run the client and server on one machine.
+  * Gilles demoed the following capabilities from the client perspective:
+    * SAL provides a base menu for doing a number of things.  I noted the following:
+      * List all components/devices as xml
+      * List all components/devices (human readable)
+      * Add new component/device
+      * Select component to focus on
+    * SAL provides a submenu for a focused component/device
+      * List commands available for component (xml)
+      * List commands available for component (human readable)
+      * Send command to component
 
 ==Next Planned Meeting==
 Check date and time per email with Gilles
