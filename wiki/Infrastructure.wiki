@@ -1,5 +1,5 @@
 #summary Specification of the project infrastructure.
-#labels Infrastructure,Featured
+#labels Infrastructure
 
 This a short report on the infrastructure we are using.
 
