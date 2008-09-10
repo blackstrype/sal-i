@@ -1,0 +1,38 @@
+#summary How-To for setting up the development environment
+
+= Setting up the development environment =
+
+== IDE with GWT ==
+
+=== 1.) Google Web Toolkit ===
+For installing the Google Web Toolkit (GWT) download version 1.5 from http://code.google.com/webtoolkit/download.html and extract the archive.
+(For more information see 
+
+=== 2.) Eclipse ===
+As IDE we have chosen Eclipse Ganymede (Version 3.4) with which can be downloaded from the Eclipse homepage (http://www.eclipse.org/downloads/).
+
+=== 3.) Eclipse WTP ===
+For using GWT within Eclipse we first need the Web Tools Platform extension. It can be installed by using the Eclipse Software Updates (Help -> Software Updates...). In the "Available Software"-tab add the site "http://download.eclipse.org/webtools/updates/". After unfolding the child-nodes, chose "Web Tools Platform (WTP) 3.0.1" and press install.
+
+=== 4.) Cypal Studio ===
+The second extension we need for using GWT within Eclipse is the Cypal Studio Plugin. First download version 1.0 from http://code.google.com/p/cypal-studio/downloads/list and extract the files into the "Plugins" directory of Eclipse. Start Eclipse and set the GWT directory under "Window -> Preferences -> Cypal Studio -> GWT Home".
+
+Now Eclipse is ready for use with GWT.
+
+== Tutorials ==   
+Here is list of tutorials referring to the installation and getting started with GWT:
+* GWT Homepage: http://code.google.com/webtoolkit/
+* Cypal Studio documentation: http://www.cypal.in/studiodocs
+* Introduction into GWT: http://www.ibm.com/developerworks/opensource/library/os-eclipse-ajaxcypal/
+
+== Subversion Client ==
+We are using the subversive plugin for Eclipse. To install go to "Help -> Software Updates... -> Available Software -> Manage Sites". Uncheck the  Ganymede update site and add http://download.eclipse.org/technology/subversive/0.7/update-site/ . Now chose after unfolding the "Subversive SVN Team Provider (Incubation)" and "Subversive SVN Team Provider Localization" and install.
+Furthermore add the site "http://www.polarion.org/projects/subversive/download/eclipse/2.0/update-site/". Chose "Subversive SVN Connectors", "SVNKit 1.1.7 Implementation (Optional)" and "SVNKit 1.2.0 [Beta] Implementation (Optional)" and install.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
