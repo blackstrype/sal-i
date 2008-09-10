@@ -22,9 +22,9 @@ Now Eclipse is ready for use with GWT.
 
 == Tutorials ==   
 Here is list of tutorials referring to the installation and getting started with GWT:
-* GWT Homepage: http://code.google.com/webtoolkit/
-* Cypal Studio documentation: http://www.cypal.in/studiodocs
-* Introduction into GWT: http://www.ibm.com/developerworks/opensource/library/os-eclipse-ajaxcypal/
+  * GWT Homepage: http://code.google.com/webtoolkit/
+  * Cypal Studio documentation: http://www.cypal.in/studiodocs
+  * Introduction into GWT: http://www.ibm.com/developerworks/opensource/library/os-eclipse-ajaxcypal/
 
 == Subversion Client ==
 We are using the subversive plugin for Eclipse. To install go to "Help -> Software Updates... -> Available Software -> Manage Sites". Uncheck the  Ganymede update site and add http://download.eclipse.org/technology/subversive/0.7/update-site/ . Now chose after unfolding the "Subversive SVN Team Provider (Incubation)" and "Subversive SVN Team Provider Localization" and install.
