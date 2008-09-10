@@ -20,7 +20,7 @@ The second extension we need for using GWT within Eclipse is the Cypal Studio Pl
 
 Now Eclipse is ready for use with GWT.
 
-=== 5.) Tutorials ===   
+=== Tutorials ===   
 Here is list of tutorials referring to the installation and getting started with GWT:
   * GWT Homepage: http://code.google.com/webtoolkit/
   * Cypal Studio documentation: http://www.cypal.in/studiodocs
