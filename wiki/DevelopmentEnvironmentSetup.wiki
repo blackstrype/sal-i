@@ -7,7 +7,7 @@
 
 === 1.) Google Web Toolkit ===
 For installing the Google Web Toolkit (GWT) download version 1.5 from http://code.google.com/webtoolkit/download.html and extract the archive.
-(For more information see 
+(For more information see http://code.google.com/webtoolkit/)
 
 === 2.) Eclipse ===
 As IDE we have chosen Eclipse Ganymede (Version 3.4) with which can be downloaded from the Eclipse homepage (http://www.eclipse.org/downloads/).
