@@ -1,4 +1,5 @@
 #summary How-To for setting up the development environment
+#labels Featured
 
 = Setting up the development environment =
 
@@ -28,11 +29,6 @@ Here is list of tutorials referring to the installation and getting started with
 == Subversion Client ==
 We are using the subversive plugin for Eclipse. To install go to "Help -> Software Updates... -> Available Software -> Manage Sites". Uncheck the  Ganymede update site and add http://download.eclipse.org/technology/subversive/0.7/update-site/ . Now chose after unfolding the "Subversive SVN Team Provider (Incubation)" and "Subversive SVN Team Provider Localization" and install.
 Furthermore add the site "http://www.polarion.org/projects/subversive/download/eclipse/2.0/update-site/". Chose "Subversive SVN Connectors", "SVNKit 1.1.7 Implementation (Optional)" and "SVNKit 1.2.0 [Beta] Implementation (Optional)" and install.
+After restarting Eclipse change the perspective to "SVN Repository Exploring" (Window -> Open Perspective -> Other...). Press the "New Repository Location" and enter the URL (https://sal-i.googlecode.com/svn/) and your username and press Finish.
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+That's it, have fun.
