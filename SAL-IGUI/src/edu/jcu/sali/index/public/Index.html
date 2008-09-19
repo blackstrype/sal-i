@@ -15,6 +15,59 @@
 			a:link,.w,.w a:link{color:#0000cc}
 			a:visited{color:#551a8b}
 			a:active{color:#ff0000}
+			
+			div.general-div{
+				border:1px solid #999999;
+				background-color:#99CCFF;
+				padding: 5px 5px 5px 5px;
+				margin: 3px 3px 3px 3px;
+			}
+			
+			div#wrapperDiv{
+				padding: 2px 2px 2px 2px;
+			}
+			
+			div#headerDiv{
+				height:30px;
+				width:auto;
+			}
+			
+			div#deviceListDiv{
+				height:450px;
+				width:200px;
+				position:absolute;
+				top:40px;
+			}
+			
+			div#deviceDisplayDiv{
+				height:450px;
+				width:700px;
+				position:absolute;
+				top:40px;
+				left:400px;
+			}
+			
+			div#CommandListDiv{
+				height:200px;
+				width:700px;
+				position:absolute;
+				top:500px;
+			}
+			
+			div#deviceOutputDiv{
+				height:200px;
+				width:700px;
+				position:absolute;
+				top:500px;
+				left:710px;
+			}
+			
+			div#footerDiv{
+				height:30px;
+				width:1412px;
+				position:absolute;
+				top:707px;
+			}
 		</style>
 
 		<!--                                           -->
@@ -30,28 +83,32 @@
 	<!-- to create a completely dynamic ui         -->
 	<!--                                           -->
 	<body>
-		<!-- The title div will be used to display any general page info and status (date time maybe) -->
-		<div id="titleDiv" style="border:1px solid green;">
-		</div>
-	    
-		<!-- This is the div containing the list of sensors -->
-		<div id="sensorListDiv" style="border:1px solid red;">
-		</div>
+		<div id="wrapperDiv">
 		
-		<!-- Sensor details div.  Used for displaying interactive data for the sensor -->
-		<div id="sensorDetailsDiv" style="border:1px solid green;">
-		</div>
-		
-		<!-- Command list for the selected sensor -->
-		<div id="sensorCommandsDiv" style="border:1px solid red;">
-		</div>
-		
-		<!-- Piloting div.  Used for display and use of sensor specifing piloting commands. -->
-		<div id="pilotingDiv" style="border:1px solid green;">
-		</div>
-		
-		<!-- Sensor Output div.  Displays any relevant textual output from selected sensor. -->
-		<div id="sensorOutputDiv" style="border:1px solid red;">
+			<!-- The title div will be used to display any general page info and status (date time maybe) -->
+			<div id="headerDiv" style="border:1px solid green;">
+			</div>
+		    
+			<!-- This is the div containing the list of sensors -->
+			<div id="deviceListDiv" style="border:1px solid red;">
+			</div>
+			
+			<!-- Sensor details div.  Used for displaying interactive data for the sensor -->
+			<div id="deviceDisplayDiv" style="border:1px solid green;">
+			</div>
+			
+			<!-- Command list for the selected sensor -->
+			<div id="CommandListDiv" style="border:1px solid red;">
+			</div>
+			
+			<!-- Piloting div.  Used for display and use of sensor specifing piloting commands. -->
+			<div id="deviceOutputDiv" style="border:1px solid green;">
+			</div>
+			
+			<!-- Sensor Output div.  Displays any relevant textual output from selected sensor. -->
+			<div id="footerDiv" style="border:1px solid red;">
+			</div>
+			
 		</div>
 
 		<!-- OPTIONAL: include this if you want history support -->
