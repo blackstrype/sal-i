@@ -2,7 +2,6 @@ package edu.jcu.sali.index.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -13,16 +12,7 @@ public class Index implements EntryPoint {
 	private static final int SENSOR_LB_VISIBLE_ITEMS = 10;
 
 	public void onModuleLoad() {
-		DockPanel dock = new DockPanel();
-		dock.setSpacing(4);
-		dock.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
-		dock.add(new HTML("North"),DockPanel.NORTH);
-		dock.add(new HTML("Center"),DockPanel.CENTER);
-		dock.add(new HTML("South"),DockPanel.SOUTH);
-		
-		RootPanel.get("sal-igui").add(dock);
-		
-		RootPanel.get("titleDiv").add(new HTML("SAL-I - Sensor Networks Interface"));
+		RootPanel.get("headerDiv").add(new HTML("SAL-I - Sensor Networks Interface"));
 		
 		InitializeSensorList();
 		PopulateSensorList();
@@ -44,8 +34,8 @@ public class Index implements EntryPoint {
         };
 		sensorLB.addClickListener(listener);
 		
-		RootPanel.get("sensorListDiv").add(new HTML("List of connected sensors."));
-		RootPanel.get("sensorListDiv").add(sensorLB);
+		RootPanel.get("deviceListDiv").add(new HTML("List of connected sensors."));
+		RootPanel.get("deviceListDiv").add(sensorLB);
 	}
 	
 	// Populate the list of sensors with the retrieved data from SAL
