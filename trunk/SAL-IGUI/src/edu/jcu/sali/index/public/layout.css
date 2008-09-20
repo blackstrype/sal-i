@@ -1,0 +1,64 @@
+@CHARSET "ISO-8859-1";
+
+body,td,a,div,.p {
+	font-family: arial, sans-serif;
+}
+
+div,td {
+	color: #000000;
+}
+
+a:link,.w,.w a:link {
+	color: #0000cc;
+}
+
+a:visited {
+	color: #551a8b;
+}
+
+a:active {
+	color: #ff0000;
+}
+
+div.general-div {
+	padding: 0px;
+	margin: 0px;
+}
+
+div#wrapperDiv {
+	margin: 0px;
+}
+
+div#headerDiv {
+	height: 30px;
+	width: auto;
+}
+
+div#deviceListDiv {
+	height: 450px;
+	width: 200px;
+	float: left;
+}
+
+div#deviceDisplayDiv {
+	height: 450px;
+	width: auto;
+	margin-left: 200px;
+}
+
+div#CommandListDiv {
+	height: 200px;
+	width: 500px;
+	float: left;
+}
+
+div#deviceOutputDiv {
+	height: 200px;
+	width: auto;
+	margin-left: 500px;
+}
+
+div#footerDiv {
+	height: 30px;
+	width: auto;
+}
