@@ -20,7 +20,15 @@ a:active {
 	color: #ff0000;
 }
 
+.genericPanel {
+	border: 1px solid #999999;
+	background-color: #99CCFF;
+}
+
+/*
 div.general-div {
+	border:1px solid #999999;
+	background-color:#99CCFF;
 	padding: 0px;
 	margin: 0px;
 }
@@ -62,3 +70,4 @@ div#footerDiv {
 	height: 30px;
 	width: auto;
 }
+*/

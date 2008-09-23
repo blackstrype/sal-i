@@ -1,38 +1,54 @@
 <html>
 	<head>
+	
+		<!--                                           -->
+		<!-- Any title is fine                         -->
+		<!--                                           -->
 		<title>Wrapper HTML for Index</title>
-		<link rel="stylesheet" href="layout.css" type="text/css"/>
+
+		<!--                                           -->
+		<!-- Use normal html, such as style            -->
+		<!--                                           -->
+		<link rel=stylesheet href="layout.css" type="text/css" media=screen>
+
+		<!--                                           -->
+		<!-- This script loads your compiled module.   -->
+		<!-- If you add any GWT meta tags, they must   -->
+		<!-- be added before this line.                -->
+		<!--                                           -->
 	</head>
 
+	<!--                                           -->
+	<!-- The body can have arbitrary html, or      -->
+	<!-- you can leave the body empty if you want  -->
+	<!-- to create a completely dynamic ui         -->
+	<!--                                           -->
 	<body>
 		<div id="wrapperDiv">
-		
-			<!-- The title div will be used to display any general page info and status (date time maybe) -->
-			<div id="headerDiv" style="border:1px solid green;">
+			
+		    <!-- The title div will be used to display any general page info and status (date time maybe) -->
+			<div id="headerDiv" class="general-div">
 			</div>
 		    
 			<!-- This is the div containing the list of sensors -->
-			<div id="deviceListDiv" style="border:1px solid red;">
+			<div id="deviceListDiv" class="general-div">
 			</div>
 			
 			<!-- Sensor details div.  Used for displaying interactive data for the sensor -->
-			<div id="deviceDisplayDiv" style="border:1px solid green;">
+			<div id="deviceDisplayDiv" class="general-div">
 			</div>
 			
 			<!-- Command list for the selected sensor -->
-			<div id="CommandListDiv" style="background:red;">
+			<div id="CommandListDiv" class="general-div">
 			</div>
-			
-			<!-- Piloting div.  Used for display and use of sensor specifing piloting commands. -->
-			<div id="deviceOutputDiv" style="background:green;">
-			</div>
-			
-			<br style=clear:both;">
 			
 			<!-- Sensor Output div.  Displays any relevant textual output from selected sensor. -->
-			<div id="footerDiv" style="border:1px solid red;">
+			<div id="deviceOutputDiv" class="general-div">
 			</div>
 			
+			<!-- Footer div.  Displays any relevant copyright or page status info. -->
+			<div id="footerDiv" class="general-div">
+			</div>
 		</div>
 
 		<!-- OPTIONAL: include this if you want history support -->
