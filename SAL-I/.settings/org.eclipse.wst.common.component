@@ -18,19 +18,19 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/lib/comm.jar">
+        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/comm.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/lib/junit-4.1.jar">
+        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/junit-4.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/lib/log4j-1.2.15.jar">
+        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/log4j-1.2.15.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/lib/snmp6_0.jar">
+        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/SAL_Client_API.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/lib/SAL_Client_API.jar">
+        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/snmp6_0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
