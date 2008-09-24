@@ -17,12 +17,17 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.jcu.sali.index.client.commandlist.CommandListPanel;
+import edu.jcu.sali.index.client.commandlist.CommandListService;
+import edu.jcu.sali.index.client.commandlist.CommandListServiceAsync;
+
 public class Index implements EntryPoint {
 	public ListBox sensorLB;
 	private static final int SENSOR_LB_VISIBLE_ITEMS = 10;
 	private VerticalPanel wrapperPanel;
 	private DockPanel sensorDisplayPanel;
 	private VerticalPanel sensorListPanel;
+	private CommandListPanel commandListPanel;
 
 	public void onModuleLoad() {
 
@@ -93,12 +98,11 @@ public class Index implements EntryPoint {
 		// Lower middle panel
 		HorizontalPanel lowerMiddlePanel = new HorizontalPanel();
 		// Command list
-		DockPanel commandListPanel = new DockPanel();
+		commandListPanel = new CommandListPanel();
 		commandListPanel.setHeight("250px");
 		commandListPanel.setWidth("425px");
 		commandListPanel.setStyleName(panelStyleString);
-		//commandListPanel.add(new HTML("commandList"), DockPanel.CENTER);
-		initCommandListPanel(commandListPanel);
+		commandListPanel.initCommandListPanel();
 		
 		lowerMiddlePanel.add(commandListPanel);
 		// Device output
@@ -115,30 +119,6 @@ public class Index implements EntryPoint {
 
 		RootPanel.get("wrapperDiv").add(wrapperPanel);
 		return;
-	}
-
-	
-	public void initCommandListPanel(DockPanel panel) {
-
-		final Button button = new Button("Click me");
-		button.addClickListener(new ClickListener() {
-			public void onClick(Widget sender) {
-				CommandListServiceAsync instance = CommandListService.Util
-						.getInstance();
-				instance.getCommandList(new AsyncCallback() {
-
-					public void onFailure(Throwable error) {
-						Window.alert("Error occured:" + error.toString());
-					}
-
-					public void onSuccess(Object retValue) {
-						Window.alert("Server returned:" + retValue.toString());
-					}
-				});
-			}
-		});
-		panel.add(button, DockPanel.CENTER);
-		
 	}
 	
 }

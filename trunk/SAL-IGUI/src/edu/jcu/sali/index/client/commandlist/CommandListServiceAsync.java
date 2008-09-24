@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.jcu.sali.index.client;
+package edu.jcu.sali.index.client.commandlist;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -12,6 +12,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface CommandListServiceAsync {
 
-	public void getCommandList(AsyncCallback<String> callback);
+	public void getCommandList(AsyncCallback<String[]> callback);
 
 }
