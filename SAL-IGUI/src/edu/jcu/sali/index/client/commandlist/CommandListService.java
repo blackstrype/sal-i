@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.jcu.sali.index.client;
+package edu.jcu.sali.index.client.commandlist;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -16,7 +16,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 @RemoteServiceRelativePath("commandList")
 public interface CommandListService extends RemoteService {
 
-	public String getCommandList() throws Exception;
+	public String[] getCommandList() throws Exception;
 	
 	public static class Util {
 

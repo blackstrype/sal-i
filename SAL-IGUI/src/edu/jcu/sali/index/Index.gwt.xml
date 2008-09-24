@@ -10,4 +10,4 @@
   	<!-- <inherits name="com.google.gwt.user.theme.chrome.Chrome"/> -->
   	<!-- <inherits name="com.google.gwt.user.theme.dark.Dark"/> -->
   	
-<servlet class="edu.jcu.sali.index.server.CommandListServiceImpl" path="/commandList"/></module>
+<servlet class="edu.jcu.sali.index.server.commandlist.CommandListServiceImpl" path="/commandList"/></module>
