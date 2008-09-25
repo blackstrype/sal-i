@@ -23,6 +23,7 @@ import edu.jcu.sali.index.client.commandlist.CommandListServiceAsync;
 
 public class Index implements EntryPoint {
 	public ListBox sensorLB;
+	public SensorListBox sensorList;
 	private static final int SENSOR_LB_VISIBLE_ITEMS = 10;
 	private VerticalPanel wrapperPanel;
 	private DockPanel sensorDisplayPanel;
@@ -39,6 +40,9 @@ public class Index implements EntryPoint {
 	// Initialize the Widgets and such for displaying and configuring the list
 	// of sensors
 	private void InitializeSensorList() {
+		sensorList = new SensorListBox();
+		sensorListPanel.add(sensorList);
+		
 		sensorLB = new ListBox();
 		sensorLB.setVisibleItemCount(SENSOR_LB_VISIBLE_ITEMS);
 
