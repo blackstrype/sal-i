@@ -1,0 +1,76 @@
+@CHARSET "ISO-8859-1";
+
+body,td,a,div,.p {
+	font-family: verdana, arial, sans-serif;
+}
+
+div,td {
+	color: #000000;
+}
+
+a:link,.w,.w a:link {
+	color: #0000cc;
+}
+
+a:visited {
+	color: #551a8b;
+}
+
+a:active {
+	color: #ff0000;
+}
+
+/* Layout */
+.wrapperPanel {
+	background: #c5d8e0;
+}
+
+.headerPanel {
+	width: 100%;
+	height: 100px;
+	background: white url(../images/top_bg.jpg) repeat-x;
+	border-bottom: 1px solid white;
+}
+
+.headerPanel h1 {
+	color: #e0a200;
+	margin: 20px 20px 0px 40px;
+	padding: 0px;
+	font-size: 150%;
+}
+
+.headerPanel h2 {
+	color: #000000;
+	margin: 0px 20px 20px 40px;
+	font-size: 120%;
+	font-weight: normal;
+}
+
+.upperMiddlePanel {
+	border-top: 2px solid #a1b1b8;
+}
+
+.sensorListPanel {
+	padding: 5px;
+	background: transparent;
+	border-right: 2px solid #a1b1b8;
+} 
+
+.genericPanel {
+	border: 1px solid #a1b1b8;
+	background-color: #fafafa;
+	padding: 5px;
+	margin: 0px;
+}
+
+.gwt-ListBox {
+	width: 245px;
+}
+
+.gwt-ListBox-selected {
+	color: #FF3399;
+}
+
+.sensorList-selectedRow {
+	background-color: #99FF99;
+}

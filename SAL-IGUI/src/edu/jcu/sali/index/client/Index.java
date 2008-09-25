@@ -1,6 +1,7 @@
 package edu.jcu.sali.index.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -59,18 +60,20 @@ public class Index implements EntryPoint {
 
 		// Title of header panel
 		VerticalPanel headerPanel = new VerticalPanel();
-		headerPanel.add(new HTML("SAL-I - Sensor Networks Interface"));
+		headerPanel.setStyleName("headerPanel");
+		headerPanel.add(new HTML("<h1>SAL-I</h1><h2>Sensor Networks Interface</h2>"));
 		wrapperPanel.add(headerPanel);
 
 		String panelStyleString = "genericPanel";
 
 		// Upper middle panel
 		HorizontalPanel upperMiddlePanel = new HorizontalPanel();
+		upperMiddlePanel.setStyleName("upperMiddlePanel");
 		// Sensor list
 		sensorListPanel = new VerticalPanel();
 		sensorListPanel.setWidth("250px");
 		sensorListPanel.setHeight("600px");
-		sensorListPanel.setStyleName(panelStyleString);
+		sensorListPanel.setStyleName("sensorListPanel");
 		upperMiddlePanel.add(sensorListPanel);
 		// Sensor display
 		sensorDisplayPanel = new DockPanel();
@@ -104,5 +107,4 @@ public class Index implements EntryPoint {
 		RootPanel.get("wrapperDiv").add(wrapperPanel);
 		return;
 	}
-	
 }
