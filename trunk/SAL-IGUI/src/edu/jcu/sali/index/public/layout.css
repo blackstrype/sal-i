@@ -34,3 +34,7 @@ a:active {
 .gwt-ListBox-selected {
 	color: #FF3399;
 }
+
+.sensorList-selectedRow {
+	background-color: #99FF99;
+}
