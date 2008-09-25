@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.jcu.sali.index.client.DeviceOutputPanel;
+
 /**
  * Responsible for initializing and updating the CommandList-Panel
  * 
@@ -23,7 +25,6 @@ public class CommandListPanel extends DockPanel {
 	}
 
 	public void initCommandListPanel() {
-
 		final Button button = new Button("update");
 		button.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {

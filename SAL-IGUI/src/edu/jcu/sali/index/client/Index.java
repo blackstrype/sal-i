@@ -29,12 +29,12 @@ public class Index implements EntryPoint {
 	private DockPanel sensorDisplayPanel;
 	private VerticalPanel sensorListPanel;
 	private CommandListPanel commandListPanel;
+	private DeviceOutputPanel deviceOutputPanel;
 
 	public void onModuleLoad() {
 
 		BuildBaseUI();
 		InitializeSensorList();
-		PopulateSensorList();
 	}
 
 	// Initialize the Widgets and such for displaying and configuring the list
@@ -42,24 +42,6 @@ public class Index implements EntryPoint {
 	private void InitializeSensorList() {
 		sensorList = new SensorListBox();
 		sensorListPanel.add(sensorList);
-		
-		sensorLB = new ListBox();
-		sensorLB.setVisibleItemCount(SENSOR_LB_VISIBLE_ITEMS);
-
-		ClickListener listener = new ClickListener() {
-			public void onClick(Widget sender) {
-				int selectedIndex = ((ListBox) sender).getSelectedIndex();
-				// clear the device display panel
-				sensorDisplayPanel.clear();
-				// add the details for the selected device
-				sensorDisplayPanel.add(new HTML("details for sensor #"
-						+ selectedIndex), DockPanel.CENTER);
-			}
-		};
-		sensorLB.addClickListener(listener);
-
-		sensorListPanel.add(new HTML("List of connected sensors."));
-		sensorListPanel.add(sensorLB);
 	}
 
 	// Populate the list of sensors with the retrieved data from SAL
@@ -107,14 +89,12 @@ public class Index implements EntryPoint {
 		commandListPanel.setWidth("425px");
 		commandListPanel.setStyleName(panelStyleString);
 		commandListPanel.initCommandListPanel();
-		
 		lowerMiddlePanel.add(commandListPanel);
 		// Device output
-		DockPanel deviceOutputPanel = new DockPanel();
+		deviceOutputPanel = new DeviceOutputPanel();
 		deviceOutputPanel.setHeight("250px");
 		deviceOutputPanel.setWidth("425px");
 		deviceOutputPanel.setStyleName(panelStyleString);
-		deviceOutputPanel.add(new HTML("deviceOutput"), DockPanel.CENTER);
 		lowerMiddlePanel.add(deviceOutputPanel);
 		wrapperPanel.add(lowerMiddlePanel);
 
