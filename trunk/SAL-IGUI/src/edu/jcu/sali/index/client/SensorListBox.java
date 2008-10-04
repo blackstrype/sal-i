@@ -1,5 +1,7 @@
 package edu.jcu.sali.index.client;
 
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -10,12 +12,36 @@ import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.jcu.sali.index.client.commandlist.CommandListPanel;
+import edu.jcu.sali.index.client.commandlist.CommandListService;
+import edu.jcu.sali.index.client.commandlist.CommandListServiceAsync;
+
 public class SensorListBox extends Composite implements TableListener, ClickListener {
 
 	private static final int VISIBLE_DEVICES_COUNT = 10;
 	
 	private FlexTable sensorList = new FlexTable();
 	int selectedRow;
+	
+	private CommandListPanel commandListPanel;
+
+	// constructor
+	public SensorListBox(CommandListPanel commandListPanel) {
+		this.commandListPanel = commandListPanel; 
+		// Setup the list
+		sensorList.setCellSpacing(0);
+		sensorList.setCellPadding(1);
+		
+		// Hook up events.
+		sensorList.addTableListener(this);
+	    
+		initWidget(sensorList);
+		setStyleName("sensor-List");
+		
+		initList();
+		update();
+	}
+	
 	
 	public void onCellClicked(SourcesTableEvents sender, int row, int cell) {
 		// TODO Auto-generated method stub
@@ -29,6 +55,20 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			styleRow(selectedRow, false); //unselect the previously selected row
 			styleRow(row, true); //set the clicked row to 'selected'
 			selectedRow = row;
+			
+			// TODO: change
+			CommandListServiceAsync instance = CommandListService.Util.getInstance();
+			instance.getCommandList(new AsyncCallback() {
+		
+				public void onFailure(Throwable error) {
+					Window.alert("Error occured:" + error.toString());
+				}
+		
+				public void onSuccess(Object retValue) {
+					String[] commandList = (String[]) retValue;
+					commandListPanel.updateCommandListPanel(commandList);
+				}
+			});			
 		}
 	}
 
@@ -46,22 +86,6 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	    }
 	  }
 	
-	// constructor
-	public SensorListBox() {
-		// Setup the list
-		sensorList.setCellSpacing(0);
-		sensorList.setCellPadding(1);
-		sensorList.setWidth("100%");
-		
-		// Hook up events.
-		sensorList.addTableListener(this);
-	    
-		initWidget(sensorList);
-		setStyleName("sensor-List");
-		
-		initList();
-		update();
-	}
 	
 	// Initialize the flex table for the sensor list
 	private void initList()

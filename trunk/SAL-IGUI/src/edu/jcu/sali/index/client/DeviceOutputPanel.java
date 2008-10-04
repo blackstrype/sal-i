@@ -11,10 +11,10 @@ public class DeviceOutputPanel extends DockPanel {
 	public DeviceOutputPanel() {
 		outputArea = new TextArea();
 		
-		outputArea.setCharacterWidth(47);
-		outputArea.setVisibleLines(12);
+		outputArea.setCharacterWidth(57);
+		outputArea.setVisibleLines(9);
 		this.add(outputArea, DockPanel.CENTER);
-		this.add(new HTML("Device Output:"), DockPanel.NORTH);
+		this.add(new HTML("<h2>Device Output</h2>"), DockPanel.NORTH);
 	}
 	
 	public void displayOutput(String text) {
