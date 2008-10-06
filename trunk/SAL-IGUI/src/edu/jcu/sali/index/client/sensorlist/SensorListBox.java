@@ -1,13 +1,12 @@
-package edu.jcu.sali.index.client;
+package edu.jcu.sali.index.client.sensorlist;
+
+import java.util.ArrayList;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.Widget;
@@ -20,7 +19,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 
 	private static final int VISIBLE_DEVICES_COUNT = 10;
 	
-	private FlexTable sensorList = new FlexTable();
+	private FlexTable sensorListTable = new FlexTable();
 	int selectedRow;
 	
 	private CommandListPanel commandListPanel;
@@ -29,17 +28,17 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	public SensorListBox(CommandListPanel commandListPanel) {
 		this.commandListPanel = commandListPanel; 
 		// Setup the list
-		sensorList.setCellSpacing(0);
-		sensorList.setCellPadding(1);
+		sensorListTable.setCellSpacing(0);
+		sensorListTable.setCellPadding(1);
+		sensorListTable.setHeight("200px");
 		
 		// Hook up events.
-		sensorList.addTableListener(this);
+		sensorListTable.addTableListener(this);
 	    
-		initWidget(sensorList);
+		initWidget(sensorListTable);
 		setStyleName("sensor-List");
 		
 		initList();
-		update();
 	}
 	
 	
@@ -79,9 +78,9 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	private void styleRow(int row, boolean selected) {
 	    if (row != -1) {
 	      if (selected) {
-	        sensorList.getRowFormatter().addStyleName(row, "sensorList-selectedRow");
+	        sensorListTable.getRowFormatter().addStyleName(row, "sensorList-selectedRow");
 	      } else {
-	        sensorList.getRowFormatter().removeStyleName(row, "sensorList-selectedRow");
+	        sensorListTable.getRowFormatter().removeStyleName(row, "sensorList-selectedRow");
 	      }
 	    }
 	  }
@@ -91,29 +90,37 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	private void initList()
 	{
 		// Create the header row.
-		sensorList.setText(0, 0, "#");
-		sensorList.setText(0, 1, "Device Name");
+		sensorListTable.setText(0, 0, "#");
+		sensorListTable.setText(0, 1, "Device Name");
 		
-		sensorList.getRowFormatter().setStyleName(0, "sensor-List-header");
+		sensorListTable.getRowFormatter().setStyleName(0, "sensor-List-header");
 
-	    // Initialize the rest of the rows.
-	    for (int i = 1; i < VISIBLE_DEVICES_COUNT; ++i) {
-	    	sensorList.setText(i + 1, 0, "");
-	    	sensorList.setText(i + 1, 1, "");
-	    	sensorList.getCellFormatter().setWordWrap(i + 1, 0, false);
-	    	sensorList.getCellFormatter().setWordWrap(i + 1, 1, false);
-	    }
+		SensorListServiceAsync instance = SensorListService.Util.getInstance();
+		instance.getSensorList(new AsyncCallback() {
+	
+			public void onFailure(Throwable error) {
+				Window.alert("Error occured:" + error.toString());
+			}
+	
+			public void onSuccess(Object retValue) {
+				ArrayList<String> sensorList = (ArrayList<String>) retValue;
+				update(sensorList);
+			}
+		});				
+		
 	}
 	
 	// Update
-	public void update()
+	public void update(ArrayList<String> sensorList)
 	{
-		// Dummy code to populate sensor list
-		int numSensors = 8;
-		for(int i = 1; i < numSensors; i++)
-		{
-			sensorList.setText(i, 0, "" + i);
-			sensorList.setText(i, 1, "Dummy Sensor " + i);
-		}
+		
+	    // Initialize the rest of the rows.
+	    for (int i = 0; i < sensorList.size(); ++i) {
+	    	sensorListTable.setText(i + 1, 0, (i + 1) + ")");
+	    	sensorListTable.setText(i + 1, 1, sensorList.get(i));
+	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 0, false);
+	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
+	    }		
+		
 	}	
 }

@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
  * @author Marc
  *
  */
-@RemoteServiceRelativePath("commandList")
+@RemoteServiceRelativePath("commandlistservice")
 public interface CommandListService extends RemoteService {
 
 	public String[] getCommandList() throws Exception;
