@@ -18,9 +18,6 @@ public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-    EjbTestLocal testejb;
-	
-	@EJB
 	ClientLocal client;
 	
     /**
@@ -48,13 +45,12 @@ public class TestServlet extends HttpServlet {
             "TEST SERVLET" +
             "</title></head><body>");
         
-        out.println("test servlet calls EjbTest... :)");
-        testejb.test();
-        
         out.println("</br>test servlet calls Client test... :)");
         out.println("</br>Return val: " + client.test());
-        out.println("</br>test servlet calls Client initialization... )");
-        client.connectToAgent();
+        //out.println("</br>test servlet calls Client initialization... )");
+        //client.connectToAgent();
+        
+        
         
 		
 		out.println("</body></html>");

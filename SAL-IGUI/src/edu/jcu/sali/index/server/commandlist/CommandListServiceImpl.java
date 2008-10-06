@@ -1,12 +1,18 @@
 package edu.jcu.sali.index.server.commandlist;
 
+import javax.ejb.EJB;
+
 import edu.jcu.sali.index.client.commandlist.CommandListService;
+import edu.sal.sali.ejb.ClientLocal;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class CommandListServiceImpl extends RemoteServiceServlet implements CommandListService {
 
 
+	@EJB
+	ClientLocal client;
+	
 	/**
 	 * 
 	 */
@@ -18,7 +24,8 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements Comm
 	 * @return list of commands
 	 */	
 	public String[] getCommandList() throws Exception {
-		String[] commands = { "command 1", "command 2", "command 3" };
+		String[] commands = { "command 1", client.test(), "command 3" };
+		
 		return commands;
 	}
 }

@@ -17,4 +17,10 @@ SAL-I</display-name>
   <module>
     <ejb>SAL-IEJB.jar</ejb>
   </module>
+  <module>
+    <web>
+      <web-uri>SAL-IGUI.war</web-uri>
+      <context-root>SAL-IGUI</context-root>
+    </web>
+  </module>
 </application>
