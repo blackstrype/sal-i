@@ -48,7 +48,7 @@ public class Index implements EntryPoint {
 		// Sensor list
 		sensorListPanel = new SensorListPanel(commandListPanel);
 		sensorListPanel.setWidth("200px");
-		sensorListPanel.setHeight("430px");
+		//sensorListPanel.setHeight("430px");
 		sensorListPanel.setStyleName("sensorListPanel");
 		upperMiddlePanel.add(sensorListPanel);
 		// Sensor display

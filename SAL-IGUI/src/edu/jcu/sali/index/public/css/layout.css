@@ -72,14 +72,17 @@ h2 {
 }
 
 .sensorListPanel {
-	background: #d7e4fe;
 	background: #deeffe;
+	overflow: hidden;
+	height: 230px;	
 } 
 
 .sensor-List  {
 	margin: 10px 10px 5px 10px;
 	width: 180px;
 	cursor: pointer; 
+	overflow: hidden;
+	height: 230px;	
 }
 
 .sensor-List-header {
@@ -87,7 +90,6 @@ h2 {
 } 
 
 .sensorList-selectedRow {
-	background: #6496c3;
 	background: #64c397;
 }
 
