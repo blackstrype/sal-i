@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Class-Path: SAL_Client_API.jar 
- comm.jar 
+Class-Path: comm.jar 
  log4j-1.2.15.jar 
- snmp6_0.jar
+ snmp6_0.jar 
+ SAL_Client_API.jar
 

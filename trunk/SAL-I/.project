@@ -7,6 +7,7 @@
 		<project>SAL-IClient</project>
 		<project>SAL-IWeb</project>
 		<project>SAL-IEJB</project>
+		<project>SAL-IGUI</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

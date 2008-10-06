@@ -14,10 +14,6 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/resource/SAL-IEJB/SAL-IEJB">
-            <dependent-object/>
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/comm.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -27,10 +23,18 @@
         <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/log4j-1.2.15.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/snmp6_0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/SAL_Client_API.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/" handle="module:/classpath/lib/D:/development/SAL-I/SAL-I/lib/snmp6_0.jar">
+        <dependent-module deploy-path="/" handle="module:/resource/SAL-IEJB/SAL-IEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/resource/SAL-IGUI/SAL-IGUI">
+            <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
