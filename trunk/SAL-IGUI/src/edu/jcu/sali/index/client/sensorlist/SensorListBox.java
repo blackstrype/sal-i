@@ -17,8 +17,6 @@ import edu.jcu.sali.index.client.commandlist.CommandListServiceAsync;
 
 public class SensorListBox extends Composite implements TableListener, ClickListener {
 
-	private static final int VISIBLE_DEVICES_COUNT = 10;
-	
 	private FlexTable sensorListTable = new FlexTable();
 	int selectedRow;
 	
@@ -30,7 +28,6 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 		// Setup the list
 		sensorListTable.setCellSpacing(0);
 		sensorListTable.setCellPadding(1);
-		sensorListTable.setHeight("200px");
 		
 		// Hook up events.
 		sensorListTable.addTableListener(this);
