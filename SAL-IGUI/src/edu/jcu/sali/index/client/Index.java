@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import edu.jcu.sali.index.client.commandlist.CommandListPanel;
+import edu.jcu.sali.index.client.deviceoutput.DeviceOutputPanel;
 import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
 import edu.jcu.sali.index.client.sensorlist.SensorListPanel;
 
