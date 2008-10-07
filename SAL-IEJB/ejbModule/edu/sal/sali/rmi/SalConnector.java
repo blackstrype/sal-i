@@ -8,7 +8,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import javax.naming.ConfigurationException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import jcu.sal.common.Constants;
@@ -21,6 +20,9 @@ import jcu.sal.common.cml.CMLDescriptions;
 import jcu.sal.common.cml.RMIStreamCallback;
 import jcu.sal.common.events.Event;
 import jcu.sal.common.events.RMIEventHandler;
+import jcu.sal.common.exceptions.ConfigurationException;
+import jcu.sal.common.exceptions.NotFoundException;
+import jcu.sal.common.exceptions.SALDocumentException;
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 import edu.sal.sali.ejb.SALAgentEventHandler;
@@ -105,6 +107,9 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw new ConfigurationException();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -113,7 +118,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 			agent.unregisterEventHandler(RMIname, RMIname, Constants.SENSOR_MANAGER_PRODUCER_ID);
 			agent.unregisterEventHandler(RMIname, RMIname, Constants.PROTOCOL_MANAGER_PRODUCER_ID);
 			agent.unregisterEventHandler(RMIname, RMIname, Constants.SENSOR_STATE_PRODUCER_ID);
-		} catch (ConfigurationException e) {
+		} catch (NotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -190,13 +195,10 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	public SMLDescriptions getActiveSensors(){
 		try {
 			return new SMLDescriptions(agent.listActiveSensors());
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
+		} catch (SALDocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -213,7 +215,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
+		} catch (SALDocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -222,10 +224,10 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	public void removeProtocol(String protocolID, boolean remAssociate){
 		try {
 			agent.removeProtocol(protocolID, remAssociate);
-		} catch (ConfigurationException e) {
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (RemoteException e) {
+		} catch (NotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -244,7 +246,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
+		} catch (SALDocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -253,10 +255,10 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	public void remSensor(String sensorID){
 		try {
 			agent.removeSensor(sensorID);
-		} catch (ConfigurationException e) {
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (RemoteException e) {
+		} catch (NotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -276,13 +278,10 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	public SMLDescriptions listAllSensors(){
 		try {
 			return new SMLDescriptions(agent.listSensors());
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
+		} catch (SALDocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -295,7 +294,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 //	System.out.println("\t-7 to add a new sensor\n\t-8 to remove a sensor");
 //	System.out.println("\t-9 to list all sensors (XML)\n\t-10 to list all sensors(shorter, human readable listing)");
 	
-	public CMLDescriptions getSensorComamnds(int sid) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException{
+	public CMLDescriptions getSensorComamnds(int sid) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException, SALDocumentException, NotFoundException{
 		return new CMLDescriptions(agent.getCML(String.valueOf(sid)));
 	}
 	
@@ -307,8 +306,16 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		ArgumentType t;
 		CMLDescriptions cmls;
 		
-		cmls = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
-		cf = new RMICommandFactory(cmls.getDescription(cmdID));
+		try {
+			cmls = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
+			cf = new RMICommandFactory(cmls.getDescription(cmdID));
+		} catch (SALDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "test";
 		
