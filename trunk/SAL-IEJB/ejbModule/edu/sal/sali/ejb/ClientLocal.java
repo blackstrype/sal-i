@@ -1,4 +1,6 @@
 package edu.sal.sali.ejb;
+import java.util.ArrayList;
+
 import javax.ejb.Local;
 
 import jcu.sal.common.sml.SMLDescriptions;
@@ -8,7 +10,7 @@ public interface ClientLocal {
 	
 	public String test();
 
-	SMLDescriptions getSensorList();
+	ArrayList<String> getSensorList();
 	
 	
 	

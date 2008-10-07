@@ -25,7 +25,6 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements Comm
 	 */	
 	public String[] getCommandList() throws Exception {
 		String[] commands = { "command 1", client.test(), "command 3" };
-		
 		return commands;
 	}
 }

@@ -3,6 +3,7 @@ package edu.sal.sali.ejb;
 import java.io.File;
 import java.io.InputStream;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,9 +22,13 @@ import edu.sal.sali.rmi.SalConnector;
 @Stateless
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	private static final String RMI_NAME = "EJB_SAL-I_Client_";
-	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
-	private static final String OUR_IP = "137.219.45.236";
-		
+//	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
+//	private static final String OUR_IP = "137.219.45.92";
+
+	private static final String AGENT_RMI_REG_IP = "10.1.1.4";
+	private static final String OUR_IP = "10.1.1.3";
+
+	
 	private static int clientCount = 0;
 	
 	private SalConnector salCon;
@@ -76,12 +81,14 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
-	public SMLDescriptions getSensorList(){
-//		SMLDescriptions listDesc = salCon.getActiveSensors();
-//		for(SMLDescription singleDesc : listDesc.getDescriptions()){
-//			
-//		}
-		return null;
+	public ArrayList<String> getSensorList(){
+		SMLDescriptions listDesc = salCon.getActiveSensors();
+		ArrayList<String> sensorList = new ArrayList<String>();
+		
+		for(SMLDescription singleDesc : listDesc.getDescriptions()){
+			sensorList.add(singleDesc.getID() + "##" + singleDesc.getProtocolType());
+		}
+		return sensorList;
 	}
 	
 	public void getCommands(int sid){
