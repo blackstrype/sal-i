@@ -1,4 +1,3 @@
 Manifest-Version: 1.0
-Class-Path: SAL-IEJB.jar 
- SAL_Client_API.jar
+Class-Path: SAL-IEJB.jar
 

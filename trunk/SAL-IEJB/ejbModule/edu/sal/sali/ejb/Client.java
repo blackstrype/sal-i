@@ -1,5 +1,7 @@
 package edu.sal.sali.ejb;
 
+import java.io.File;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +10,8 @@ import javax.ejb.Stateless;
 
 import jcu.sal.common.Response;
 import jcu.sal.common.events.Event;
+import jcu.sal.common.sml.SMLDescription;
+import jcu.sal.common.sml.SMLDescriptions;
 
 import edu.sal.sali.rmi.SalConnector;
 
@@ -16,10 +20,12 @@ import edu.sal.sali.rmi.SalConnector;
  */
 @Stateless
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
-	private static final String RMI_NAME = "EJB_SAL-I_Client";
+	private static final String RMI_NAME = "EJB_SAL-I_Client_";
 	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
 	private static final String OUR_IP = "137.219.45.236";
 		
+	private static int clientCount = 0;
+	
 	private SalConnector salCon;
 	
     /**
@@ -30,22 +36,26 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     
     @PostConstruct
     public void init(){
-//    	String initTxt = "Client --> Initialisation...";
-//    	System.out.println(initTxt);        
-//    	
-//    	salCon = new SalConnector(RMI_NAME, AGENT_RMI_REG_IP, OUR_IP, this);
-//    	salCon.connectToAgent();  	
+    	String initTxt = "Client --> Initialisation...";
+    	System.out.println(initTxt);        
+    	
+//    	InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("ConfigSALI.xml"); 
+//    	new File(input);
+    	
+    	
+    	salCon = new SalConnector(RMI_NAME + clientCount++, AGENT_RMI_REG_IP, OUR_IP, this);
+    	salCon.connectToAgent();  	
     }    
     
     @PreDestroy
     public void disconnect(){
     	
-//	    try {
-//			salCon.stop();
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}   	
+	    try {
+			salCon.stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   	
     }
     
     @Override
@@ -63,6 +73,20 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	    	String dummyTxt = "Client --> test call successful!!";
 	    	//System.out.println(dummyTxt);
 	    	return dummyTxt;
+	}
+	
+	@Override
+	public SMLDescriptions getSensorList(){
+//		SMLDescriptions listDesc = salCon.getActiveSensors();
+//		for(SMLDescription singleDesc : listDesc.getDescriptions()){
+//			
+//		}
+		return null;
+	}
+	
+	public void getCommands(int sid){
+		
+		
 	}
 	
 }
