@@ -299,10 +299,6 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		return new CMLDescriptions(agent.getCML(String.valueOf(sid)));
 	}
 	
-	
-	
-	
-	
 	public String sendCommand(int sid, int cmdID) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException{
 		//TODO resolve problems
 		RMICommandFactory cf;
