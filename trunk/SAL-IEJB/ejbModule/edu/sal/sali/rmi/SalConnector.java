@@ -7,15 +7,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import jcu.sal.common.Constants;
-import jcu.sal.common.RMICommandFactory;
 import jcu.sal.common.Response;
-import jcu.sal.common.RMICommandFactory.RMICommand;
 import jcu.sal.common.agents.RMISALAgent;
-import jcu.sal.common.cml.ArgumentType;
+import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.cml.CMLDescriptions;
 import jcu.sal.common.cml.RMIStreamCallback;
 import jcu.sal.common.events.Event;
@@ -233,9 +232,17 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		}
 	}
 	
-//	public void listProtocols(){
-//		return XMLhelper.toString(agent.listProtocols());				
-//	}
+	public String getProtocolsList(){
+		String list = "";
+		try {
+			list = agent.listProtocols();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+			
+	}
 	
 	public void addSensor(String xmlDoc){
 		try {
@@ -294,28 +301,51 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 //	System.out.println("\t-7 to add a new sensor\n\t-8 to remove a sensor");
 //	System.out.println("\t-9 to list all sensors (XML)\n\t-10 to list all sensors(shorter, human readable listing)");
 	
-	public CMLDescriptions getSensorComamnds(int sid) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException, SALDocumentException, NotFoundException{
-		return new CMLDescriptions(agent.getCML(String.valueOf(sid)));
-	}
 	
-	public String sendCommand(int sid, int cmdID) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException{
-		//TODO resolve problems
-		RMICommandFactory cf;
-		RMICommand c = null;
-		Response res;
-		ArgumentType t;
-		CMLDescriptions cmls;
+	public Set<CMLDescription> getSensorComamnds(int sid){
 		
+		CMLDescriptions cmldesc;
 		try {
-			cmls = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
-			cf = new RMICommandFactory(cmls.getDescription(cmdID));
+			cmldesc = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
+			return cmldesc.getDescriptions();
 		} catch (SALDocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		return null;		
+	}
+	
+	public void getSensorCommands(int sid){
+		
+		
+	}
+	
+	
+	public String sendCommand(int sid, int cmdID) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException{
+		//TODO resolve problems
+//		RMICommandFactory cf;
+//		RMICommand c = null;
+//		Response res;
+//		ArgumentType t;
+//		CMLDescriptions cmls;
+//		
+//		try {
+//			cmls = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
+//			cf = new RMICommandFactory(cmls.getDescription(cmdID));
+//		} catch (SALDocumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (NotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		return "test";
 		

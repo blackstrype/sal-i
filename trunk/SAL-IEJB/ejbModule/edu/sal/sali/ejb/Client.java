@@ -1,19 +1,18 @@
 package edu.sal.sali.ejb;
 
-import java.io.File;
-import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 import jcu.sal.common.Response;
+import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.events.Event;
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
-
 import edu.sal.sali.rmi.SalConnector;
 
 /**
@@ -22,13 +21,9 @@ import edu.sal.sali.rmi.SalConnector;
 @Stateless
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	private static final String RMI_NAME = "EJB_SAL-I_Client_";
-//	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
-//	private static final String OUR_IP = "137.219.45.92";
-
-	private static final String AGENT_RMI_REG_IP = "10.1.1.4";
-	private static final String OUR_IP = "10.1.1.3";
-
-	
+	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
+	private static final String OUR_IP = "137.219.45.249";
+		
 	private static int clientCount = 0;
 	
 	private SalConnector salCon;
@@ -41,7 +36,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     
     @PostConstruct
     public void init(){
-    	String initTxt = "Client --> Initialisation...";
+    	String initTxt = "Client --> Initialisation... ID: " + clientCount;
     	System.out.println(initTxt);        
     	
 //    	InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("ConfigSALI.xml"); 
@@ -52,10 +47,15 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     	salCon.connectToAgent();  	
     }    
     
+    //TODO does not work, figure something out!
     @PreDestroy
     public void disconnect(){
     	
+    	String initTxt = "Client --> PreDestroy... ID: " + clientCount;
+    	System.out.println(initTxt);  
+    	
 	    try {
+	    	
 			salCon.stop();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -63,6 +63,19 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 		}   	
     }
     
+    @Override
+    public void stop(){
+    	String initTxt = "Client --> STOP... ID: " + clientCount;
+    	System.out.println(initTxt);  
+    	
+	    try {
+	    	
+			salCon.stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   	
+    }
     @Override
 	public void handle(Event e) {
 		System.out.println("Client --> Received: "+e.toString());
@@ -82,17 +95,47 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	
 	@Override
 	public ArrayList<String> getSensorList(){
-		SMLDescriptions listDesc = salCon.getActiveSensors();
+		
+		String tempSensor;
 		ArrayList<String> sensorList = new ArrayList<String>();
 		
+		SMLDescriptions listDesc = salCon.getActiveSensors();
 		for(SMLDescription singleDesc : listDesc.getDescriptions()){
-			sensorList.add(singleDesc.getID() + "##" + singleDesc.getProtocolType());
+			tempSensor = singleDesc.getSID() + "##" + singleDesc.getType();	
+			sensorList.add(tempSensor);
 		}
+		
 		return sensorList;
 	}
 	
-	public void getCommands(int sid){
-		
+	@Override
+	public void removeSensor(int sid){
+		salCon.remSensor(Integer.toString(sid));
+	}
+	
+	@Override
+	public void addSensor(String xmlDoc){
+		salCon.addSensor(xmlDoc);
+	}
+	
+	@Override
+	public String getProtocolList(){
+		return salCon.getProtocolsList();
+	}
+	
+	@Override
+	public void addProtocol(String xmlDoc, boolean doAssociate){
+		salCon.addProtocol(xmlDoc, doAssociate);
+	}
+	
+	@Override
+	public void removeProtocol(int pid, boolean remAssociate){
+		salCon.removeProtocol(Integer.toString(pid), remAssociate);
+	}
+	
+	@Override
+	public Set<CMLDescription> getCommands(int sid){
+		return salCon.getSensorComamnds(sid);
 		
 	}
 	
