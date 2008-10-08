@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jcu.sal.common.cml.CMLDescription;
+import jcu.sal.common.exceptions.NotFoundException;
+
+import edu.sal.sali.ejb.CMLCommand;
 import edu.sal.sali.ejb.ClientLocal;
 
 /**
@@ -50,9 +54,37 @@ public class TestServlet extends HttpServlet {
         //out.println("</br>test servlet calls Client initialization... )");
         //client.connectToAgent();
         
+        out.println("</br>Try to get Sensor List...");
+        out.println(client.getSensorList().toString());
+        out.println("</br>Try to delete Sensor 2 + 4...");
+        client.removeSensor(4);
+        client.removeSensor(2);
+        out.println("</br>Try to get new Sensor List...");
+        out.println(client.getSensorList().toString());
+        
+        out.println("</br>Try to get new Sensor Commands...");
+        for (CMLDescription command : client.getCommands(5)){
+        	out.println("</br>CID: " + command.getCID() + " - " + command.getDesc());
+        	
+        	for (String cmd : command.getArgNames()){
+        		out.println("</br>  arg: " + cmd);
+        		try {
+					out.println("</br>    arg type: " + command.getArgType(cmd).toString());
+				} catch (NotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        }
         
         
-		
+        out.println("</br>Try to get Protocol List...");
+        String list = client.getProtocolList();
+        out.println(list);
+
+//        out.println("</br>Stop bean...");
+//        client.stop();	
+        
 		out.println("</body></html>");
         out.close();
 
