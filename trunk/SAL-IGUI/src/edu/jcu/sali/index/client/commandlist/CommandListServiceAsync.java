@@ -3,6 +3,8 @@
  */
 package edu.jcu.sali.index.client.commandlist;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -12,6 +14,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface CommandListServiceAsync {
 
-	public void getCommandList(AsyncCallback<String[]> callback);
+	public void getCommandList(int sid, AsyncCallback<ArrayList<ArrayList<String>>> callback);
 
 }

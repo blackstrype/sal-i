@@ -1,17 +1,28 @@
 package edu.jcu.sali.index.server.commandlist;
 
-import javax.ejb.EJB;
+//import javax.ejb.EJB;
 
+import java.util.ArrayList;
+import java.util.Set;
+
+import jcu.sal.common.cml.CMLDescription;
 import edu.jcu.sali.index.client.commandlist.CommandListService;
-import edu.sal.sali.ejb.ClientLocal;
+import edu.jcu.sali.test.TestClient;
+
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class CommandListServiceImpl extends RemoteServiceServlet implements CommandListService {
 
 
-	@EJB
-	ClientLocal client;
+//	@EJB
+//	ClientLocal client;
+	private TestClient client;
+	
+	public CommandListServiceImpl() {
+		client = new TestClient();
+	}
+	
 	
 	/**
 	 * 
@@ -23,8 +34,20 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements Comm
 	 * 
 	 * @return list of commands
 	 */	
-	public String[] getCommandList() throws Exception {
-		String[] commands = { "command 1", client.test(), "command 3" };
+	public ArrayList<ArrayList<String>> getCommandList(int sid) throws Exception {
+		Set<CMLDescription> cmlList = client.getCommands(sid);
+		
+		ArrayList<ArrayList<String>> commands = new ArrayList<ArrayList<String>>();
+		for (CMLDescription cml : cmlList) {
+			ArrayList<String> command = new ArrayList<String>();
+			command.add(cml.getName());
+			command.add(cml.getDesc());	
+			command.add(cml.getArgNames().toString());
+			command.add(cml.getArgTypes().toString());
+			commands.add(command);
+		}
+		
+	
 		return commands;
 	}
 }

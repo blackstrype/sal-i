@@ -3,10 +3,11 @@
  */
 package edu.jcu.sali.index.client.commandlist;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 /**
  * Service to return the possible commands for a sensor
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 @RemoteServiceRelativePath("commandlistservice")
 public interface CommandListService extends RemoteService {
 
-	public String[] getCommandList() throws Exception;
+	public ArrayList<ArrayList<String>> getCommandList(int sid) throws Exception;
 	
 	public static class Util {
 
