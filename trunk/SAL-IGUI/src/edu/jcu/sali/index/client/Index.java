@@ -18,7 +18,7 @@ import edu.jcu.sali.index.client.sensorlist.SensorListPanel;
 public class Index implements EntryPoint {
 	
 	private VerticalPanel wrapperPanel;
-	private DockPanel sensorDisplayPanel;
+	private SensorDisplayPanel sensorDisplayPanel;
 	private SensorListPanel sensorListPanel;
 	private CommandListPanel commandListPanel;
 	private DeviceOutputPanel deviceOutputPanel;
@@ -26,6 +26,7 @@ public class Index implements EntryPoint {
 	
 	public void onModuleLoad() {
 		commandListPanel = new CommandListPanel();
+		sensorDisplayPanel = new SensorDisplayPanel();
 		BuildBaseUI();
 	}
 
@@ -47,13 +48,12 @@ public class Index implements EntryPoint {
 		HorizontalPanel upperMiddlePanel = new HorizontalPanel();
 		upperMiddlePanel.setStyleName("upperMiddlePanel");
 		// Sensor list
-		sensorListPanel = new SensorListPanel(commandListPanel);
+		sensorListPanel = new SensorListPanel(commandListPanel,sensorDisplayPanel);
 		sensorListPanel.setWidth("200px");
 		//sensorListPanel.setHeight("430px");
 		sensorListPanel.setStyleName("sensorListPanel");
 		upperMiddlePanel.add(sensorListPanel);
 		// Sensor display
-		sensorDisplayPanel = new SensorDisplayPanel();
 		sensorDisplayPanel.setWidth("780px");
 		sensorDisplayPanel.setHeight("430px");
 		sensorDisplayPanel.setStyleName("sensorDisplayPanel");
