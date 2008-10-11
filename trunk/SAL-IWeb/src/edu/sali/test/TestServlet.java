@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.exceptions.NotFoundException;
+import jcu.sal.common.exceptions.SensorControlException;
 
 import edu.sal.sali.ejb.CMLCommand;
 import edu.sal.sali.ejb.ClientLocal;
+import edu.sal.sali.ejb.protocol.SensorCommand;
 
 /**
  * Servlet implementation class TestServlet
@@ -59,12 +62,13 @@ public class TestServlet extends HttpServlet {
         out.println("</br>Try to delete Sensor 2 + 4...");
         client.removeSensor(4);
         client.removeSensor(2);
+        
         out.println("</br>Try to get new Sensor List...");
         out.println(client.getSensorList().toString());
         
         out.println("</br>Try to get new Sensor Commands...");
         for (CMLDescription command : client.getCommands(5)){
-        	out.println("</br>CID: " + command.getCID() + " - " + command.getDesc());
+        	out.println("</br>CID: " + command.getCID() + " - " + command.getName() + " - " + command.getDesc());
         	
         	for (String cmd : command.getArgNames()){
         		out.println("</br>  arg: " + cmd);
@@ -77,10 +81,19 @@ public class TestServlet extends HttpServlet {
         	}
         }
         
+        out.println("</br>Try to get execute Sensor cmd 100 with sensor 5...");
+        SensorCommand scmd = new SensorCommand("5", 100);
+        Response resp = client.sendCommand(scmd);
+        try {
+			out.println("</br>Result: " + resp.getString());
+		} catch (SensorControlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         out.println("</br>Try to get Protocol List...");
         String list = client.getProtocolList();
-        out.println(list);
+        out.println("<code>" + list + "</code>");
 
 //        out.println("</br>Stop bean...");
 //        client.stop();	
