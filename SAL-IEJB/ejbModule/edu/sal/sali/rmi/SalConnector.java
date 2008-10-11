@@ -12,8 +12,13 @@ import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 
 import jcu.sal.common.Constants;
+import jcu.sal.common.RMICommandFactory;
 import jcu.sal.common.Response;
+import jcu.sal.common.CommandFactory.Command;
+import jcu.sal.common.RMICommandFactory.RMICommand;
 import jcu.sal.common.agents.RMISALAgent;
+import jcu.sal.common.cml.ArgumentType;
+import jcu.sal.common.cml.CMLConstants;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.cml.CMLDescriptions;
 import jcu.sal.common.cml.RMIStreamCallback;
@@ -22,9 +27,11 @@ import jcu.sal.common.events.RMIEventHandler;
 import jcu.sal.common.exceptions.ConfigurationException;
 import jcu.sal.common.exceptions.NotFoundException;
 import jcu.sal.common.exceptions.SALDocumentException;
+import jcu.sal.common.exceptions.SensorControlException;
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 import edu.sal.sali.ejb.SALAgentEventHandler;
+import edu.sal.sali.ejb.protocol.SensorCommand;
 
 public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	
@@ -302,7 +309,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 //	System.out.println("\t-9 to list all sensors (XML)\n\t-10 to list all sensors(shorter, human readable listing)");
 	
 	
-	public Set<CMLDescription> getSensorComamnds(int sid){
+	public Set<CMLDescription> getSensorCommands(int sid){
 		
 		CMLDescriptions cmldesc;
 		try {
@@ -322,59 +329,66 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		return null;		
 	}
 	
-	public void getSensorCommands(int sid){
-		
-		
-	}
+//	public RMICommandFactory prepareCommand
 	
-	
-	public String sendCommand(int sid, int cmdID) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException{
+	public Response sendCommand(SensorCommand scmd) throws NotActiveException, ConfigurationException, RemoteException, ParserConfigurationException, NotFoundException{
 		//TODO resolve problems
-//		RMICommandFactory cf;
-//		RMICommand c = null;
-//		Response res;
-//		ArgumentType t;
-//		CMLDescriptions cmls;
-//		
-//		try {
-//			cmls = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
-//			cf = new RMICommandFactory(cmls.getDescription(cmdID));
-//		} catch (SALDocumentException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (NotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		RMICommandFactory cf = null;
+		RMICommand c = null;
+		Response res = null;
+		ArgumentType t;
+		CMLDescriptions cmls;
+		boolean argOK = false;
+		String argValue;
 		
-		return "test";
+		try {
+			cmls = new CMLDescriptions(agent.getCML(String.valueOf(scmd.getSid())));
+			cf = new RMICommandFactory(cmls.getDescription(scmd.getCid()));
+		} catch (SALDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-//		for(String str: cf.listMissingArgNames()){
-//			t = cf.getArgType(str);
-//			if(!t.getArgType().equals(CMLConstants.ARG_TYPE_CALLBACK)) {
-//				while(!argOK) {
+		
+		for(String argName: cf.listMissingArgNames()){
+			t = cf.getArgType(argName);
+			if(!t.getArgType().equals(CMLConstants.ARG_TYPE_CALLBACK)) {
+				while(!argOK) {
 //					System.out.println("Enter value of type '"+t.getArgType()+"' for argument '"+str+"'");
-//					str2 = "argument"; //b.readLine();
-//					try {cf.addArgumentValue(str, str2); argOK = true;}
-//					catch (ConfigurationException e1) {System.out.println("Wrong value"); argOK=false;}
-//				}
-//			} else {
-//				cf.addArgumentCallback(str,RMIname, RMIname);
-////				viewers.put(String.valueOf(sid), new JpgMini(String.valueOf(sid)));	
-//			}
+//					str2 = b.readLine();
+					argValue = scmd.getArg(argName);
+					try {cf.addArgumentValue(argName, argValue); argOK = true;}
+					catch (ConfigurationException e1) {System.out.println("Wrong value"); argOK=false;}
+				}
+			} else {
+				cf.addArgumentCallback(argName,RMIname, RMIname);
+				//TODO handle images
+//				viewers.put(String.valueOf(sid), new JpgMini(String.valueOf(sid)));	
+			}
+		}
+		try {c = cf.getCommand();}
+		catch (ConfigurationException e1) {System.out.println("Values missing"); throw e1; }//argsDone=false;}
+		
+		
+		try {
+			res = agent.execute(c, String.valueOf(scmd.getSid()));
+		} catch (SensorControlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+		
+//		if(cmls.getDescription(j).getReturnType().equals(CMLConstants.RET_TYPE_BYTE_ARRAY))
+//		System.out.println("jpeg!");	//new JpgMini(String.valueOf(sid)).setImage(res.getBytes());
+//		else
+//			System.out.println("Command returned: " + res.getString());	
+//		
+//		
 //		}
-//		try {c = cf.getCommand(); argsDone=true;}
-//		catch (ConfigurationException e1) {System.out.println("Values missing"); throw e1; }//argsDone=false;}
-//	}
-//	
-//	res = agent.execute(c, String.valueOf(sid));
-//	
-//	if(cmls.getDescription(j).getReturnType().equals(CMLConstants.RET_TYPE_BYTE_ARRAY))
-//	System.out.println("jpeg!");	//new JpgMini(String.valueOf(sid)).setImage(res.getBytes());
-//	else
-//		System.out.println("Command returned: " + res.getString());	
-//		
-//		
 	}
 	
 

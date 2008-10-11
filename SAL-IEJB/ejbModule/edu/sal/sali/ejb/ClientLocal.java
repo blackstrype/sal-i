@@ -4,6 +4,9 @@ import java.util.Set;
 
 import javax.ejb.Local;
 
+import edu.sal.sali.ejb.protocol.SensorCommand;
+
+import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 
@@ -29,6 +32,8 @@ public interface ClientLocal {
 	void stop();
 
 	SMLDescriptions getSensorListActive();
+
+	Response sendCommand(SensorCommand scmd);
 	
 	
 	

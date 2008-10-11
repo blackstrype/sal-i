@@ -1,5 +1,6 @@
 package edu.sal.sali.ejb;
 
+import java.io.NotActiveException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -7,12 +8,16 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
+import javax.xml.parsers.ParserConfigurationException;
 
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.events.Event;
+import jcu.sal.common.exceptions.ConfigurationException;
+import jcu.sal.common.exceptions.NotFoundException;
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
+import edu.sal.sali.ejb.protocol.SensorCommand;
 import edu.sal.sali.rmi.SalConnector;
 
 /**
@@ -22,7 +27,7 @@ import edu.sal.sali.rmi.SalConnector;
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	private static final String RMI_NAME = "EJB_SAL-I_Client_";
 	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
-	private static final String OUR_IP = "137.219.45.249";
+	private static final String OUR_IP = "137.219.45.136";
 		
 	private static int clientCount = 0;
 	
@@ -109,6 +114,11 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
+	public SMLDescriptions getSensorListActive(){
+		return salCon.getActiveSensors();
+	}
+	
+	@Override
 	public void removeSensor(int sid){
 		salCon.remSensor(Integer.toString(sid));
 	}
@@ -135,8 +145,34 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	
 	@Override
 	public Set<CMLDescription> getCommands(int sid){
-		return salCon.getSensorComamnds(sid);
+		return salCon.getSensorCommands(sid);
 		
 	}
+	
+	@Override
+	public Response sendCommand(SensorCommand scmd){
+		
+		Response resp = null;
+		
+		try {
+			resp = salCon.sendCommand(scmd);
+		} catch (NotActiveException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+		}
+		return resp;
+	}	
 	
 }
