@@ -14,17 +14,21 @@ import com.google.gwt.user.client.ui.Widget;
 import edu.jcu.sali.index.client.commandlist.CommandListPanel;
 import edu.jcu.sali.index.client.commandlist.CommandListService;
 import edu.jcu.sali.index.client.commandlist.CommandListServiceAsync;
+import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
 
 public class SensorListBox extends Composite implements TableListener, ClickListener {
 
 	private FlexTable sensorListTable = new FlexTable();
 	int selectedRow;
 	
+	private ArrayList<ArrayList<String>> sensorList;
 	private CommandListPanel commandListPanel;
+	private SensorDisplayPanel sensorDisplayPanel;
 
 	// constructor
-	public SensorListBox(CommandListPanel commandListPanel) {
+	public SensorListBox(CommandListPanel commandListPanel, SensorDisplayPanel sensorDisplayPanel) {
 		this.commandListPanel = commandListPanel; 
+		this.sensorDisplayPanel = sensorDisplayPanel;
 		// Setup the list
 		sensorListTable.setCellSpacing(0);
 		sensorListTable.setCellPadding(1);
@@ -51,10 +55,13 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			styleRow(selectedRow, false); //unselect the previously selected row
 			styleRow(row, true); //set the clicked row to 'selected'
 			selectedRow = row;
+			int sid = Integer.parseInt(sensorListTable.getText(row, 1));
+
+			sensorDisplayPanel.displaySensorData(sensorList.get(row-1));
+			
 			
 			// TODO: change
 			CommandListServiceAsync instance = CommandListService.Util.getInstance();
-			int sid = Integer.parseInt(sensorListTable.getText(row, 1));
 			instance.getCommandList(sid, new AsyncCallback() {
 		
 				public void onFailure(Throwable error) {
@@ -90,7 +97,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 		// Create the header row.
 		sensorListTable.setText(0, 0, "#");
 		sensorListTable.setText(0, 1, "SID");
-		sensorListTable.setText(0, 2, "Type");
+		sensorListTable.setText(0, 2, "Address");
 		
 		sensorListTable.getRowFormatter().setStyleName(0, "sensor-List-header");
 
@@ -102,7 +109,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			}
 	
 			public void onSuccess(Object retValue) {
-				ArrayList<ArrayList<String>> sensorList = (ArrayList<ArrayList<String>>) retValue;
+				sensorList = (ArrayList<ArrayList<String>>) retValue;
 				update(sensorList);
 			}
 		});				
@@ -118,7 +125,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	    	ArrayList<String> sensor = sensorList.get(i);
 	    	sensorListTable.setText(i + 1, 0, (i + 1) + ")");
 	    	sensorListTable.setText(i + 1, 1, sensor.get(0));
-	    	sensorListTable.setText(i + 1, 2, sensor.get(1));
+	    	sensorListTable.setText(i + 1, 2, sensor.get(2));
 	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 0, false);
 	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
 	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 2, false);
