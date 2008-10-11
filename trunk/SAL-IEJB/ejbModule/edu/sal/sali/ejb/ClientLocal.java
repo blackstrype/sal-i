@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.ejb.Local;
 
 import jcu.sal.common.cml.CMLDescription;
+import jcu.sal.common.sml.SMLDescriptions;
 
 @Local
 public interface ClientLocal {
@@ -26,6 +27,8 @@ public interface ClientLocal {
 	void removeSensor(int sid);
 
 	void stop();
+
+	SMLDescriptions getSensorListActive();
 	
 	
 	
