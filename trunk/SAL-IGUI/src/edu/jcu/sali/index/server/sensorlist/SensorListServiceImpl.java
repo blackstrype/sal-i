@@ -34,6 +34,7 @@ public class SensorListServiceImpl extends RemoteServiceServlet implements Senso
 			ArrayList<String> sensor = new ArrayList<String>();
 			sensor.add(Integer.toString(smlDesc.getSID()));
 			sensor.add(smlDesc.getProtocolName());
+			sensorList.add(sensor);
 		}
  		
 		return sensorList;

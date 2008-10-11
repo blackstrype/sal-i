@@ -28,12 +28,14 @@ public class TestClient implements ClientLocal {
 			SMLDescription smlDesc;
 			try {
 				List<Parameter> param = new ArrayList<Parameters.Parameter>();
-				Parameters.Parameter p1 = new Parameters.Parameter("name","value");
+				Parameters.Parameter p1 = new Parameters.Parameter("Address","SystemTime");
 				param.add(p1);
-				param.add(p1);
-				param.add(p1);
+				Parameters.Parameter p2 = new Parameters.Parameter("ProtocolType","PlatformData");
+				param.add(p2);
+				Parameters.Parameter p3 = new Parameters.Parameter("ProtocolName","osdata");
+				param.add(p3);
 				Parameters p = new Parameters(param);
-				smlDesc = new SMLDescription(1,p);
+				smlDesc = new SMLDescription(i,p);
 				smlDescSet.add(smlDesc);
 			} catch (SALDocumentException e) {
 				e.printStackTrace();
