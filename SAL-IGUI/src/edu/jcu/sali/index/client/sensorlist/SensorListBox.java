@@ -54,7 +54,8 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			
 			// TODO: change
 			CommandListServiceAsync instance = CommandListService.Util.getInstance();
-			instance.getCommandList(row, new AsyncCallback() {
+			int sid = Integer.parseInt(sensorListTable.getText(row, cell));
+			instance.getCommandList(sid, new AsyncCallback() {
 		
 				public void onFailure(Throwable error) {
 					Window.alert("Error occured:" + error.toString());
