@@ -1,5 +1,7 @@
 package edu.jcu.sali.index.client.commandlist;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Tree;
@@ -21,10 +23,10 @@ public class CommandListPanel extends DockPanel {
 	}
 
 
-	public void updateCommandListPanel(String[] commands) {
+	public void updateCommandListPanel(ArrayList<ArrayList<String>> commands) {
 		clTree.clear();
-		for (String command : commands) {
-			TreeItem item = new TreeItem(command);
+		for (ArrayList<String> command : commands) {
+			TreeItem item = new TreeItem(command.get(0));
 			clTree.addItem(item);
 		}
 	}

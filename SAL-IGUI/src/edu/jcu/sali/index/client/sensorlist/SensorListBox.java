@@ -54,14 +54,14 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			
 			// TODO: change
 			CommandListServiceAsync instance = CommandListService.Util.getInstance();
-			instance.getCommandList(new AsyncCallback() {
+			instance.getCommandList(row, new AsyncCallback() {
 		
 				public void onFailure(Throwable error) {
 					Window.alert("Error occured:" + error.toString());
 				}
 		
 				public void onSuccess(Object retValue) {
-					String[] commandList = (String[]) retValue;
+					ArrayList<ArrayList<String>> commandList = (ArrayList<ArrayList<String>>) retValue;
 					commandListPanel.updateCommandListPanel(commandList);
 				}
 			});			
@@ -101,7 +101,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			}
 	
 			public void onSuccess(Object retValue) {
-				ArrayList<String> sensorList = (ArrayList<String>) retValue;
+				ArrayList<ArrayList<String>> sensorList = (ArrayList<ArrayList<String>>) retValue;
 				update(sensorList);
 			}
 		});				
@@ -109,15 +109,15 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	}
 	
 	// Update
-	public void update(ArrayList<String> sensorList)
+	public void update(ArrayList<ArrayList<String>> sensorList)
 	{
 		
 	    // Initialize the rest of the rows.
 	    for (int i = 0; i < sensorList.size(); ++i) {
-	    	String[] sensor = sensorList.get(i).split("##");
+	    	ArrayList<String> sensor = sensorList.get(i);
 	    	sensorListTable.setText(i + 1, 0, (i + 1) + ")");
-	    	sensorListTable.setText(i + 1, 1, sensor[0]);
-	    	sensorListTable.setText(i + 1, 2, sensor[1]);
+	    	sensorListTable.setText(i + 1, 1, sensor.get(0));
+	    	sensorListTable.setText(i + 1, 2, sensor.get(1));
 	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 0, false);
 	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
 	    	sensorListTable.getCellFormatter().setWordWrap(i + 1, 2, false);

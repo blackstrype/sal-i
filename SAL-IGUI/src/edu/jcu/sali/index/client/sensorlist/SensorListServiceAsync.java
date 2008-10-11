@@ -13,6 +13,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface SensorListServiceAsync {
 
-	public void getSensorList(AsyncCallback<ArrayList<String>> callback);
+	public void getSensorList(AsyncCallback<ArrayList<ArrayList<String>>> callback);
 
 }
