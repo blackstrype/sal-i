@@ -57,7 +57,8 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			selectedRow = row;
 			int sid = Integer.parseInt(sensorListTable.getText(row, 1));
 
-			sensorDisplayPanel.displaySensorData(sensorList.get(row-1));
+//			sensorDisplayPanel.displaySensorData(sensorList.get(row-1));
+			sensorDisplayPanel.displaySensorTabPanel(sensorList.get(row-1));
 			
 			
 			// TODO: change

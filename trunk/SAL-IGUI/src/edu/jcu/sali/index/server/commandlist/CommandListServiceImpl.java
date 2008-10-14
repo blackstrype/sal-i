@@ -40,6 +40,7 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements Comm
 		ArrayList<ArrayList<String>> commands = new ArrayList<ArrayList<String>>();
 		for (CMLDescription cml : cmlList) {
 			ArrayList<String> command = new ArrayList<String>();
+			command.add(cml.getCID().toString());
 			command.add(cml.getName());
 			command.add(cml.getDesc());	
 			command.add(cml.getArgNames().toString());
