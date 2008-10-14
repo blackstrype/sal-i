@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import jcu.sal.common.Parameters;
+import jcu.sal.common.Response;
 import jcu.sal.common.Parameters.Parameter;
 import jcu.sal.common.cml.CMLConstants;
 import jcu.sal.common.cml.CMLDescription;
@@ -14,6 +15,7 @@ import jcu.sal.common.exceptions.SALDocumentException;
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 import edu.sal.sali.ejb.ClientLocal;
+import edu.sal.sali.ejb.protocol.SensorCommand;
 
 
 public class TestClient implements ClientLocal {
@@ -58,10 +60,19 @@ public class TestClient implements ClientLocal {
 
 	public Set<CMLDescription> getCommands(int sid) {
 		Set<CMLDescription> commands = new HashSet<CMLDescription>();	
-		for(int i=0; i<5; i++) {
-			CMLDescription cml = new CMLDescription("method"+i,i,"name"+i,"some desc",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_STRING));		
-			commands.add(cml);
-		}
+//		for(int i=0; i<5; i++) {
+//			CMLDescription cml = new CMLDescription("method"+i,i,"name"+i,"some desc",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_STRING));		
+//			commands.add(cml);
+//		}
+		
+		CMLDescription cml1 = new CMLDescription("Enable",10,"Enable","Enables the sensor",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_VOID));
+		commands.add(cml1);
+		CMLDescription cml2 = new CMLDescription("Disable",11,"Disable","Disables the sensor",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_VOID));
+		commands.add(cml2);
+		CMLDescription cml3 = new CMLDescription("GetLoadAvg",1000,"GetLoadAvg","Reads the 1-minute load average",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_FLOAT));
+		commands.add(cml3);
+		CMLDescription cml4 = new CMLDescription("getReading",100,"getReading","Reads the 1-minute load average",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_FLOAT));
+		commands.add(cml4);
 		return commands;
 	}
 
@@ -86,6 +97,12 @@ public class TestClient implements ClientLocal {
 
 
 	public ArrayList<String> getSensorList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Response sendCommand(SensorCommand scmd) {
 		// TODO Auto-generated method stub
 		return null;
 	}
