@@ -1,20 +1,15 @@
 package edu.sal.sali.ejb;
 
-import java.io.NotActiveException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
-import javax.xml.parsers.ParserConfigurationException;
 
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.events.Event;
-import jcu.sal.common.exceptions.ConfigurationException;
-import jcu.sal.common.exceptions.NotFoundException;
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 import edu.sal.sali.ejb.protocol.SensorCommand;
@@ -30,8 +25,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	private static final String OUR_IP = "137.219.45.136";
 		
 	private static int clientCount = 0;
-	
-	private SalConnector salCon;
+	private SalConnector salCon = null;
 	
     /**
      * Default constructor. 
@@ -44,9 +38,9 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     	String initTxt = "Client --> Initialisation... ID: " + clientCount;
     	System.out.println(initTxt);        
     	
+    	//TODO Read client and server parameter from external configFile
 //    	InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("ConfigSALI.xml"); 
-//    	new File(input);
-    	
+//    	new File(input);   	
     	
     	salCon = new SalConnector(RMI_NAME + clientCount++, AGENT_RMI_REG_IP, OUR_IP, this);
     	salCon.connectToAgent();  	
@@ -54,33 +48,15 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     
     //TODO does not work, figure something out!
     @PreDestroy
-    public void disconnect(){
-    	
-    	String initTxt = "Client --> PreDestroy... ID: " + clientCount;
-    	System.out.println(initTxt);  
-    	
-	    try {
-	    	
-			salCon.stop();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   	
+    public void disconnect(){   	
+    	salCon.disconnectFromAgent();
     }
     
     @Override
     public void stop(){
-    	String initTxt = "Client --> STOP... ID: " + clientCount;
-    	System.out.println(initTxt);  
-    	
-	    try {
-	    	
-			salCon.stop();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   	
+    	this.disconnect();
     }
+    
     @Override
 	public void handle(Event e) {
 		System.out.println("Client --> Received: "+e.toString());
@@ -150,29 +126,8 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
-	public Response sendCommand(SensorCommand scmd){
-		
-		Response resp = null;
-		
-		try {
-			resp = salCon.sendCommand(scmd);
-		} catch (NotActiveException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
-		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
-		}
-		return resp;
+	public Response sendCommand(SensorCommand scmd){	
+		return salCon.sendCommand(scmd);
 	}	
 	
 }
