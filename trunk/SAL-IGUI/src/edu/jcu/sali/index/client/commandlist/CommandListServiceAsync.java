@@ -15,5 +15,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface CommandListServiceAsync {
 
 	public void getCommandList(int sid, AsyncCallback<ArrayList<ArrayList<String>>> callback);
+	public void sendCommand(String sid, int cid, AsyncCallback<String> callback);
 
 }

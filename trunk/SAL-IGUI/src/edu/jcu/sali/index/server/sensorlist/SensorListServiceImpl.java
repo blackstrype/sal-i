@@ -2,25 +2,28 @@ package edu.jcu.sali.index.server.sensorlist;
 
 import java.util.ArrayList;
 
+import javax.ejb.EJB;
+
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.jcu.sali.index.client.sensorlist.SensorListService;
-import edu.jcu.sali.test.TestClient;
+import edu.sal.sali.ejb.ClientLocal;
 
-public class SensorListServiceImpl extends RemoteServiceServlet implements SensorListService {
+public class SensorListServiceImpl extends RemoteServiceServlet implements
+		SensorListService {
 
-//	@EJB
-//	ClientLocal client;
-	
-	private TestClient client;
-	
+	 @EJB
+	 ClientLocal client;
+
+//	private TestClient client;
+
 	public SensorListServiceImpl() {
-		client = new TestClient();
+//		client = new TestClient();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -28,9 +31,9 @@ public class SensorListServiceImpl extends RemoteServiceServlet implements Senso
 
 	public ArrayList<ArrayList<String>> getSensorList() throws Exception {
 		ArrayList<ArrayList<String>> sensorList = new ArrayList<ArrayList<String>>();
- 		
+
 		SMLDescriptions listDesc = client.getSensorListActive();
-		for(SMLDescription smlDesc : listDesc.getDescriptions()) {
+		for (SMLDescription smlDesc : listDesc.getDescriptions()) {
 			ArrayList<String> sensor = new ArrayList<String>();
 			sensor.add(Integer.toString(smlDesc.getSID()));
 			sensor.add(smlDesc.getProtocolType());
@@ -38,7 +41,7 @@ public class SensorListServiceImpl extends RemoteServiceServlet implements Senso
 			sensor.add(smlDesc.getProtocolName());
 			sensorList.add(sensor);
 		}
- 		
+
 		return sensorList;
 
 	}
