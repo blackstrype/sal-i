@@ -18,6 +18,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface CommandListService extends RemoteService {
 
 	public ArrayList<ArrayList<String>> getCommandList(int sid) throws Exception;
+	public String sendCommand(String sid, int cid) throws Exception;
 	
 	public static class Util {
 

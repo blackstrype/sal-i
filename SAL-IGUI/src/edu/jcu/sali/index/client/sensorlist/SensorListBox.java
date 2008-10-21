@@ -24,11 +24,15 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	private ArrayList<ArrayList<String>> sensorList;
 	private CommandListPanel commandListPanel;
 	private SensorDisplayPanel sensorDisplayPanel;
+	private String sid;
 
 	// constructor
 	public SensorListBox(CommandListPanel commandListPanel, SensorDisplayPanel sensorDisplayPanel) {
 		this.commandListPanel = commandListPanel; 
 		this.sensorDisplayPanel = sensorDisplayPanel;
+		
+		this.sid = "";
+		
 		// Setup the list
 		sensorListTable.setCellSpacing(0);
 		sensorListTable.setCellPadding(1);
@@ -55,7 +59,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			styleRow(selectedRow, false); //unselect the previously selected row
 			styleRow(row, true); //set the clicked row to 'selected'
 			selectedRow = row;
-			int sid = Integer.parseInt(sensorListTable.getText(row, 1));
+			sid = sensorListTable.getText(row, 1);
 
 //			sensorDisplayPanel.displaySensorData(sensorList.get(row-1));
 			sensorDisplayPanel.displaySensorTabPanel(sensorList.get(row-1));
@@ -63,7 +67,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 			
 			// TODO: change
 			CommandListServiceAsync instance = CommandListService.Util.getInstance();
-			instance.getCommandList(sid, new AsyncCallback() {
+			instance.getCommandList( Integer.parseInt(sid), new AsyncCallback() {
 		
 				public void onFailure(Throwable error) {
 					Window.alert("Error occured:" + error.toString());
@@ -71,7 +75,7 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 		
 				public void onSuccess(Object retValue) {
 					ArrayList<ArrayList<String>> commandList = (ArrayList<ArrayList<String>>) retValue;
-					commandListPanel.updateCommandListPanel(commandList);
+					commandListPanel.updateCommandListPanel(sid,commandList);
 				}
 			});			
 		}
@@ -133,4 +137,5 @@ public class SensorListBox extends Composite implements TableListener, ClickList
 	    }		
 		
 	}	
+
 }

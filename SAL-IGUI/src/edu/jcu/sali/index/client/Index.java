@@ -25,8 +25,8 @@ public class Index implements EntryPoint {
 
 	
 	public void onModuleLoad() {
-		commandListPanel = new CommandListPanel();
 		sensorDisplayPanel = new SensorDisplayPanel();
+		commandListPanel = new CommandListPanel(sensorDisplayPanel);
 		BuildBaseUI();
 	}
 
@@ -53,28 +53,38 @@ public class Index implements EntryPoint {
 		//sensorListPanel.setHeight("430px");
 		sensorListPanel.setStyleName("sensorListPanel");
 		upperMiddlePanel.add(sensorListPanel);
+		
+		VerticalPanel rightMiddlePanel = new VerticalPanel();
 		// Sensor display
 		sensorDisplayPanel.setWidth("780px");
 		sensorDisplayPanel.setHeight("430px");
 		sensorDisplayPanel.setStyleName("sensorDisplayPanel");
-		upperMiddlePanel.add(sensorDisplayPanel);
+		rightMiddlePanel.add(sensorDisplayPanel);
+
+		commandListPanel.setWidth("700px");
+		commandListPanel.setHeight("200px");
+		commandListPanel.setStyleName("commandListPanel");
+		rightMiddlePanel.add(commandListPanel);
+		upperMiddlePanel.add(rightMiddlePanel);
+		
 		wrapperPanel.add(upperMiddlePanel);
 
+		
 		// Lower middle panel
-		HorizontalPanel lowerMiddlePanel = new HorizontalPanel();
-		lowerMiddlePanel.setStyleName("lowerMiddlePanel");
+//		HorizontalPanel lowerMiddlePanel = new HorizontalPanel();
+//		lowerMiddlePanel.setStyleName("lowerMiddlePanel");
 		// Command list
-		commandListPanel.setHeight("200px");
-		commandListPanel.setWidth("495px");
-		commandListPanel.setStyleName("commandListPanel");
-		lowerMiddlePanel.add(commandListPanel);
+//		commandListPanel.setHeight("200px");
+//		commandListPanel.setWidth("495px");
+//		commandListPanel.setStyleName("commandListPanel");
+//		lowerMiddlePanel.add(commandListPanel);
 		// Device output
-		deviceOutputPanel = new DeviceOutputPanel();
-		deviceOutputPanel.setHeight("200px");
-		deviceOutputPanel.setWidth("495px");
-		deviceOutputPanel.setStyleName("deviceOutputPanel");
-		lowerMiddlePanel.add(deviceOutputPanel);
-		wrapperPanel.add(lowerMiddlePanel);
+//		deviceOutputPanel = new DeviceOutputPanel();
+//		deviceOutputPanel.setHeight("200px");
+//		deviceOutputPanel.setWidth("495px");
+//		deviceOutputPanel.setStyleName("deviceOutputPanel");
+//		lowerMiddlePanel.add(deviceOutputPanel);
+//		wrapperPanel.add(lowerMiddlePanel);
 
 		RootPanel.get("wrapperDiv").add(wrapperPanel);
 		return;
