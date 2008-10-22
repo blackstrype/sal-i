@@ -48,13 +48,14 @@ public class SensorListBox extends Composite implements TableListener,
 		initWidget(sensorListTable);
 		setStyleName("sensor-List");
 
-//		initList();
-//		updateTimer = new Timer() {
-//			public void run() {
-//				update();
-//			}
-//		};
-//		updateTimer.scheduleRepeating(3000);
+		initList();
+		// update();
+		updateTimer = new Timer() {
+			public void run() {
+				update();
+			}
+		};
+		updateTimer.scheduleRepeating(10000);
 	}
 
 	public void onCellClicked(SourcesTableEvents sender, int row, int cell) {
@@ -66,7 +67,7 @@ public class SensorListBox extends Composite implements TableListener,
 
 		if (row > 0) {
 			styleRow(selectedRow, false); // unselect the previously selected
-											// row
+			// row
 			styleRow(row, true); // set the clicked row to 'selected'
 			selectedRow = row;
 			sid = sensorListTable.getText(row, 1);
@@ -80,7 +81,7 @@ public class SensorListBox extends Composite implements TableListener,
 			instance.getCommandList(Integer.parseInt(sid), new AsyncCallback() {
 
 				public void onFailure(Throwable error) {
-//					Window.alert("Error occured:" + error.toString());
+					// Window.alert("Error occured:" + error.toString());
 				}
 
 				public void onSuccess(Object retValue) {
@@ -127,6 +128,9 @@ public class SensorListBox extends Composite implements TableListener,
 			}
 
 			public void onSuccess(Object retValue) {
+				if (sensorList != null) {
+					sensorList.clear();
+				}
 				sensorList = (ArrayList<ArrayList<String>>) retValue;
 				setSensorList(sensorList);
 			}
@@ -135,8 +139,10 @@ public class SensorListBox extends Composite implements TableListener,
 
 	// Set sensor-list
 	public void setSensorList(ArrayList<ArrayList<String>> sensorList) {
-		sensorListTable.clear();
-		
+		for (int i = sensorListTable.getRowCount() - 1; i >= 1; i--) {
+			sensorListTable.removeRow(i);
+		}
+
 		// Initialize the rest of the rows.
 		for (int i = 0; i < sensorList.size(); ++i) {
 			ArrayList<String> sensor = sensorList.get(i);

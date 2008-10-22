@@ -15,13 +15,13 @@ import edu.sal.sali.ejb.ClientLocal;
 public class SensorListServiceImpl extends RemoteServiceServlet implements
 		SensorListService {
 
-	 @EJB
-	 ClientLocal client;
+	@EJB
+	ClientLocal client;
 
-//	private TestClient client;
+	// private TestClient client;
 
 	public SensorListServiceImpl() {
-//		client = new TestClient();
+		// client = new TestClient();
 	}
 
 	/**
@@ -33,17 +33,17 @@ public class SensorListServiceImpl extends RemoteServiceServlet implements
 		ArrayList<ArrayList<String>> sensorList = new ArrayList<ArrayList<String>>();
 
 		try {
-		SMLDescriptions listDesc = client.getSensorListActive();
-		if(listDesc != null) {
-			for (SMLDescription smlDesc : listDesc.getDescriptions()) {
-				ArrayList<String> sensor = new ArrayList<String>();
-				sensor.add(Integer.toString(smlDesc.getSID()));
-				sensor.add(smlDesc.getProtocolType());
-				sensor.add(smlDesc.getSensorAddress());
-				sensor.add(smlDesc.getProtocolName());
-				sensorList.add(sensor);
+			SMLDescriptions listDesc = client.getSensorListActive();
+			if (listDesc != null) {
+				for (SMLDescription smlDesc : listDesc.getDescriptions()) {
+					ArrayList<String> sensor = new ArrayList<String>();
+					sensor.add(Integer.toString(smlDesc.getSID()));
+					sensor.add(smlDesc.getProtocolType());
+					sensor.add(smlDesc.getSensorAddress());
+					sensor.add(smlDesc.getProtocolName());
+					sensorList.add(sensor);
+				}
 			}
-		}
 		} catch (Exception ex) {
 			ArrayList<String> sensor = new ArrayList<String>();
 			sensor.add("0");
