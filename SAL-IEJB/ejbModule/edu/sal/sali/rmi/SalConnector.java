@@ -72,20 +72,20 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 			agentRegistry = LocateRegistry.getRegistry(agentRmiIP);
 			ourRegistry = LocateRegistry.getRegistry(ownIP);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, "getRegistries");
 		}
 	}
 	
+
 	private void lookupAgent(){
+		String exName = "lookupAgent";
+		
 		try {
 			agent = (RMISALAgent) agentRegistry.lookup(RMISALAgent.RMI_STUB_NAME);
 		} catch (AccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleAccessException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,74 +93,70 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		
 	}
 	
-	
+
 	private void registerClient(){		
+		String exName = "registerClient";
 		try {
 			agent.registerClient(rmiName, ownIP);
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleConfigurationException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		}
 	}
 			
+	
 	private void export(){
 
+		String exName = "export";
 		try {
 			ourRegistry.rebind(rmiName, UnicastRemoteObject.exportObject(this, 0));
 		} catch (AccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleAccessException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		}
 
 	}
 		
 		
 	private void registerEventHandlers(){
+		String exName = "registerEventHandlers";
 		try {
 			agent.registerEventHandler(rmiName, rmiName, Constants.SENSOR_MANAGER_PRODUCER_ID);
 			agent.registerEventHandler(rmiName, rmiName, Constants.PROTOCOL_MANAGER_PRODUCER_ID);
 			agent.registerEventHandler(rmiName, rmiName, Constants.SENSOR_STATE_PRODUCER_ID);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleNotFoundException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		}
 	
 	}
 	
 	private void unregisterEventHandlers(){
 		
+		String exName = "unregisterEventHandlers";
 		try {
 			agent.unregisterEventHandler(rmiName, rmiName, Constants.SENSOR_MANAGER_PRODUCER_ID);
 			agent.unregisterEventHandler(rmiName, rmiName, Constants.PROTOCOL_MANAGER_PRODUCER_ID);
 			agent.unregisterEventHandler(rmiName, rmiName, Constants.SENSOR_STATE_PRODUCER_ID);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleNotFoundException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		}
 	}
 	
 	private void unregisterClient(){
 		
+		String exName = "unregisterClient";
 		try {
 			agent.unregisterClient(rmiName);
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleConfigurationException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		}
 
 		agent = null;		
@@ -186,8 +182,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		try {
 			result =  agent.listActiveSensors();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, "getActiveSensorsXML");
 		}
 		
 		return result;
@@ -198,14 +193,13 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		SMLDescriptions sml = null;
 		
 		
+		String exName = "getActiveSensors";
 		try {
 			sml = new SMLDescriptions(agent.listActiveSensors());
 		} catch (SALDocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleSALDocumentException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleRemoteException(e, exName);
 		}
 		
 		
@@ -213,33 +207,29 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	}
 	
 	
-
 	public void addProtocol(String xmlDoc, boolean doAssociate){
 		
+		String exName = "addProtocol";
 		try {
 			agent.addProtocol(xmlDoc, doAssociate);
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleConfigurationException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		} catch (SALDocumentException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleSALDocumentException(e, exName);
 		}
 	}
 	
 	public void removeProtocol(String protocolID, boolean remAssociate){
 		
+		String exName = "removeProtocol";
 		try {
 			agent.removeProtocol(protocolID, remAssociate);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleNotFoundException(e, exName);
 		}
 	}
 	
@@ -249,8 +239,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		try {
 			list = agent.listProtocols();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, "getProtocolsList");
 		}
 		return list;
 			
@@ -258,30 +247,27 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	
 	public void addSensor(String xmlDoc){
 		
+		String exName = "addSensor";
 		try {
 			agent.addSensor(xmlDoc);
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleConfigurationException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		} catch (SALDocumentException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleSALDocumentException(e, exName);
 		}
 	}
 	
 	public void remSensor(String sensorID){
 		
+		String exName = "remSensor";
 		try {
 			agent.removeSensor(sensorID);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleNotFoundException(e, exName);
 		}
 	}
 	
@@ -291,24 +277,22 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		try {
 			result = agent.listSensors();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, "listAllSensorsXML");
 		}
-		//TODO add exception handling
+		
 		return result;
 	}
 	
 	public SMLDescriptions listAllSensors(){
 		
 		SMLDescriptions sml = null;
+		String exName = "listAllSensors";
 		try {
 			sml = new SMLDescriptions(agent.listSensors());
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		} catch (SALDocumentException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleSALDocumentException(e, exName);
 		}
 		
 		return sml;
@@ -317,17 +301,15 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	public Set<CMLDescription> getSensorCommands(int sid){
 		
 		CMLDescriptions cmldesc = null;
+		String exName = "getSensorCommands";
 		try {
 			cmldesc = new CMLDescriptions(agent.getCML(String.valueOf(sid)));
 		} catch (SALDocumentException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleSALDocumentException(e, exName);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleNotFoundException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		}
 		
 		return cmldesc.getDescriptions();		
@@ -339,20 +321,18 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		
 		Response resp = null;
 		
+		String exName = "sendCommand";
 		try {
 			resp = sendCommandInner(scmd);
 		} catch (NotActiveException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.toString());
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleConfigurationException(e, exName);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleRemoteException(e, exName);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleNotFoundException(e, exName);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.toString());
@@ -372,15 +352,14 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		boolean argOK = false;
 		String argValue;
 		
+		String exName = "sendCommandInner";
 		try {
 			cmls = new CMLDescriptions(agent.getCML(String.valueOf(scmd.getSid())));
 			cf = new RMICommandFactory(cmls.getDescription(scmd.getCid()));
 		} catch (SALDocumentException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleSALDocumentException(e, exName);
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.toString());
+			handleNotFoundException(e, exName);
 		}
 		
 		
@@ -421,6 +400,37 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 //		
 //		}
 	}
+	
+	private void handleNotFoundException(NotFoundException e, String string) {
+		formatException(e, string);
+		
+	}
+
+	private void handleRemoteException(RemoteException e, String string) {
+		formatException(e, string);
+	}
+	
+	private void handleAccessException(AccessException e, String string) {
+		formatException(e, string);
+		
+	}
+	
+	private void handleConfigurationException(ConfigurationException e,
+			String string) {
+		formatException(e, string);
+		
+	}
+
+	private void handleSALDocumentException(SALDocumentException e,
+			String string) {
+		formatException(e, string);
+		
+	}
+	
+	private void formatException(Exception e, String string) {
+		System.out.println("EX -> " + string + ": " + e.toString());	
+	}
+	
 	
 ////	private boolean handleConfigurationException(ConfigurationException e, String causedBy) {
 ////		System.out.println(causedBy + " --> " + e.toString());
