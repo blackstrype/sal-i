@@ -27,7 +27,7 @@ public class SensorDisplayPanel extends DockPanel {
 	// Insert an HTML widget for displaying a video file.
 	// TODO: Streaming video
 	// TODO: Access SAL server for streaming video
-	public void InsertVideo() {
+	public void insertVideo() {
 		String videoText = "";
 		videoText += "<object CLASSID='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' width='700' height='700' CODEBASE='http://www.apple.com/qtactivex/qtplugin.cab'>\n"
 				+ "<param name='src' value='media/sample_iTunes.mov'>\n"
@@ -42,9 +42,9 @@ public class SensorDisplayPanel extends DockPanel {
 	}
 
 	// Insert an HTML widget for displaying a JPEG image
-	public void InsertImage() {
+	public void insertImage(String src) {
 		String imageText = "";
-		imageText += "<img src='images/sample.jpg'>\n";
+		imageText += "<img src='" + src + "'>\n";
 
 		add(new HTML(imageText), DockPanel.SOUTH);
 	}
@@ -87,6 +87,9 @@ public class SensorDisplayPanel extends DockPanel {
 		
 		if(data.equals("")) {
 			data = "No data available.";
+		}
+		else if(data.indexOf("data:images/jpeg") != -1) {
+			insertImage(data);
 		}
 		
 		tabPanel.remove(1);

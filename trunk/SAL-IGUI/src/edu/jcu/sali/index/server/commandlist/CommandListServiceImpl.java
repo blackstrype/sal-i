@@ -61,6 +61,7 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 		SensorCommand scmd = new SensorCommand(sid, cid);
 		Response resp = client.sendCommand(scmd);
 		try {
+			System.out.println(resp.getString());
 			responseString = resp.getString();
 		} catch (SensorControlException e) {
 			System.out.println(e.getMessage());
