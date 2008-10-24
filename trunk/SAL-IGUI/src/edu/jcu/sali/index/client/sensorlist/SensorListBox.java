@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,6 +25,7 @@ public class SensorListBox extends Composite implements TableListener,
 	int selectedRow;
 
 	private ArrayList<ArrayList<String>> sensorList;
+	private SensorListPanel sensorListPanel;
 	private CommandListPanel commandListPanel;
 	private SensorDisplayPanel sensorDisplayPanel;
 	private String sid;
@@ -31,8 +33,9 @@ public class SensorListBox extends Composite implements TableListener,
 	private Timer updateTimer;
 
 	// constructor
-	public SensorListBox(CommandListPanel commandListPanel,
+	public SensorListBox(SensorListPanel sensorListPanel, CommandListPanel commandListPanel,
 			SensorDisplayPanel sensorDisplayPanel) {
+		this.sensorListPanel = sensorListPanel;
 		this.commandListPanel = commandListPanel;
 		this.sensorDisplayPanel = sensorDisplayPanel;
 
@@ -75,17 +78,19 @@ public class SensorListBox extends Composite implements TableListener,
 			// sensorDisplayPanel.displaySensorData(sensorList.get(row-1));
 			sensorDisplayPanel.displaySensorTabPanel(sensorList.get(row - 1));
 
-			// TODO: change
+			commandListPanel.toggleLoaderPanel();
 			CommandListServiceAsync instance = CommandListService.Util
 					.getInstance();
 			instance.getCommandList(Integer.parseInt(sid), new AsyncCallback() {
 
 				public void onFailure(Throwable error) {
-					// Window.alert("Error occured:" + error.toString());
+					commandListPanel.toggleLoaderPanel();
+					commandListPanel.setFailureText();
 				}
 
 				public void onSuccess(Object retValue) {
 					ArrayList<ArrayList<String>> commandList = (ArrayList<ArrayList<String>>) retValue;
+					commandListPanel.toggleLoaderPanel();
 					commandListPanel.updateCommandListPanel(sid, commandList);
 				}
 			});
@@ -120,6 +125,7 @@ public class SensorListBox extends Composite implements TableListener,
 	}
 
 	public void update() {
+		sensorListPanel.toggleLoaderPanel();
 		SensorListServiceAsync instance = SensorListService.Util.getInstance();
 		instance.getSensorList(new AsyncCallback() {
 
@@ -139,6 +145,7 @@ public class SensorListBox extends Composite implements TableListener,
 
 	// Set sensor-list
 	public void setSensorList(ArrayList<ArrayList<String>> sensorList) {
+		sensorListPanel.toggleLoaderPanel();
 		for (int i = sensorListTable.getRowCount() - 1; i >= 1; i--) {
 			sensorListTable.removeRow(i);
 		}

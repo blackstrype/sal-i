@@ -17,6 +17,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface SensorListService extends RemoteService {
 
 	public ArrayList<ArrayList<String>> getSensorList() throws Exception;
+	public ArrayList<ArrayList<String>> getProtocolList() throws Exception;
+	
 	
 	public static class Util {
 		
