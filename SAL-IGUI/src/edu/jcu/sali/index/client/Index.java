@@ -21,7 +21,6 @@ public class Index implements EntryPoint {
 	private SensorDisplayPanel sensorDisplayPanel;
 	private SensorListPanel sensorListPanel;
 	private CommandListPanel commandListPanel;
-	private DeviceOutputPanel deviceOutputPanel;
 
 	
 	public void onModuleLoad() {
@@ -68,23 +67,6 @@ public class Index implements EntryPoint {
 		upperMiddlePanel.add(rightMiddlePanel);
 		
 		wrapperPanel.add(upperMiddlePanel);
-
-		
-		// Lower middle panel
-//		HorizontalPanel lowerMiddlePanel = new HorizontalPanel();
-//		lowerMiddlePanel.setStyleName("lowerMiddlePanel");
-		// Command list
-//		commandListPanel.setHeight("200px");
-//		commandListPanel.setWidth("495px");
-//		commandListPanel.setStyleName("commandListPanel");
-//		lowerMiddlePanel.add(commandListPanel);
-		// Device output
-//		deviceOutputPanel = new DeviceOutputPanel();
-//		deviceOutputPanel.setHeight("200px");
-//		deviceOutputPanel.setWidth("495px");
-//		deviceOutputPanel.setStyleName("deviceOutputPanel");
-//		lowerMiddlePanel.add(deviceOutputPanel);
-//		wrapperPanel.add(lowerMiddlePanel);
 
 		RootPanel.get("wrapperDiv").add(wrapperPanel);
 		return;

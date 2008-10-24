@@ -2,19 +2,21 @@ package edu.jcu.sali.index.client.sensordisplay;
 
 import java.util.ArrayList;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+
+import edu.jcu.sali.index.client.utilities.Utilities;
 
 public class SensorDisplayPanel extends DockPanel {
 
 	private TabPanel tabPanel;
+	private Widget loaderWidget;
 
 	public SensorDisplayPanel() {
 		this.add(new HTML("<h1>Sensor Display</h1>"), DockPanel.NORTH);
+		this.loaderWidget = Utilities.getLoaderWidget();
 
 		// Create a tab panel
 		tabPanel = new TabPanel();
@@ -52,7 +54,7 @@ public class SensorDisplayPanel extends DockPanel {
 	public void displaySensorTabPanel(ArrayList<String> sensor) {
 		tabPanel.setVisible(true);
 		tabPanel.clear();
-		
+
 		// Set the width to 400 pixels
 		tabPanel.setWidth("700px");
 		tabPanel.setHeight("400px");
@@ -62,8 +64,7 @@ public class SensorDisplayPanel extends DockPanel {
 		tabPanel.add(sensorDetails, "Details");
 
 		// Add a data tab
-		HTML sensorData = new HTML(
-				"<p>No command sent until now.</p>");
+		HTML sensorData = new HTML("<p>No command sent until now.</p>");
 		tabPanel.add(sensorData, "Data");
 
 		// Make the first tab selected and the tab's content visible
@@ -80,20 +81,25 @@ public class SensorDisplayPanel extends DockPanel {
 						+ "<h3>Name</h3><p>" + sensor.get(3) + "</p></div>");
 		return detailsText;
 	}
-	
+
 	public void updateData(String data) {
-//		Window.alert(tabPanel.getTabBar().getTabHTML(1));
-//		add(new HTML("<p>"+data+"</p>"));
-		
-		if(data.equals("")) {
+		// Window.alert(tabPanel.getTabBar().getTabHTML(1));
+		// add(new HTML("<p>"+data+"</p>"));
+
+		if (data.equals("")) {
 			data = "No data available.";
-		}
-		else if(data.indexOf("data:images/jpeg") != -1) {
+		} else if (data.indexOf("data:images/jpeg") != -1) {
 			insertImage(data);
 		}
-		
+
 		tabPanel.remove(1);
-		tabPanel.add(new HTML("<p>"+data+"</p>"),"Data");
+		tabPanel.add(new HTML("<p>" + data + "</p>"), "Data");
+		tabPanel.selectTab(1);
+	}
+
+	public void showLoaderWidget() {
+		tabPanel.remove(1);
+		tabPanel.add(loaderWidget, "Data");
 		tabPanel.selectTab(1);
 	}
 
