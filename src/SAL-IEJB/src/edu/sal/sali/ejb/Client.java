@@ -20,9 +20,9 @@ import edu.sal.sali.rmi.SalConnector;
  */
 @Stateless
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
-	private static final String RMI_NAME = "EJB_SAL-I_Client_";
+	private static final String RMI_NAME = "EJB_SAL-I_Client";
 	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
-	private static final String OUR_IP = "137.219.45.136";
+	private static final String OUR_IP = "137.219.45.191";
 		
 	private static int clientCount = 0;
 	private SalConnector salCon = null;
@@ -42,7 +42,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 //    	InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("ConfigSALI.xml"); 
 //    	new File(input);   	
     	
-    	salCon = new SalConnector(RMI_NAME + clientCount++, AGENT_RMI_REG_IP, OUR_IP, this);
+    	salCon = new SalConnector(RMI_NAME + "_" + System.currentTimeMillis() + "_b" + clientCount++, AGENT_RMI_REG_IP, OUR_IP, this);
     	salCon.connectToAgent();  	
     }    
     
