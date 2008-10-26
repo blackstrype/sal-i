@@ -7,7 +7,7 @@ body {
 	text-align: center;
 }
 
-a:link, a:visited {
+a:link,a:visited {
 	color: #6496c3;
 	text-decoration: none;
 }
@@ -34,8 +34,6 @@ h3 {
 	padding: 0px;
 	text-decoration: underline;
 }
-
-
 
 /* Layout */
 .wrapperPanel {
@@ -74,28 +72,26 @@ h3 {
 	font-weight: normal;
 }
 
-
 .upperMiddlePanel {
 	margin-top: 10px;
 }
 
+
 .sensorListPanel {
 	background: #deeffe;
-	overflow: hidden;
-	height: 230px;	
-} 
+	height: 230px;
+}
 
-.sensor-List  {
+.sensor-List {
 	margin: 10px 10px 5px 10px;
 	width: 180px;
-	cursor: pointer; 
-	overflow: hidden;
-	height: 230px;	
+	cursor: pointer;
+	height: 230px;
 }
 
 .sensor-List-header {
 	cursor: auto;
-} 
+}
 
 .sensorList-selectedRow {
 	background: #64c397;
@@ -106,13 +102,12 @@ h3 {
 	margin-left: 20px;
 }
 
-
 .sensorDetails p {
-	margin-top:5px;
+	margin-top: 5px;
 }
 
-
 .lowerMiddlePanel {
+	
 }
 
 .commandListPanel {
@@ -122,16 +117,14 @@ h3 {
 }
 
 .commandListItem {
-
+	
 }
-
 
 .deviceOutputPanel {
 	border: 1px solid #64c397;
 	margin: 10px 0px 5px 5px;
 	padding: 5px;
 }
-
 
 .loaderPanel {
 	width: 100%;
@@ -141,6 +134,3 @@ h3 {
 img.loaderImage {
 	margin: 20px;
 }
-
-
-
