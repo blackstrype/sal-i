@@ -57,12 +57,5 @@ public class SensorListServiceImpl extends RemoteServiceServlet implements
 
 	}
 
-	public ArrayList<ArrayList<String>> getProtocolList() throws Exception {
-		ArrayList<ArrayList<String>> protocolList = new ArrayList<ArrayList<String>>();
-
-		System.out.println(client.getProtocolList());
-
-		return protocolList;
-	}
 
 }

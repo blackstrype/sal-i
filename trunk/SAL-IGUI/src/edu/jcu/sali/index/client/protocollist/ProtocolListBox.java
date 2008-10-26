@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.sensorlist;
+package edu.jcu.sali.index.client.protocollist;
 
 import java.util.ArrayList;
 
@@ -20,17 +20,18 @@ public class ProtocolListBox extends Composite implements TableListener,
 	private FlexTable protocolListTable = new FlexTable();
 	int selectedRow;
 
-	private ArrayList<ArrayList<String>> protocolList;
-	private SensorListPanel sensorListPanel;
+//	private ArrayList<ArrayList<String>> protocolList;
+	private String protocolList;
+	private ProtocolListPanel protocolListPanel;
 	private SensorDisplayPanel sensorDisplayPanel;
 	private String pid;
 
 	private Timer updateTimer;
 
 	// constructor
-	public ProtocolListBox(SensorListPanel sensorListPanel, 
+	public ProtocolListBox(ProtocolListPanel sensorListPanel, 
 			SensorDisplayPanel sensorDisplayPanel) {
-		this.sensorListPanel = sensorListPanel;
+		this.protocolListPanel = sensorListPanel;
 		this.sensorDisplayPanel = sensorDisplayPanel;
 
 		this.pid = "";
@@ -64,7 +65,7 @@ public class ProtocolListBox extends Composite implements TableListener,
 			selectedRow = row;
 			pid = protocolListTable.getText(row, 1);
 
-			sensorDisplayPanel.displaySensorTabPanel(protocolList.get(row - 1));
+//			sensorDisplayPanel.displaySensorTabPanel(protocolList);
 
 		}
 	}
@@ -93,8 +94,8 @@ public class ProtocolListBox extends Composite implements TableListener,
 	}
 
 	public void update() {
-		sensorListPanel.toggleLoaderPanel();
-		SensorListServiceAsync instance = SensorListService.Util.getInstance();
+		protocolListPanel.toggleLoaderPanel();
+		ProtocolListServiceAsync instance = ProtocolListService.Util.getInstance();
 		instance.getProtocolList(new AsyncCallback() {
 
 			public void onFailure(Throwable error) {
@@ -103,31 +104,34 @@ public class ProtocolListBox extends Composite implements TableListener,
 
 			public void onSuccess(Object retValue) {
 				if (protocolList != null) {
-					protocolList.clear();
+					protocolList = "";
 				}
-				protocolList = (ArrayList<ArrayList<String>>) retValue;
-				setSensorList(protocolList);
+				protocolList = (String) retValue;
+				setProtocolList(protocolList);
 			}
 		});
 	}
 
 	// Set sensor-list
-	public void setSensorList(ArrayList<ArrayList<String>> sensorList) {
-		sensorListPanel.toggleLoaderPanel();
+	public void setProtocolList(String protocolList) {
+		protocolListPanel.toggleLoaderPanel();
 		for (int i = protocolListTable.getRowCount() - 1; i >= 1; i--) {
 			protocolListTable.removeRow(i);
 		}
 
-		// Initialize the rest of the rows.
-		for (int i = 0; i < sensorList.size(); ++i) {
-			ArrayList<String> sensor = sensorList.get(i);
-			protocolListTable.setText(i + 1, 0, (i + 1) + ")");
-			protocolListTable.setText(i + 1, 1, sensor.get(0));
-			protocolListTable.setText(i + 1, 2, sensor.get(2));
-			protocolListTable.getCellFormatter().setWordWrap(i + 1, 0, false);
-			protocolListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
-			protocolListTable.getCellFormatter().setWordWrap(i + 1, 2, false);
-		}
+//		// Initialize the rest of the rows.
+//		for (int i = 0; i < sensorList.size(); ++i) {
+//			ArrayList<String> sensor = sensorList.get(i);
+//			protocolListTable.setText(i + 1, 0, (i + 1) + ")");
+//			protocolListTable.setText(i + 1, 1, sensor.get(0));
+//			protocolListTable.setText(i + 1, 2, sensor.get(2));
+//			protocolListTable.getCellFormatter().setWordWrap(i + 1, 0, false);
+//			protocolListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
+//			protocolListTable.getCellFormatter().setWordWrap(i + 1, 2, false);
+//		}
+		
+		protocolListTable.setText(1, 0, "1)");
+		protocolListTable.setText(1, 1, protocolList);
 
 	}
 
