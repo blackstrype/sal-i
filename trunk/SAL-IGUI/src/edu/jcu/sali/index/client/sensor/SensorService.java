@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.jcu.sali.index.client.sensor.sensorlist;
+package edu.jcu.sali.index.client.sensor;
 
 import java.util.ArrayList;
 
@@ -13,16 +13,18 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author Marc
  *
  */
-@RemoteServiceRelativePath("sensorlistservice")
-public interface SensorListService extends RemoteService {
+@RemoteServiceRelativePath("sensorservice")
+public interface SensorService extends RemoteService {
 
 	public ArrayList<ArrayList<String>> getSensorList() throws Exception;	
 	
+	public void addSensor(String newSensor) throws Exception;
+	
 	public static class Util {
 		
-		public static SensorListServiceAsync getInstance() {
+		public static SensorServiceAsync getInstance() {
 
-			return GWT.create(SensorListService.class);
+			return GWT.create(SensorService.class);
 		}
 	}
 

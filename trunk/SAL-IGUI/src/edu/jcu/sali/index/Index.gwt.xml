@@ -10,4 +10,4 @@
   	<!-- <inherits name="com.google.gwt.user.theme.chrome.Chrome"/> -->
   	<!-- <inherits name="com.google.gwt.user.theme.dark.Dark"/> -->
   	
-<servlet class="edu.jcu.sali.index.server.commandlist.CommandListServiceImpl" path="/commandlistservice"><!--needed for RPC-Service--></servlet><servlet class="edu.jcu.sali.index.server.sensorlist.SensorListServiceImpl" path="/sensorlistservice"/><servlet class="edu.jcu.sali.index.server.protocollist.ProtocolListServiceImpl" path="/protocollistservice"/></module>
+<servlet class="edu.jcu.sali.index.server.commandlist.CommandListServiceImpl" path="/commandlistservice"><!--needed for RPC-Service--></servlet><servlet class="edu.jcu.sali.index.server.sensor.SensorServiceImpl" path="/sensorservice"></servlet><servlet class="edu.jcu.sali.index.server.protocol.ProtocolServiceImpl" path="/protocolservice"/></module>

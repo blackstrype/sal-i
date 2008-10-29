@@ -51,10 +51,6 @@ h3 {
 	padding: 0px 20px 0px 20px;
 }
 
-.headerPanel a {
-	float: right;
-	margin-top: 85px;
-}
 
 .headerPanel h1 {
 	margin: 10px 20px 0px 0px;
@@ -72,6 +68,21 @@ h3 {
 	font-weight: normal;
 }
 
+
+.linkPanel {
+	width: 100%;
+}
+
+.linkPanel a {
+	font-size: 110%;
+	padding: 0px 10px 0px 10px;
+	float: left;
+}
+
+.linkPanel .linkRight {
+	float: right;
+}
+
 .sensorPanel {
 	margin-top: 10px;
 }
@@ -79,7 +90,7 @@ h3 {
 
 .sensorListPanel {
 	background: #deeffe;
-	height: 230px;
+	padding: 10px;
 }
 
 .sensor-List {
@@ -124,6 +135,30 @@ h3 {
 	border: 1px solid #64c397;
 	margin: 10px 0px 5px 5px;
 	padding: 5px;
+}
+
+
+.protocolPanel {
+	margin-top: 10px;
+}
+
+.protocolFunctionsPanel {
+	background: #deeffe;
+	padding: 10px;
+}
+
+.protocolListPanel {
+	background: #ffffff;
+	margin-left: 20px;
+}
+
+
+.dialogInputForm {
+	padding: 10px;
+}
+
+.dialogInputForm textarea {
+	margin: 10px 0px 10px 0px;
 }
 
 .loaderPanel {
