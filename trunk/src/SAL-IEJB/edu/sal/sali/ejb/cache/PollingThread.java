@@ -8,6 +8,7 @@ public class PollingThread extends Thread {
 	private SALI_Cache cache;
 	private boolean doRun;
 	private SALI_CacheMode mode;
+	private boolean isReady;
 
 	public PollingThread(SALI_Cache cache) {
 		super();
@@ -39,7 +40,10 @@ public class PollingThread extends Thread {
 	public void run() {
 
 		while (doRun) {
+			
 			cache.updateAll();
+			isReady = true;
+
 			try {
 				sleep(interval);
 			} catch (InterruptedException e) {
@@ -47,6 +51,10 @@ public class PollingThread extends Thread {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public boolean isReady() {	
+		return isReady;
 	}
 
 }
