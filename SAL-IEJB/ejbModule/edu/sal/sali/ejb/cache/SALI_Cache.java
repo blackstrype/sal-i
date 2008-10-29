@@ -22,51 +22,64 @@ public class SALI_Cache {
 		this.salCon = agent;
 		sensorCommands = new Hashtable<String, Set<CMLDescription>>();
 
-		updateSensorData();
+		updateAll();
 
 		polling = new PollingThread(this, mode);
 		polling.start();
 	}
 
+	public void updateAll() {
+		updateSensorList();
+		updateSensorListActive();
+		updateSensorCommands();
+		updateProtocolList();
+	}
 
-	public void updateSensorData() {
-		// init
-		String sensorID;
-		Set<CMLDescription> tmp_sensorCmdDescription;
+	public void updateSensorList() {
+
 		SMLDescriptions tmp_sensorList;
-		Hashtable<String, Set<CMLDescription>> tmp_sensorCommands = 
-							new Hashtable<String, Set<CMLDescription>>();
-		String tmp_protocolList;
+
+		tmp_sensorList = salCon.listAllSensors();
+		sensorList = tmp_sensorList;
+	}
+
+	public void updateSensorListActive() {
+
 		SMLDescriptions tmp_sensorListActive;
 
-		// get sensor list
-		tmp_sensorList = salCon.listAllSensors();
-
-		// get ACTIVE sensorlist
 		tmp_sensorListActive = salCon.getActiveSensors();
+		sensorListActive = tmp_sensorListActive;
+	}
+
+	public void updateSensorCommands() {
+
+		String sensorID;
+		Set<CMLDescription> tmp_sensorCmdDescription;
+		Hashtable<String, Set<CMLDescription>> tmp_sensorCommands = new Hashtable<String, Set<CMLDescription>>();
 
 		// get command list
-		for (SMLDescription sensor : tmp_sensorList.getDescriptions()) {
+		for (SMLDescription sensor : sensorList.getDescriptions()) {
 			sensorID = sensor.getID();
-			
-			tmp_sensorCmdDescription = salCon.getSensorCommands(Integer.parseInt(sensorID));
-			
-			//in case sensor got deleted meanwhile
-			if(tmp_sensorCmdDescription != null){
-				tmp_sensorCommands.put(sensorID, salCon.getSensorCommands(Integer
-						.parseInt(sensorID)));
+
+			tmp_sensorCmdDescription = salCon.getSensorCommands(Integer
+					.parseInt(sensorID));
+
+			// in case sensor got deleted meanwhile
+			if (tmp_sensorCmdDescription != null) {
+				tmp_sensorCommands.put(sensorID, salCon
+						.getSensorCommands(Integer.parseInt(sensorID)));
 			}
 		}
-
-		// get protocol list
-		tmp_protocolList = salCon.getProtocolsList();
-		
-		//copy tmp objects into real objects
-		sensorList = tmp_sensorList;
-		sensorListActive = tmp_sensorListActive;
 		sensorCommands = tmp_sensorCommands;
-		protocolList = tmp_protocolList;
+	}
 
+	
+	public void updateProtocolList() {
+
+		String tmp_protocolList;
+
+		tmp_protocolList = salCon.getProtocolsList();
+		protocolList = tmp_protocolList;
 	}
 
 	public void setProtocolList(String protocolList) {
@@ -89,8 +102,7 @@ public class SALI_Cache {
 		return sensorListActive;
 	}
 
-	public void setSensorListActive(
-			SMLDescriptions sensorListActive) {
+	public void setSensorListActive(SMLDescriptions sensorListActive) {
 		this.sensorListActive = sensorListActive;
 	}
 

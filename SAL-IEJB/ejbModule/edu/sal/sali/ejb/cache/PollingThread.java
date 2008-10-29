@@ -2,8 +2,8 @@ package edu.sal.sali.ejb.cache;
 
 public class PollingThread extends Thread {
 
-	private static final long POLLING_INTERVAL = 5000;
-	private static final long EVENT_INTERVAL = 300000;
+	private static final long POLLING_INTERVAL = 	30000;
+	private static final long EVENT_INTERVAL = 		300000;
 	private long interval;
 	private SALI_Cache cache;
 	private boolean doRun;
@@ -39,7 +39,7 @@ public class PollingThread extends Thread {
 	public void run() {
 
 		while (doRun) {
-			cache.updateSensorData();
+			cache.updateAll();
 			try {
 				sleep(interval);
 			} catch (InterruptedException e) {

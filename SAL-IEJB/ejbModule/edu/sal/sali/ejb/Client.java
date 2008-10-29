@@ -81,7 +81,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	private void updateCache() {
 		
 		if(mode == ClientMode.CACHE){
-			salicache.updateSensorData();
+			salicache.updateAll();
 		}
 	}
 
