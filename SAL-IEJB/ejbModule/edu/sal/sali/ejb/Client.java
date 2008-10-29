@@ -22,6 +22,7 @@ import edu.sal.sali.rmi.SalConnector;
  */
 @Stateless
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
+	
 	private static final String RMI_NAME = "EJB_SAL-I_Client";
 	private static final String AGENT_RMI_REG_IP = "137.219.45.191";
 	private static final String OUR_IP = "137.219.45.170";
@@ -36,15 +37,12 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     /**
      * Default constructor. 
      */
-    public Client() {
-    	
-    }
+    public Client() {}
     
     @PostConstruct
     public void init(){
     	
-    	String initTxt = "Client --> Initialisation... ID: " + clientCount;
-    	Logger.getRootLogger().debug(initTxt);        
+    	System.out.println("Client --> Initialisation... ID: " + clientCount);        
     	
     	//TODO Read client and server parameter from external configFile
 //    	InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("ConfigSALI.xml"); 
@@ -53,11 +51,11 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     	salCon = new SalConnector(RMI_NAME + "_" + System.currentTimeMillis() + "_b" + clientCount++, AGENT_RMI_REG_IP, OUR_IP, this);    	
     	salCon.connectToAgent();  	
     	
-    	if(salicache == null){
-    		Logger.getRootLogger().debug("Cach not existing. Create cache and fill with data.");
+    	if(salicache == null && mode == ClientMode.CACHE){
+    		System.out.println("Cach not existing. Create cache and fill with data.");
     		salicache = new SALI_Cache(MODE, salCon);
     	} else {
-    		Logger.getRootLogger().debug("Cach already existing.");
+    		System.out.println("Cach already existing.");
     	}
     }    
     
@@ -74,7 +72,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
     
     @Override
 	public void handle(Event e) {
-		Logger.getRootLogger().debug("Client --> Received: "+e.toString());
+		System.out.println("Client --> Received: "+e.toString());
 		updateCache();
 	}
 
@@ -87,13 +85,13 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 
 	@Override
 	public void collect(Response arg0) {
-		Logger.getRootLogger().debug("Client --> Collect function has been called!!");
+		System.out.println("Client --> Collect function has been called!!");
 	}
 	
 	@Override
 	public String test(){
 	    	String dummyTxt = "Client --> test call successful!!";
-	    	//Logger.getRootLogger().debug(dummyTxt);
+	    	//System.out.println(dummyTxt);
 	    	return dummyTxt;
 	}
 	
@@ -102,7 +100,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 		
 		SMLDescriptions sensorList = null;
 
-		if (mode == ClientMode.CACHE) {
+		if (checkCache()) {
 			sensorList = salicache.getSensorList();
 		} else {
 			sensorList = salCon.listAllSensors();
@@ -116,7 +114,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 
 		SMLDescriptions sensorList = null;
 
-		if (mode == ClientMode.CACHE) {
+		if (checkCache()) {
 			sensorList = salicache.getSensorListActive();
 		} else {
 			sensorList = salCon.getActiveSensors();
@@ -142,7 +140,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 		
 		String protocolList = null;
 
-		if (mode == ClientMode.CACHE) {
+		if (checkCache()) {
 			protocolList = salicache.getProtocolList();
 		} else {
 			protocolList = salCon.getProtocolsList();
@@ -168,7 +166,7 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 		
 		Set<CMLDescription> cmdList = null;
 
-		if (mode == ClientMode.CACHE) {
+		if (checkCache()) {
 			cmdList = salicache.getSensorCommands(Integer.toString(sid));
 		} else {
 			cmdList = salCon.getSensorCommands(sid);
@@ -178,6 +176,13 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 		
 	}
 	
+	private boolean checkCache() {
+		if(salicache == null)
+			return false;
+		
+		return  (mode == ClientMode.CACHE && salicache.isCacheReady());
+	}
+
 	@Override
 	public Response sendCommand(SensorCommand scmd){	
 		return salCon.sendCommand(scmd);
