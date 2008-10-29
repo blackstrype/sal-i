@@ -1,12 +1,10 @@
 package edu.jcu.sali.index.server.protocollist;
 
-import java.util.ArrayList;
-
 import javax.ejb.EJB;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import edu.jcu.sali.index.client.protocollist.ProtocolListService;
+import edu.jcu.sali.index.client.protocol.protocollist.ProtocolListService;
 import edu.sal.sali.ejb.ClientLocal;
 
 public class ProtocolListServiceImpl extends RemoteServiceServlet implements

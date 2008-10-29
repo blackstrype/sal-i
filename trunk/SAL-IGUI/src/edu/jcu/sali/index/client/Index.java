@@ -1,33 +1,25 @@
 package edu.jcu.sali.index.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-import edu.jcu.sali.index.client.commandlist.CommandListPanel;
-import edu.jcu.sali.index.client.protocollist.ProtocolListPanel;
-import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
-import edu.jcu.sali.index.client.sensorlist.SensorListPanel;
+import edu.jcu.sali.index.client.sensor.Sensor;
 
 
 
 public class Index implements EntryPoint {
 	
 	private VerticalPanel wrapperPanel;
-	private SensorDisplayPanel sensorDisplayPanel;
-	private SensorListPanel sensorListPanel;
-	private ProtocolListPanel protocolListPanel;
-	private CommandListPanel commandListPanel;
-
+	
 	
 	public void onModuleLoad() {
-		sensorDisplayPanel = new SensorDisplayPanel();
-		commandListPanel = new CommandListPanel(sensorDisplayPanel);
+		
 		BuildBaseUI();
 	}
 
@@ -45,37 +37,8 @@ public class Index implements EntryPoint {
 		headerPanel.add(hl_about,DockPanel.EAST);
 		wrapperPanel.add(headerPanel);
 
-		// Upper middle panel
-		HorizontalPanel upperMiddlePanel = new HorizontalPanel();
-		upperMiddlePanel.setStyleName("upperMiddlePanel");
-		StackPanel listPanel = new StackPanel();
-		// Sensor list
-		sensorListPanel = new SensorListPanel(commandListPanel,sensorDisplayPanel);
-		sensorListPanel.setWidth("200px");
-		sensorListPanel.setStyleName("sensorListPanel");
-		listPanel.add(sensorListPanel, "Sensor List");
-		// Protocol list
-		protocolListPanel = new ProtocolListPanel(commandListPanel,sensorDisplayPanel);
-		protocolListPanel.setWidth("200px");
-		protocolListPanel.setStyleName("protocolListPanel");
-		listPanel.add(protocolListPanel, "Protocol List");
-		upperMiddlePanel.add(listPanel);
-		
-		
-		VerticalPanel rightMiddlePanel = new VerticalPanel();
-		// Sensor display
-		sensorDisplayPanel.setWidth("780px");
-		sensorDisplayPanel.setHeight("430px");
-		sensorDisplayPanel.setStyleName("sensorDisplayPanel");
-		rightMiddlePanel.add(sensorDisplayPanel);
-
-		commandListPanel.setWidth("700px");
-		commandListPanel.setHeight("200px");
-		commandListPanel.setStyleName("commandListPanel");
-		rightMiddlePanel.add(commandListPanel);
-		upperMiddlePanel.add(rightMiddlePanel);
-		
-		wrapperPanel.add(upperMiddlePanel);
+		Sensor sensor = new Sensor();
+		wrapperPanel.add(sensor);
 
 		RootPanel.get("wrapperDiv").add(wrapperPanel);
 		return;

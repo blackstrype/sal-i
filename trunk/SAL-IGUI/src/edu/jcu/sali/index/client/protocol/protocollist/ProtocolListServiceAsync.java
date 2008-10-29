@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.protocollist;
+package edu.jcu.sali.index.client.protocol.protocollist;
 
 import java.util.ArrayList;
 

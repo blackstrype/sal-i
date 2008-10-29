@@ -11,7 +11,7 @@ import jcu.sal.common.exceptions.SensorControlException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import edu.jcu.sali.index.client.commandlist.CommandListService;
+import edu.jcu.sali.index.client.sensor.commandlist.CommandListService;
 import edu.sal.sali.ejb.ClientLocal;
 import edu.sal.sali.ejb.protocol.SensorCommand;
 

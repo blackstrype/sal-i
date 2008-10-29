@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.deviceoutput;
+package edu.jcu.sali.index.client.sensor.deviceoutput;
 
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;

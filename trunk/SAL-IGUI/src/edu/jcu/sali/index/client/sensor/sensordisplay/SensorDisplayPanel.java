@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.sensordisplay;
+package edu.jcu.sali.index.client.sensor.sensordisplay;
 
 import java.util.ArrayList;
 

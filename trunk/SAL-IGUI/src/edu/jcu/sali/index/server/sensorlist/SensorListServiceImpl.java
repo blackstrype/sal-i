@@ -9,7 +9,7 @@ import jcu.sal.common.sml.SMLDescriptions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import edu.jcu.sali.index.client.sensorlist.SensorListService;
+import edu.jcu.sali.index.client.sensor.sensorlist.SensorListService;
 import edu.sal.sali.ejb.ClientLocal;
 
 public class SensorListServiceImpl extends RemoteServiceServlet implements
