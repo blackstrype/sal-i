@@ -11,6 +11,8 @@ import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
+
 import jcu.sal.common.Constants;
 import jcu.sal.common.RMICommandFactory;
 import jcu.sal.common.Response;
@@ -41,7 +43,6 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	private RMISALAgent agent = null;
 	private Registry agentRegistry = null;
 	private Registry ourRegistry = null;
-	private boolean isHandleRemoteException;
 	private boolean stopRegisterLoop;
 	private int connectionCount = 0;
 	private int remoteExceptionCounter;
@@ -52,7 +53,6 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		this.agentRmiIP = agentRmiIP;
 		this.ownIP = ownIP;
 		this.eventHandler = eventHandler;
-		this.isHandleRemoteException = true;
 		
 	}
 	
@@ -378,7 +378,6 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 		String exName = "sendCommand";
 		try {
 			resp = sendCommandInner(scmd);
-			isHandleRemoteException = true;
 			decreaseRemoteExceptionCounter();
 		} catch (NotActiveException e) {
 			// TODO Auto-generated catch block
@@ -486,8 +485,8 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 			
 			lookupAgent();
 			registerClient();
-			export();
-			registerEventHandlers();
+//			export();
+//			registerEventHandlers();
 		}	
 	}
 	
@@ -520,23 +519,23 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 	
 	
 	private void formatException(Exception e, String string) {
-		System.out.println("EX -> " + string);
+		Logger.getRootLogger().debug("EX -> " + string);
 		e.printStackTrace();
 	}
 	
 	
 ////	private boolean handleConfigurationException(ConfigurationException e, String causedBy) {
-////		System.out.println(causedBy + " --> " + e.toString());
+////		Logger.getRootLogger().debug(causedBy + " --> " + e.toString());
 ////		//disconnectFromAgent();
 ////		
 ////		try {
 ////			agent.unregisterClient(rmiName);
 ////		} catch (ConfigurationException ex) {
 ////			// TODO Auto-generated catch block
-////			System.out.println(causedBy + " --> " + e.toString());
+////			Logger.getRootLogger().debug(causedBy + " --> " + e.toString());
 ////		} catch (RemoteException ex) {
 ////			// TODO Auto-generated catch block
-////			System.out.println(causedBy + " --> " + e.toString());
+////			Logger.getRootLogger().debug(causedBy + " --> " + e.toString());
 ////		}
 //		
 //		
@@ -544,7 +543,7 @@ public class SalConnector implements RMIEventHandler, RMIStreamCallback {
 //	}
 	
 //	private boolean handleRemoteException(RemoteException e, String causedBy) {
-//		System.out.println(causedBy + " --> " + e.toString());
+//		Logger.getRootLogger().debug(causedBy + " --> " + e.toString());
 //		disconnectFromAgent();
 //		
 //		return false;
