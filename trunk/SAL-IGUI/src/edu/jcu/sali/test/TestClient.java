@@ -44,26 +44,12 @@ public class TestClient implements ClientLocal {
 			}
 		}
 		SMLDescriptions listDesc = new SMLDescriptions(smlDescSet);
-
-		
-//		String tempSensor;
-//		ArrayList<String> sensorList = new ArrayList<String>();
-//		
-//		SMLDescriptions listDesc = salCon.getActiveSensors();
-//		for(SMLDescription singleDesc : listDesc.getDescriptions()){
-//			tempSensor = singleDesc.getSID() + "##" + singleDesc.getType();	
-//			sensorList.add(tempSensor);
-//		}
 		
 		return listDesc;
 	}
 
 	public Set<CMLDescription> getCommands(int sid) {
 		Set<CMLDescription> commands = new HashSet<CMLDescription>();	
-//		for(int i=0; i<5; i++) {
-//			CMLDescription cml = new CMLDescription("method"+i,i,"name"+i,"some desc",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_STRING));		
-//			commands.add(cml);
-//		}
 		
 		CMLDescription cml1 = new CMLDescription("Enable",10,"Enable","Enables the sensor",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_VOID));
 		commands.add(cml1);
@@ -95,16 +81,16 @@ public class TestClient implements ClientLocal {
 	public void stop() {
 	}
 
-
-	public ArrayList<String> getSensorList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 	public Response sendCommand(SensorCommand scmd) {
+		Response resp = null;
+		return resp;
+	}
+
+
+	public SMLDescriptions getSensorList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
