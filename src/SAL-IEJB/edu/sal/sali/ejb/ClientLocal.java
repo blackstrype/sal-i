@@ -1,21 +1,19 @@
 package edu.sal.sali.ejb;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.ejb.Local;
 
-import edu.sal.sali.ejb.protocol.SensorCommand;
-
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
+import edu.sal.sali.ejb.protocol.SensorCommand;
 
 @Local
 public interface ClientLocal {
 	
 	public String test();
 
-	ArrayList<String> getSensorList();
+	SMLDescriptions getSensorList();
 
 	Set<CMLDescription> getCommands(int sid);
 
