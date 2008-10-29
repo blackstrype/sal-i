@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.commandlist;
+package edu.jcu.sali.index.client.sensor.commandlist;
 
 import java.util.ArrayList;
 
@@ -16,8 +16,8 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.TreeListener;
 import com.google.gwt.user.client.ui.Widget;
 
-import edu.jcu.sali.index.client.commandlist.utils.CommandListTreeImages;
-import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
+import edu.jcu.sali.index.client.sensor.commandlist.utils.CommandListTreeImages;
+import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 import edu.jcu.sali.index.client.utilities.Utilities;
 
 /**

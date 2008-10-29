@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.commandlist.utils;
+package edu.jcu.sali.index.client.sensor.commandlist.utils;
 
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.TreeImages;

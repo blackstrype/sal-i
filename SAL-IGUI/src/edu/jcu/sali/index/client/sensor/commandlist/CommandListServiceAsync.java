@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.jcu.sali.index.client.commandlist;
+package edu.jcu.sali.index.client.sensor.commandlist;
 
 import java.util.ArrayList;
 

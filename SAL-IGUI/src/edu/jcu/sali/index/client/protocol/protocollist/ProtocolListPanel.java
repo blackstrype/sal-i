@@ -1,10 +1,10 @@
-package edu.jcu.sali.index.client.protocollist;
+package edu.jcu.sali.index.client.protocol.protocollist;
 
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.StackPanel;
 
-import edu.jcu.sali.index.client.commandlist.CommandListPanel;
-import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
+import edu.jcu.sali.index.client.sensor.commandlist.CommandListPanel;
+import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 import edu.jcu.sali.index.client.utilities.Utilities;
 
 public class ProtocolListPanel extends StackPanel {

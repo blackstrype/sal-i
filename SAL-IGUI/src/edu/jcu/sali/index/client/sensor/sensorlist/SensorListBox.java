@@ -1,4 +1,4 @@
-package edu.jcu.sali.index.client.sensorlist;
+package edu.jcu.sali.index.client.sensor.sensorlist;
 
 import java.util.ArrayList;
 
@@ -8,15 +8,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.Widget;
 
-import edu.jcu.sali.index.client.commandlist.CommandListPanel;
-import edu.jcu.sali.index.client.commandlist.CommandListService;
-import edu.jcu.sali.index.client.commandlist.CommandListServiceAsync;
-import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
+import edu.jcu.sali.index.client.sensor.commandlist.CommandListPanel;
+import edu.jcu.sali.index.client.sensor.commandlist.CommandListService;
+import edu.jcu.sali.index.client.sensor.commandlist.CommandListServiceAsync;
+import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 
 public class SensorListBox extends Composite implements TableListener,
 		ClickListener {

@@ -1,6 +1,4 @@
-package edu.jcu.sali.index.client.protocollist;
-
-import java.util.ArrayList;
+package edu.jcu.sali.index.client.protocol.protocollist;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
@@ -12,7 +10,7 @@ import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.Widget;
 
-import edu.jcu.sali.index.client.sensordisplay.SensorDisplayPanel;
+import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 
 public class ProtocolListBox extends Composite implements TableListener,
 		ClickListener {
