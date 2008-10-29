@@ -22,12 +22,27 @@ public class SALI_Cache {
 		this.salCon = agent;
 		sensorCommands = new Hashtable<String, Set<CMLDescription>>();
 
-		updateAll();
+		//updateAll();
 
 		polling = new PollingThread(this, mode);
 		polling.start();
 	}
 
+	public boolean isCacheReady(){
+		
+		boolean isReady = false;
+		
+		if (polling.isReady()){
+			isReady = true;
+		}else{
+			isReady = false;
+		}
+		
+		return isReady;
+		
+	}
+	
+	
 	public void updateAll() {
 		updateSensorList();
 		updateSensorListActive();
