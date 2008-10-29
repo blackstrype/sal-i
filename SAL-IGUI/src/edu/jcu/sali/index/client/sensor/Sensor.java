@@ -14,13 +14,14 @@ import edu.jcu.sali.index.client.sensor.sensorlist.SensorListPanel;
  * @author Marc
  *
  */
-public class Sensor extends HorizontalPanel{
+public class Sensor extends HorizontalPanel {
 	
 	private SensorDisplayPanel sensorDisplayPanel;
 	private SensorListPanel sensorListPanel;
 	private CommandListPanel commandListPanel;
 
 	public Sensor() {
+		this.setStyleName("sensorPanel");
 		sensorDisplayPanel = new SensorDisplayPanel();
 		commandListPanel = new CommandListPanel(sensorDisplayPanel);
 
@@ -28,7 +29,7 @@ public class Sensor extends HorizontalPanel{
 	}
 	
 	public void buildPanel() {
-		this.setStyleName("sensorPanel");
+		
 		// Sensor list
 		sensorListPanel = new SensorListPanel(commandListPanel,sensorDisplayPanel);
 		sensorListPanel.setWidth("200px");

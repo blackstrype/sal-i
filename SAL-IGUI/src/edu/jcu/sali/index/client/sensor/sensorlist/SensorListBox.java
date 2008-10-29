@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.jcu.sali.index.client.sensor.SensorService;
+import edu.jcu.sali.index.client.sensor.SensorServiceAsync;
 import edu.jcu.sali.index.client.sensor.commandlist.CommandListPanel;
 import edu.jcu.sali.index.client.sensor.commandlist.CommandListService;
 import edu.jcu.sali.index.client.sensor.commandlist.CommandListServiceAsync;
@@ -125,7 +127,7 @@ public class SensorListBox extends Composite implements TableListener,
 
 	public void update() {
 		sensorListPanel.toggleLoaderPanel();
-		SensorListServiceAsync instance = SensorListService.Util.getInstance();
+		SensorServiceAsync instance = SensorService.Util.getInstance();
 		instance.getSensorList(new AsyncCallback() {
 
 			public void onFailure(Throwable error) {
