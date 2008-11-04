@@ -1,22 +1,20 @@
 package edu.jcu.sali.index.server.protocol;
 
-import javax.ejb.EJB;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.jcu.sali.index.client.protocol.ProtocolService;
-import edu.sal.sali.ejb.ClientLocal;
+import edu.jcu.sali.test.TestClient;
 
 public class ProtocolServiceImpl extends RemoteServiceServlet implements
 		ProtocolService {
 
-	@EJB
-	ClientLocal client;
+//	@EJB
+//	ClientLocal client;
 
-	// private TestClient client;
+	 private TestClient client;
 
 	public ProtocolServiceImpl() {
-		// client = new TestClient();
+		 client = new TestClient();
 	}
 
 	/**

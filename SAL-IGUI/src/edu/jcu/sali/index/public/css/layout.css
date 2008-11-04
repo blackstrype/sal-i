@@ -97,7 +97,6 @@ h3 {
 	margin: 10px 10px 5px 10px;
 	width: 180px;
 	cursor: pointer;
-	height: 230px;
 }
 
 .sensor-List-header {
@@ -122,19 +121,18 @@ h3 {
 }
 
 .commandListPanel {
-	border: 1px solid #64c397;
+	border: 2px solid #64c397;
 	margin: 10px 0px 5px 20px;
-	padding: 5px;
+	padding: 5px 5px 5px 10px;
 }
 
-.commandListItem {
-	
+.argLabel {
+	width: 100px;
+	float: left;
 }
 
-.deviceOutputPanel {
-	border: 1px solid #64c397;
-	margin: 10px 0px 5px 5px;
-	padding: 5px;
+argInput {
+	margin-left: 110px;
 }
 
 

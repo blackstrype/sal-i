@@ -7,8 +7,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.jcu.sali.index.client.sensor.addsensorpopup.AddSensorPopup;
@@ -20,7 +21,7 @@ import edu.jcu.sali.index.client.utilities.Utilities;
  * @author Marc
  * 
  */
-public class SensorListPanel extends VerticalPanel {
+public class SensorListPanel extends DockPanel {
 
 	private AddSensorPopup addSensorPopup;
 	private SensorListBox sensorList;
@@ -28,6 +29,17 @@ public class SensorListPanel extends VerticalPanel {
 
 	public SensorListPanel(CommandListPanel commandListPanel,
 			SensorDisplayPanel sensorDisplayPanel) {
+		
+		this.add(new HTML("<h2>Sensor List</h2>"), DockPanel.NORTH);
+
+		
+		this.sensorLoaderPanel = Utilities.getLoaderPanel();
+		sensorList = new SensorListBox(this, commandListPanel,
+				sensorDisplayPanel);
+		
+		sensorLoaderPanel.add(sensorList);
+		this.add(sensorLoaderPanel, DockPanel.CENTER);
+		
 		
 		Hyperlink hl_addSensor = new Hyperlink("Add Sensor","addSensorToken");
 		hl_addSensor.addClickListener(new ClickListener() {
@@ -45,14 +57,7 @@ public class SensorListPanel extends VerticalPanel {
 			}
 			
 		});
-		this.add(hl_addSensor);
-		
-		this.sensorLoaderPanel = Utilities.getLoaderPanel();
-		sensorList = new SensorListBox(this, commandListPanel,
-				sensorDisplayPanel);
-		
-		sensorLoaderPanel.add(sensorList);
-		this.add(sensorLoaderPanel);
+		this.add(hl_addSensor, DockPanel.SOUTH);
 	}
 
 	public void toggleLoaderPanel() {

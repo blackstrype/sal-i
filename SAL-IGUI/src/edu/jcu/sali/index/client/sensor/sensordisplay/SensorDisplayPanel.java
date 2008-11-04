@@ -57,7 +57,7 @@ public class SensorDisplayPanel extends DockPanel {
 
 		// Set the width to 400 pixels
 		tabPanel.setWidth("700px");
-		tabPanel.setHeight("400px");
+		tabPanel.setHeight("300px");
 
 		// Add a details tab
 		HTML sensorDetails = this.getSensorDetails(sensor);
