@@ -8,6 +8,7 @@ import java.util.Set;
 import jcu.sal.common.Parameters;
 import jcu.sal.common.Response;
 import jcu.sal.common.Parameters.Parameter;
+import jcu.sal.common.cml.ArgumentType;
 import jcu.sal.common.cml.CMLConstants;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.cml.ReturnType;
@@ -59,6 +60,19 @@ public class TestClient implements ClientLocal {
 		commands.add(cml3);
 		CMLDescription cml4 = new CMLDescription("getReading",100,"getReading","Reads the 1-minute load average",new ArrayList(),new ArrayList(),new ReturnType(CMLConstants.RET_TYPE_FLOAT));
 		commands.add(cml4);
+		
+		ArrayList<ArgumentType> argTypes = new ArrayList<ArgumentType>();
+		argTypes.add(new ArgumentType(CMLConstants.ARG_TYPE_STRING));
+		argTypes.add(new ArgumentType(CMLConstants.ARG_TYPE_INT));
+
+		ArrayList<String> argNames = new ArrayList<String>();
+		argNames.add("ParaString");
+		argNames.add("ParaInt");
+
+		
+		CMLDescription cml5 = new CMLDescription("getArgs",100,"getArgs","Test for arguments",argTypes,argNames,new ReturnType(CMLConstants.RET_TYPE_FLOAT));
+		commands.add(cml5);
+		
 		return commands;
 	}
 
@@ -88,8 +102,27 @@ public class TestClient implements ClientLocal {
 
 
 	public SMLDescriptions getSensorList() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<SMLDescription> smlDescSet = new HashSet<SMLDescription>();
+		for(int i=0; i<10; i++) {
+			SMLDescription smlDesc;
+			try {
+				List<Parameter> param = new ArrayList<Parameters.Parameter>();
+				Parameters.Parameter p1 = new Parameters.Parameter("Address","SystemTime");
+				param.add(p1);
+				Parameters.Parameter p2 = new Parameters.Parameter("ProtocolType","PlatformData");
+				param.add(p2);
+				Parameters.Parameter p3 = new Parameters.Parameter("ProtocolName","osdata");
+				param.add(p3);
+				Parameters p = new Parameters(param);
+				smlDesc = new SMLDescription(i,p);
+				smlDescSet.add(smlDesc);
+			} catch (SALDocumentException e) {
+				e.printStackTrace();
+			}
+		}
+		SMLDescriptions listDesc = new SMLDescriptions(smlDescSet);
+		
+		return listDesc;
 	}
 
 

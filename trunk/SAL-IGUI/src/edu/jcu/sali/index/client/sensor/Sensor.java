@@ -40,7 +40,7 @@ public class Sensor extends HorizontalPanel {
 		VerticalPanel rightMiddlePanel = new VerticalPanel();
 		// Sensor display
 		sensorDisplayPanel.setWidth("780px");
-		sensorDisplayPanel.setHeight("430px");
+		sensorDisplayPanel.setHeight("360px");
 		sensorDisplayPanel.setStyleName("sensorDisplayPanel");
 		rightMiddlePanel.add(sensorDisplayPanel);
 

@@ -161,7 +161,10 @@ public class SensorListBox extends Composite implements TableListener,
 			sensorListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
 			sensorListTable.getCellFormatter().setWordWrap(i + 1, 2, false);
 		}
-
+		
+		if(selectedRow > 0) {
+			styleRow(selectedRow, true); // set the clicked row to 'selected'
+		}
 	}
 
 }

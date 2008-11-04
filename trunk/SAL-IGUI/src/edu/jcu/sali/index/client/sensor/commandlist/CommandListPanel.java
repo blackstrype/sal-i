@@ -3,6 +3,8 @@ package edu.jcu.sali.index.client.sensor.commandlist;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -10,6 +12,9 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeImages;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -31,6 +36,7 @@ public class CommandListPanel extends DockPanel {
 	private SensorDisplayPanel sensorDisplayPanel;
 	private DeckPanel loaderPanel;
 	private Tree clTree;
+	private String[] argNames;
 
 	public CommandListPanel(SensorDisplayPanel sensorDisplayPanel) {
 		this.sid = "0";
@@ -77,16 +83,40 @@ public class CommandListPanel extends DockPanel {
 
 			item.addItem(command.get(2));
 
+			if (command.get(4).length() > 0) {
+				argNames = command.get(4).split("##");
+				for(String argName : argNames) {
+					Label argLabel = new Label(argName);
+					argLabel.addStyleName("argLabel");
+					TextBox argInput = new TextBox();
+					DOM.setElementAttribute(argInput.getElement(), "id", argName);
+					argInput.addStyleName("argInput");
+					HorizontalPanel argPanel = new HorizontalPanel();
+					argPanel.add(argLabel);
+					argPanel.add(argInput);
+					item.addItem(argPanel);
+				}
+			}
+
 			Button bSendCommand = new Button("Send Command",
 					new ClickListener() {
 						public void onClick(Widget sender) {
 							sensorDisplayPanel.showLoaderWidget();
 							String cid = clTree.getSelectedItem()
 									.getParentItem().getText().split(" - ")[0];
+							
+							String args = "";
+							if(argNames != null) {
+								for(String arg : argNames) {
+									com.google.gwt.user.client.Element el = DOM.getElementById(arg);
+									String value = el.getAttribute("value");
+									args += arg + "##" + value + "####";
+								}
+							} 
 
 							CommandListServiceAsync instance = CommandListService.Util
 									.getInstance();
-							instance.sendCommand(sid, Integer.parseInt(cid),
+							instance.sendCommand(sid,args, Integer.parseInt(cid),
 									new AsyncCallback() {
 
 										public void onFailure(Throwable error) {
