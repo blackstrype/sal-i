@@ -16,5 +16,6 @@ public interface CommandListServiceAsync {
 
 	public void getCommandList(int sid, AsyncCallback<ArrayList<ArrayList<String>>> callback);
 	public void sendCommand(String sid, String args, int cid, AsyncCallback<String> callback);
+	public void removeSensor(int sid, AsyncCallback<?> callback);
 
 }

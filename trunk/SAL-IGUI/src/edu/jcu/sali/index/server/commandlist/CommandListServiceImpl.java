@@ -91,4 +91,12 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 
 		return responseString;
 	}
+
+	public void removeSensor(int sid) {
+		try {
+			client.removeSensor(sid);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

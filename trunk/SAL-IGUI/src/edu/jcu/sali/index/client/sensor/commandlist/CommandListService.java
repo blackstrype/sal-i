@@ -19,6 +19,7 @@ public interface CommandListService extends RemoteService {
 
 	public ArrayList<ArrayList<String>> getCommandList(int sid) throws Exception;
 	public String sendCommand(String sid, String args, int cid) throws Exception;
+	public void removeSensor(int sid);
 	
 	public static class Util {
 
