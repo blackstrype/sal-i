@@ -3,16 +3,17 @@ package edu.jcu.sali.index.client.sensor.commandlist;
 import java.util.ArrayList;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
@@ -21,6 +22,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.TreeListener;
 import com.google.gwt.user.client.ui.Widget;
 
+import edu.jcu.sali.index.client.sensor.addsensorpopup.AddSensorPopup;
 import edu.jcu.sali.index.client.sensor.commandlist.utils.CommandListTreeImages;
 import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 import edu.jcu.sali.index.client.utilities.Utilities;
@@ -85,11 +87,12 @@ public class CommandListPanel extends DockPanel {
 
 			if (command.get(4).length() > 0) {
 				argNames = command.get(4).split("##");
-				for(String argName : argNames) {
+				for (String argName : argNames) {
 					Label argLabel = new Label(argName);
 					argLabel.addStyleName("argLabel");
 					TextBox argInput = new TextBox();
-					DOM.setElementAttribute(argInput.getElement(), "id", argName);
+					DOM.setElementAttribute(argInput.getElement(), "id",
+							argName);
 					argInput.addStyleName("argInput");
 					HorizontalPanel argPanel = new HorizontalPanel();
 					argPanel.add(argLabel);
@@ -104,31 +107,32 @@ public class CommandListPanel extends DockPanel {
 							sensorDisplayPanel.showLoaderWidget();
 							String cid = clTree.getSelectedItem()
 									.getParentItem().getText().split(" - ")[0];
-							
+
 							String args = "";
-							if(argNames != null) {
-								for(String arg : argNames) {
-									com.google.gwt.user.client.Element el = DOM.getElementById(arg);
+							if (argNames != null) {
+								for (String arg : argNames) {
+									com.google.gwt.user.client.Element el = DOM
+											.getElementById(arg);
 									String value = el.getAttribute("value");
 									args += arg + "##" + value + "####";
 								}
-							} 
+							}
 
 							CommandListServiceAsync instance = CommandListService.Util
 									.getInstance();
-							instance.sendCommand(sid,args, Integer.parseInt(cid),
-									new AsyncCallback() {
+							instance.sendCommand(sid, args, Integer
+									.parseInt(cid), new AsyncCallback() {
 
-										public void onFailure(Throwable error) {
-											Window.alert("Error occured:"
-													+ error.toString());
-										}
+								public void onFailure(Throwable error) {
+									Window.alert("Error occured:"
+											+ error.toString());
+								}
 
-										public void onSuccess(Object retValue) {
-											String data = (String) retValue;
-											sensorDisplayPanel.updateData(data);
-										}
-									});
+								public void onSuccess(Object retValue) {
+									String data = (String) retValue;
+									sensorDisplayPanel.updateData(data);
+								}
+							});
 
 						}
 					});
@@ -136,6 +140,32 @@ public class CommandListPanel extends DockPanel {
 
 			clTree.addItem(item);
 		}
+
+		Hyperlink hl_remove = new Hyperlink("Remove sensor",
+				"removeSensorToken");
+		hl_remove.addClickListener(new ClickListener() {
+
+			public void onClick(Widget sender) {
+				CommandListServiceAsync instance = CommandListService.Util
+						.getInstance();
+				instance.removeSensor(Integer.parseInt(sid),
+						new AsyncCallback() {
+
+							public void onFailure(Throwable error) {
+								Window.alert("Error occured:"
+										+ error.toString());
+							}
+
+							public void onSuccess(Object retValue) {
+								
+							}
+						});
+
+			}
+
+		});
+		clTree.addItem(hl_remove);
+
 	}
 
 	public void setFailureText() {
