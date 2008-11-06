@@ -1,20 +1,22 @@
 package edu.jcu.sali.index.server.protocol;
 
+import javax.ejb.EJB;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.jcu.sali.index.client.protocol.ProtocolService;
-import edu.jcu.sali.test.TestClient;
+import edu.sal.sali.ejb.ClientLocal;
 
 public class ProtocolServiceImpl extends RemoteServiceServlet implements
 		ProtocolService {
 
-//	@EJB
-//	ClientLocal client;
+	@EJB
+	ClientLocal client;
 
-	 private TestClient client;
+//	 private TestClient client;
 
 	public ProtocolServiceImpl() {
-		 client = new TestClient();
+//		 client = new TestClient();
 	}
 
 	/**
@@ -41,6 +43,11 @@ public class ProtocolServiceImpl extends RemoteServiceServlet implements
 		catch (Exception ex) {
 			System.out.println("Error: no sensor added");
 		}		
+	}
+
+	public void removeProtocol(int pid, boolean remAssociate) {
+		client.removeProtocol(pid, remAssociate);
+		
 	}
 	
 }

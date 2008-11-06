@@ -3,6 +3,8 @@ package edu.jcu.sali.index.server.commandlist;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javax.ejb.EJB;
+
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.ArgumentType;
 import jcu.sal.common.cml.CMLDescription;
@@ -11,19 +13,19 @@ import jcu.sal.common.exceptions.SensorControlException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.jcu.sali.index.client.sensor.commandlist.CommandListService;
-import edu.jcu.sali.test.TestClient;
+import edu.sal.sali.ejb.ClientLocal;
 import edu.sal.sali.ejb.protocol.SensorCommand;
 
 public class CommandListServiceImpl extends RemoteServiceServlet implements
 		CommandListService {
 
-//	@EJB
-//	ClientLocal client;
+	@EJB
+	ClientLocal client;
 
-	 private TestClient client;
+//	 private TestClient client;
 
 	public CommandListServiceImpl() {
-		 client = new TestClient();
+//		 client = new TestClient();
 	}
 
 	/**
