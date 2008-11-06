@@ -10,6 +10,7 @@ public interface ProtocolService extends RemoteService {
 	public String getProtocolList() throws Exception;
 	
 	public void addProtocol(String newProtocol) throws Exception;
+	public void removeProtocol(int pid, boolean remAssociate);
 
 	public static class Util {
 

@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import edu.jcu.sali.index.client.protocol.addprotocolpopup.AddProtocolPopup;
+import edu.jcu.sali.index.client.protocol.removeprotocolpopup.RemoveProtocolPopup;
 
 /**
  * @author Marc
@@ -19,6 +20,7 @@ import edu.jcu.sali.index.client.protocol.addprotocolpopup.AddProtocolPopup;
 public class ProtocolFunctionsPanel extends VerticalPanel{
 	
 	private AddProtocolPopup addProtocolPopup;
+	private RemoveProtocolPopup removeProtocolPopup;
 	
 	public ProtocolFunctionsPanel() {
 		this.setStyleName("protocolFunctions");
@@ -40,6 +42,26 @@ public class ProtocolFunctionsPanel extends VerticalPanel{
 			
 		});
 		this.add(hl_addProtocol);
+		
+		Hyperlink hl_removeProtocol = new Hyperlink("Remove Protocol","removeProtocolToken");
+		hl_removeProtocol.addClickListener(new ClickListener() {
+
+			public void onClick(Widget sender) {		
+				removeProtocolPopup = new RemoveProtocolPopup();
+				removeProtocolPopup.setPopupPositionAndShow(new DialogBox.PositionCallback() {
+			          public void setPosition(int offsetWidth, int offsetHeight) {
+			              int left = (Window.getClientWidth() - offsetWidth) / 3;
+			              int top = (Window.getClientHeight() - offsetHeight) / 5;
+			              removeProtocolPopup.setPopupPosition(left, top);
+			            }
+			          });
+
+			}
+			
+		});
+		this.add(hl_removeProtocol);
+
+
 		
 	}
 
