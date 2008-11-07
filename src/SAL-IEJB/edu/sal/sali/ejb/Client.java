@@ -3,10 +3,7 @@ package edu.sal.sali.ejb;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
-
-import org.apache.log4j.Logger;
 
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
@@ -14,6 +11,8 @@ import jcu.sal.common.events.Event;
 import jcu.sal.common.sml.SMLDescriptions;
 import edu.sal.sali.ejb.cache.SALI_Cache;
 import edu.sal.sali.ejb.cache.SALI_CacheMode;
+import edu.sal.sali.ejb.exeption.SALException;
+import edu.sal.sali.ejb.exeption.TechnicalException;
 import edu.sal.sali.ejb.protocol.SensorCommand;
 import edu.sal.sali.rmi.SalConnector;
 
@@ -23,83 +22,122 @@ import edu.sal.sali.rmi.SalConnector;
 @Stateless
 public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	
-	private static final String RMI_NAME = "EJB_SAL-I_Client";
-	private static final String AGENT_RMI_REG_IP = "137.219.45.191";
-	private static final String OUR_IP = "137.219.45.170";
+	//TODO export connection settings
+	private static final String RMI_NAME = "SAL-I";
+//	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
+//	private static final String OUR_IP = "137.219.45.129";
+	private static final String AGENT_RMI_REG_IP = "10.12.170.230";
+	private static final String OUR_IP = "10.12.170.82";
+	
 	private static final ClientMode mode = ClientMode.CACHE;
 	private static final SALI_CacheMode MODE = SALI_CacheMode.EVENT;
 		
-	private static int clientCount = 0;
-	private SalConnector salCon = null;
-	
-	private static SALI_Cache salicache = null;
+	private static int clientCount;
+	private static SalConnector salCon;
+	private static SALI_Cache salicache;
+	private String fullClientName;
+	private int beanID;
 	
     /**
      * Default constructor. 
      */
     public Client() {}
     
+    
+    private void printCltMsg(String text){
+    	System.out.println("Client --> Bean, ID: "  + beanID + "; " + text);
+    }
+    
+    
     @PostConstruct
     public void init(){
     	
-    	System.out.println("Client --> Initialisation... ID: " + clientCount);        
+    	beanID = clientCount++;
     	
-    	//TODO Read client and server parameter from external configFile
-//    	InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("ConfigSALI.xml"); 
-//    	new File(input);   	
-    	
-    	salCon = new SalConnector(RMI_NAME + "_" + System.currentTimeMillis() + "_b" + clientCount++, AGENT_RMI_REG_IP, OUR_IP, this);    	
-    	salCon.connectToAgent();  	
-    	
-    	if(salicache == null && mode == ClientMode.CACHE){
-    		System.out.println("Cach not existing. Create cache and fill with data.");
-    		salicache = new SALI_Cache(MODE, salCon);
-    	} else {
-    		System.out.println("Cach already existing.");
-    	}
-    }    
+    	System.out.println("Client --> NEW Bean, ID: " + beanID);  
     
-    //TODO does not work, figure something out!
-    @PreDestroy
-    public void disconnect(){   	
-    	salCon.disconnectFromAgent();
+    	//first time initialization
+    	createSalConnector();
+    	createSalCache();
     }
+
+
+	public void createSalCache() {
+		
+		if(salCon == null){
+			createSalConnector();
+		}
+		
+		if(salicache == null && mode == ClientMode.CACHE){
+    		
+    		printCltMsg("Create SALCache");	
+    		salicache = new SALI_Cache(MODE, salCon);
+    		salCon.setCache(salicache);   		
+    	} else {   		
+    		printCltMsg("SALCache already existing");
+    	}
+	}
+
+
+	public void createSalConnector() {
+		if(salCon == null){	    	
+    		
+			fullClientName = RMI_NAME + "_" + OUR_IP + "_" + System.currentTimeMillis() + "_b" + beanID;
+	    	System.out.println("Client --> Full name: " + fullClientName);	
+	    	
+    		printCltMsg("Create SALConnector");  		
+    		salCon = new SalConnector(fullClientName, AGENT_RMI_REG_IP, OUR_IP, this);    	
+	    	salCon.connectToAgent();  	
+    	}
+	}    
     
     @Override
     public void stop(){
-    	this.disconnect();
+    	salCon.disconnectFromAgent();
+    	salCon = null;
     }
     
     @Override
 	public void handle(Event e) {
-		System.out.println("Client --> Received: "+e.toString());
-		updateCache();
+    	printCltMsg("Event received: " + e.toString());
 	}
 
 	private void updateCache() {
 		
+		String exName = "update cache";
 		if(mode == ClientMode.CACHE){
-			salicache.updateAll();
+			try {
+				salicache.updateAll();
+			} catch (SALException e) {
+				//TODO Handle ex
+				formatException(e, exName);
+			} catch (TechnicalException e) {
+				//TODO handle ex
+				formatException(e, exName);
+			}
 		}
 	}
 
 	@Override
 	public void collect(Response arg0) {
-		System.out.println("Client --> Collect function has been called!!");
+		printCltMsg("Collect function has been called!!");
 	}
+	
 	
 	@Override
 	public String test(){
-	    	String dummyTxt = "Client --> test call successful!!";
-	    	//System.out.println(dummyTxt);
-	    	return dummyTxt;
+		//Test stuff, no logic
+    	String dummyTxt = "Client --> test call successful!!";
+    	printCltMsg(dummyTxt);
+    	return dummyTxt;
 	}
 	
 	@Override
-	public SMLDescriptions getSensorList(){
+	public SMLDescriptions getSensorList() throws SALException, TechnicalException{	
+		printCltMsg("getSensorList");
 		
 		SMLDescriptions sensorList = null;
-
+		
 		if (checkCache()) {
 			sensorList = salicache.getSensorList();
 		} else {
@@ -110,10 +148,11 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
-	public SMLDescriptions getSensorListActive(){
-
+	public SMLDescriptions getSensorListActive() throws SALException, TechnicalException{
+		printCltMsg("getSensorListActive");
+		
 		SMLDescriptions sensorList = null;
-
+		
 		if (checkCache()) {
 			sensorList = salicache.getSensorListActive();
 		} else {
@@ -124,22 +163,25 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
-	public void removeSensor(int sid){
+	public void removeSensor(int sid) throws SALException, TechnicalException{
+		printCltMsg("removeSensor, SID: " + sid);
 		salCon.remSensor(Integer.toString(sid));
 		updateCache();
 	}
 	
 	@Override
-	public void addSensor(String xmlDoc){
+	public void addSensor(String xmlDoc) throws SALException, TechnicalException{
+		printCltMsg("addSensor, XML");
 		salCon.addSensor(xmlDoc);
 		updateCache();
 	}
 	
 	@Override
-	public String getProtocolList(){
+	public String getProtocolList() throws TechnicalException{
+		printCltMsg("getProtocolList");
 		
 		String protocolList = null;
-
+		
 		if (checkCache()) {
 			protocolList = salicache.getProtocolList();
 		} else {
@@ -150,44 +192,74 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
-	public void addProtocol(String xmlDoc, boolean doAssociate){
+	public void addProtocol(String xmlDoc, boolean doAssociate) throws SALException, TechnicalException{
+		printCltMsg("addProtocol, XML, doAssociate: " + doAssociate);
 		salCon.addProtocol(xmlDoc, doAssociate);
 		updateCache();
 	}
 	
 	@Override
-	public void removeProtocol(int pid, boolean remAssociate){
+	public void removeProtocol(int pid, boolean remAssociate) throws SALException, TechnicalException{
+		printCltMsg("removeProtocol, PID: " + pid + "remAssociate: " + remAssociate);
 		salCon.removeProtocol(Integer.toString(pid), remAssociate);
 		updateCache();
 	}
 	
 	@Override
-	public Set<CMLDescription> getCommands(int sid){
+	public Set<CMLDescription> getCommands(int sid) throws SALException, TechnicalException{
+		printCltMsg("getCommands, SID: " + sid);
 		
 		Set<CMLDescription> cmdList = null;
-
+		
 		if (checkCache()) {
 			cmdList = salicache.getSensorCommands(Integer.toString(sid));
 		} else {
 			cmdList = salCon.getSensorCommands(sid);
 		}
 
-		return cmdList;
-		
+		return cmdList;	
 	}
 	
 	private boolean checkCache() {
-		if(salicache == null)
+		if(mode != ClientMode.CACHE)
 			return false;
-		
-		return  (mode == ClientMode.CACHE && salicache.isCacheReady());
+		else{
+			if (salicache == null){
+				createSalCache();
+			}
+			return salicache.isCacheReady();
+		}
 	}
 
 	@Override
-	public Response sendCommand(SensorCommand scmd){	
+	public Response sendCommand(SensorCommand scmd) throws SALException, TechnicalException{	
+		printCltMsg("getCommands, SID: " + scmd.getSid() + ", CID: " + scmd.getCid());
+		
 		return salCon.sendCommand(scmd);
-		//TODO check if cache update is necessary
+	}
 
+
+	@Override
+	public int getID() {
+		return beanID;
 	}	
+	
+	private void formatException(Exception e, String string) {
+		printCltMsg("EX -> " + string);
+		e.printStackTrace();
+	}
+
+
+	@Override
+	public void renewConnection() {
+		//Got to create a new object because of rmiregistry. 
+		//unbound seems not to work
+		//TODO destroy cache and re-init
+		//TODO check why 2 connection attempts after renew
+		salCon = null;
+		createSalConnector();
+		salCon.setCache(salicache);
+		salicache.setConnector(salCon);	
+	}
 	
 }

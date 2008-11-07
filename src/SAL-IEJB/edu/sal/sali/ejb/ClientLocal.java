@@ -6,6 +6,8 @@ import javax.ejb.Local;
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
+import edu.sal.sali.ejb.exeption.SALException;
+import edu.sal.sali.ejb.exeption.TechnicalException;
 import edu.sal.sali.ejb.protocol.SensorCommand;
 
 @Local
@@ -13,25 +15,25 @@ public interface ClientLocal {
 	
 	public String test();
 
-	SMLDescriptions getSensorList();
+	SMLDescriptions getSensorList() throws SALException, TechnicalException;
 
-	Set<CMLDescription> getCommands(int sid);
+	Set<CMLDescription> getCommands(int sid) throws SALException, TechnicalException;
 
-	void removeProtocol(int pid, boolean remAssociate);
+	void removeProtocol(int pid, boolean remAssociate) throws SALException, TechnicalException;
 
-	void addProtocol(String xmlDoc, boolean doAssociate);
+	void addProtocol(String xmlDoc, boolean doAssociate) throws SALException, TechnicalException;
 
-	String getProtocolList();
+	String getProtocolList() throws TechnicalException;
 
-	void addSensor(String xmlDoc);
+	void addSensor(String xmlDoc) throws SALException, TechnicalException;
 
-	void removeSensor(int sid);
+	void removeSensor(int sid) throws SALException, TechnicalException;
 
 	void stop();
 
-	SMLDescriptions getSensorListActive();
+	SMLDescriptions getSensorListActive() throws SALException, TechnicalException;
 
-	Response sendCommand(SensorCommand scmd);
+	Response sendCommand(SensorCommand scmd) throws SALException, TechnicalException;
 	
 	
 	

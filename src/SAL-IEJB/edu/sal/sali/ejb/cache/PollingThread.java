@@ -1,5 +1,8 @@
 package edu.sal.sali.ejb.cache;
 
+import edu.sal.sali.ejb.exeption.SALException;
+import edu.sal.sali.ejb.exeption.TechnicalException;
+
 public class PollingThread extends Thread {
 
 	private static final long POLLING_INTERVAL = 	30000;
@@ -41,14 +44,22 @@ public class PollingThread extends Thread {
 
 		while (doRun) {
 			
-			cache.updateAll();
+			try {
+				cache.updateAll();
+			} catch (SALException e) {
+				// TODO Handle
+				formatException(e, "cache update (SAL)");
+			} catch (TechnicalException e) {
+				// TODO Auto-generated catch block
+				formatException(e, "cache update (technical)");
+			}
 			isReady = true;
 
 			try {
 				sleep(interval);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				formatException(e, "sleep - Interrupt exception");
 			}
 		}
 	}
@@ -57,4 +68,15 @@ public class PollingThread extends Thread {
 		return isReady;
 	}
 
+	private void printPollMsg(String text) {
+		System.out.println("PollThread --> "  + text);
+	}
+	
+	private void formatException(Exception e, String string) {
+		printPollMsg("EX -> " + string);
+		e.printStackTrace();
+	}
+	
+	
+	
 }
