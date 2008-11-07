@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jcu.sal.common.Response;
 import jcu.sal.common.cml.CMLDescription;
 import jcu.sal.common.exceptions.NotFoundException;
+import jcu.sal.common.exceptions.SensorControlException;
 import jcu.sal.common.sml.SMLDescription;
 import edu.sal.sali.ejb.ClientLocal;
+import edu.sal.sali.ejb.exeption.SALException;
+import edu.sal.sali.ejb.exeption.TechnicalException;
+import edu.sal.sali.ejb.protocol.SensorCommand;
 
 /**
  * Servlet implementation class TestServlet
@@ -26,6 +31,8 @@ public class TestServlet extends HttpServlet {
 	ClientLocal client;
 	
 	PrintWriter out = null;
+
+	private Response resp;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -63,25 +70,45 @@ public class TestServlet extends HttpServlet {
 			// client.connectToAgent();
 
 			out.println("</br>Try to get Sensor List...");
-			for (SMLDescription sensor : client.getSensorList()
-					.getDescriptions()) {
-				out.print("</br>SensorID " + sensor.getID() + " // Adr: " + sensor.getSensorAddress());
-				for (CMLDescription command : client
-						.getCommands(Integer.parseInt(sensor.getID()))) {
-					out.println("</br>CID: " + command.getCID() + " - "
-							+ command.getName() + " - " + command.getDesc());
+			try {
+				for (SMLDescription sensor : client.getSensorList()
+						.getDescriptions()) {
+					out.print("</br>SensorID " + sensor.getID() + " // Adr: " + sensor.getSensorAddress());
+					for (CMLDescription command : client
+							.getCommands(Integer.parseInt(sensor.getID()))) {
+						out.println("</br>CID: " + command.getCID() + " - "
+								+ command.getName() + " - " + command.getDesc());
 
-					for (String cmd : command.getArgNames()) {
-						out.println("</br>  arg: " + cmd);
-						try {
-							out.println("</br>    arg type: "
-									+ command.getArgType(cmd).toString());
-						} catch (NotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						for (String cmd : command.getArgNames()) {
+							out.println("</br>  arg: " + cmd);
+							try {
+								out.println("</br>    arg type: "
+										+ command.getArgType(cmd).toString());
+							} catch (NotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					}
+					
+					resp = client.sendCommand(new SensorCommand(sensor.getID(),
+							100));
+					try {
+						out.println("</br>Result: " + resp.getString());
+					} catch (SensorControlException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TechnicalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 			// out.println("</br>Try to delete Sensor 2 + 4...");
@@ -120,9 +147,15 @@ public class TestServlet extends HttpServlet {
 			// }
 
 			out.println("</br>Try to get Protocol List...");
-			String list = client.getProtocolList();
-			list.replace("<", "&lt;");
-			list.replace(">", "&gt;");
+			String list = null;
+			try {
+				list = client.getProtocolList();
+			} catch (TechnicalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			list.replace("<", "X_");
+			list.replace(">", "_X");
 			out.println("<CODE>" + list + "</CODE>");
 		}
 
