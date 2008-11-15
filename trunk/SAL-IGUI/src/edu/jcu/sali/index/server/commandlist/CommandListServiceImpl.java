@@ -3,8 +3,6 @@ package edu.jcu.sali.index.server.commandlist;
 import java.util.ArrayList;
 import java.util.Set;
 
-import javax.ejb.EJB;
-
 import jcu.sal.common.Response;
 import jcu.sal.common.cml.ArgumentType;
 import jcu.sal.common.cml.CMLDescription;
@@ -13,19 +11,19 @@ import jcu.sal.common.exceptions.SensorControlException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.jcu.sali.index.client.sensor.commandlist.CommandListService;
-import edu.sal.sali.ejb.ClientLocal;
+import edu.jcu.sali.test.TestClient;
 import edu.sal.sali.ejb.protocol.SensorCommand;
 
 public class CommandListServiceImpl extends RemoteServiceServlet implements
 		CommandListService {
 
-	@EJB
-	ClientLocal client;
+	// @EJB
+	// ClientLocal client;
 
-//	 private TestClient client;
+	private TestClient client;
 
 	public CommandListServiceImpl() {
-//		 client = new TestClient();
+		client = new TestClient();
 	}
 
 	/**
@@ -47,19 +45,19 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 			command.add(cml.getCID().toString());
 			command.add(cml.getName());
 			command.add(cml.getDesc());
-			
+
 			String argTypes = "";
-			for(ArgumentType argType : cml.getArgTypes()) {
+			for (ArgumentType argType : cml.getArgTypes()) {
 				argTypes += argType.getArgType() + "##";
-			}	
+			}
 			command.add(argTypes);
 
 			String argNames = "";
-			for(String argName : cml.getArgNames()) {
+			for (String argName : cml.getArgNames()) {
 				argNames += argName + "##";
-			}	
+			}
 			command.add(argNames);
-			
+
 			commands.add(command);
 		}
 
@@ -71,24 +69,24 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 		String responseString = "";
 
 		SensorCommand scmd = new SensorCommand(sid, cid);
-		for(String argString : args.split("####")) {
+		for (String argString : args.split("####")) {
 			String[] arg = argString.split("##");
-			scmd.addArg(arg[0], arg[1]);
-			
+			if (arg.length == 2) {
+				scmd.addArg(arg[0], arg[1]);
+			}
 		}
-		
-		
+
 		Response resp = client.sendCommand(scmd);
 		try {
 			System.out.println(resp.getString());
 			responseString = resp.getString();
 		} catch (SensorControlException e) {
 			System.out.println(e.getMessage());
-			responseString = "No data available, the sensor is currently disabled.\n" +
-					"Please enable the sensor before sending other commands.";
+			responseString = "No data available, the sensor is currently disabled.\n"
+					+ "Please enable the sensor before sending other commands.";
 		} catch (NullPointerException e) {
-			responseString = "No data available, the sensor is currently disabled.\n" +
-			"Please enable the sensor before sending other commands.";
+			responseString = "No data available, the sensor is currently disabled.\n"
+					+ "Please enable the sensor before sending other commands.";
 		}
 
 		return responseString;
