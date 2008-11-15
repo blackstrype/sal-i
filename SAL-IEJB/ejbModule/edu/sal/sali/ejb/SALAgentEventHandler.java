@@ -7,4 +7,6 @@ public interface SALAgentEventHandler {
 	
 	public void handle(Event e);
 	public void collect(Response arg0);
+	public int getID();
+	public void renewConnection();
 }
