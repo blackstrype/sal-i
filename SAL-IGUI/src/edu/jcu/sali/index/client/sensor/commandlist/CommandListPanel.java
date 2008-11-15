@@ -114,7 +114,9 @@ public class CommandListPanel extends DockPanel {
 									com.google.gwt.user.client.Element el = DOM
 											.getElementById(arg);
 									String value = el.getAttribute("value");
-									args += arg + "##" + value + "####";
+									if(!value.equals("")) {
+										args += arg + "##" + value + "####";										
+									}
 								}
 							}
 
