@@ -2,24 +2,26 @@ package edu.jcu.sali.index.server.sensor;
 
 import java.util.ArrayList;
 
+import javax.ejb.EJB;
+
 import jcu.sal.common.sml.SMLDescription;
 import jcu.sal.common.sml.SMLDescriptions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import edu.jcu.sali.index.client.sensor.SensorService;
-import edu.jcu.sali.test.TestClient;
+import edu.sal.sali.ejb.ClientLocal;
 
 public class SensorServiceImpl extends RemoteServiceServlet implements
 		SensorService {
 
-	// @EJB
-	// ClientLocal client;
+	 @EJB
+	 ClientLocal client;
 
-	private TestClient client;
+//	private TestClient client;
 
 	public SensorServiceImpl() {
-		client = new TestClient();
+//		client = new TestClient();
 	}
 
 	/**
