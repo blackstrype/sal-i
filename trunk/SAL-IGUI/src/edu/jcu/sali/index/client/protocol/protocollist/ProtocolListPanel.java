@@ -12,6 +12,13 @@ import edu.jcu.sali.index.client.protocol.ProtocolService;
 import edu.jcu.sali.index.client.protocol.ProtocolServiceAsync;
 import edu.jcu.sali.index.client.utilities.Utilities;
 
+/**
+ * The ProtocolListPanel contains a tab-panel displaying the protocols as
+ * XML-structure.
+ * 
+ * @author Marc Hammerton
+ * 
+ */
 public class ProtocolListPanel extends DockPanel {
 
 	private TabPanel tabPanel;
@@ -20,6 +27,10 @@ public class ProtocolListPanel extends DockPanel {
 
 	private Timer updateTimer;
 
+	/**
+	 * Initialize the panel. Add a headline and the tab-panel to the panel. Get
+	 * the protocol-list and update it every 10 sec.
+	 */
 	public ProtocolListPanel() {
 		this.add(new HTML("<h1>Protocol List</h1>"), DockPanel.NORTH);
 		this.loaderWidget = Utilities.getLoaderWidget();
@@ -29,7 +40,7 @@ public class ProtocolListPanel extends DockPanel {
 		// Set the width to 400 pixels
 		tabPanel.setWidth("700px");
 		tabPanel.setHeight("400px");
-		
+
 		// Add a XML tab
 		updateData();
 
@@ -45,12 +56,13 @@ public class ProtocolListPanel extends DockPanel {
 		updateTimer.scheduleRepeating(10000);
 	}
 
-
+	/**
+	 * Get the protocol-list from the service.
+	 */
 	public void updateData() {
 		showLoaderWidget();
 
-		ProtocolServiceAsync instance = ProtocolService.Util
-				.getInstance();
+		ProtocolServiceAsync instance = ProtocolService.Util.getInstance();
 		instance.getProtocolList(new AsyncCallback() {
 
 			public void onFailure(Throwable error) {
@@ -64,23 +76,36 @@ public class ProtocolListPanel extends DockPanel {
 		});
 
 	}
-	
+
+	/**
+	 * Add the protocol XML-structure to the tab-panel.
+	 * 
+	 * @param protocols
+	 *            The protocol XML-structure
+	 */
 	public void setXMLTab(String protocols) {
 		tabPanel.remove(0);
-		ta_protocolsXML = new TextArea();				
+		ta_protocolsXML = new TextArea();
 		ta_protocolsXML.setText(protocols);
 		ta_protocolsXML.setVisibleLines(20);
 		ta_protocolsXML.setReadOnly(true);
 		tabPanel.add(ta_protocolsXML, "XML");
-		tabPanel.selectTab(0);		
+		tabPanel.selectTab(0);
 	}
 
+	/**
+	 * Informs the user that a failure occurred while trying to retrieve the
+	 * protocol-list.
+	 */
 	public void setFailureText() {
 		tabPanel.remove(0);
 		tabPanel.add(new HTML("No data available."), "XML");
 		tabPanel.selectTab(0);
 	}
 
+	/**
+	 * Display the loader-widget while getting the data.
+	 */
 	public void showLoaderWidget() {
 		if (tabPanel.getTabBar().getTabCount() > 0) {
 			tabPanel.remove(0);

@@ -18,6 +18,12 @@ import edu.sal.sali.ejb.exeption.SALException;
 import edu.sal.sali.ejb.exeption.TechnicalException;
 import edu.sal.sali.ejb.protocol.SensorCommand;
 
+/**
+ * Implementation of the command-list service. Communicates with the SAL-client.
+ * 
+ * @author Marc Hammerton
+ * 
+ */
 public class CommandListServiceImpl extends RemoteServiceServlet implements
 		CommandListService {
 
@@ -31,18 +37,18 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * 
+	 * Serial-Version UID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
-	 * @return list of commands
+	 * @see edu.jcu.sali.index.client.sensor.commandlist.CommandListService#getCommandList(int)
 	 */
 	public ArrayList<ArrayList<String>> getCommandList(int sid)
 			throws Exception {
 		Set<CMLDescription> cmlList = client.getCommands(sid);
 
+		// Add commands to arraylist
 		ArrayList<ArrayList<String>> commands = new ArrayList<ArrayList<String>>();
 		for (CMLDescription cml : cmlList) {
 			ArrayList<String> command = new ArrayList<String>();
@@ -68,6 +74,10 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 		return commands;
 	}
 
+
+	/**
+	 * @see edu.jcu.sali.index.client.sensor.commandlist.CommandListService#sendCommand(String, String, int)
+	 */
 	public String sendCommand(String sid, String args, int cid) {
 
 		String responseString = "";
@@ -91,8 +101,7 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 		} catch (TechnicalException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		catch (SensorControlException e) {
+		} catch (SensorControlException e) {
 			System.out.println(e.getMessage());
 			responseString = "No data available, the sensor is currently disabled.\n"
 					+ "Please enable the sensor before sending other commands.";
@@ -100,7 +109,10 @@ public class CommandListServiceImpl extends RemoteServiceServlet implements
 
 		return responseString;
 	}
-
+	
+	/**
+	 * @see edu.jcu.sali.index.client.sensor.commandlist.CommandListService#removeSensor(int)
+	 */
 	public void removeSensor(int sid) {
 		try {
 			client.removeSensor(sid);

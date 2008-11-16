@@ -30,7 +30,7 @@ import edu.jcu.sali.index.client.utilities.Utilities;
 /**
  * Responsible for initializing and updating the CommandList-Panel
  * 
- * @author Marc
+ * @author Marc Hammerton
  * 
  */
 public class CommandListPanel extends DockPanel {
@@ -40,6 +40,11 @@ public class CommandListPanel extends DockPanel {
 	private Tree clTree;
 	private String[] argNames;
 
+	/**
+	 * Initialize the command-list-panel.
+	 * 
+	 * @param sensorDisplayPanel
+	 */
 	public CommandListPanel(SensorDisplayPanel sensorDisplayPanel) {
 		this.sid = "0";
 		this.sensorDisplayPanel = sensorDisplayPanel;
@@ -74,17 +79,33 @@ public class CommandListPanel extends DockPanel {
 		this.add(new HTML("<h2>Command List</h2>"), DockPanel.NORTH);
 	}
 
+	/**
+	 * Create the items for the command-list-tree. For each command a tree item
+	 * is created with the command-name and description. If the command needs
+	 * arguments, text-boxes are automatically generated. For each command a
+	 * send-command-button is created. At the end, a link to remove the sensor
+	 * is added.
+	 * 
+	 * @param currentSid
+	 * @param commands
+	 */
 	public void updateCommandListPanel(String currentSid,
 			ArrayList<ArrayList<String>> commands) {
 		this.sid = currentSid;
+
 		clTree.clear();
+
+		// Add the items
 		for (ArrayList<String> command : commands) {
+			// Name
 			TreeItem item = new TreeItem(command.get(0) + " - "
 					+ command.get(1));
 			item.addStyleName("commandListItem");
 
+			// Description
 			item.addItem(command.get(2));
 
+			// Arguments
 			if (command.get(4).length() > 0) {
 				argNames = command.get(4).split("##");
 				for (String argName : argNames) {
@@ -101,6 +122,7 @@ public class CommandListPanel extends DockPanel {
 				}
 			}
 
+			// Send Command
 			Button bSendCommand = new Button("Send Command",
 					new ClickListener() {
 						public void onClick(Widget sender) {
@@ -114,8 +136,8 @@ public class CommandListPanel extends DockPanel {
 									com.google.gwt.user.client.Element el = DOM
 											.getElementById(arg);
 									String value = el.getAttribute("value");
-									if(!value.equals("")) {
-										args += arg + "##" + value + "####";										
+									if (!value.equals("")) {
+										args += arg + "##" + value + "####";
 									}
 								}
 							}
@@ -143,6 +165,7 @@ public class CommandListPanel extends DockPanel {
 			clTree.addItem(item);
 		}
 
+		// Add remove sensor link
 		Hyperlink hl_remove = new Hyperlink("Remove sensor",
 				"removeSensorToken");
 		hl_remove.addClickListener(new ClickListener() {
@@ -159,7 +182,7 @@ public class CommandListPanel extends DockPanel {
 							}
 
 							public void onSuccess(Object retValue) {
-								
+
 							}
 						});
 
@@ -170,10 +193,16 @@ public class CommandListPanel extends DockPanel {
 
 	}
 
+	/**
+	 * Sets the failure text, in case something goes wrong.
+	 */
 	public void setFailureText() {
 		clTree.addItem("No commandlist available");
 	}
 
+	/**
+	 * Show the loader image while getting the data from the server.
+	 */
 	public void toggleLoaderPanel() {
 		if (loaderPanel.getVisibleWidget() == 0
 				&& loaderPanel.getWidgetCount() > 0) {
