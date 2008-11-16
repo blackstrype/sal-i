@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.jcu.sali.index.client.sensor;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -11,8 +8,11 @@ import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 import edu.jcu.sali.index.client.sensor.sensorlist.SensorListPanel;
 
 /**
- * @author Marc
- *
+ * Base class for the sensor-package. It initializes the contents for the
+ * sensor-panel.
+ * 
+ * @author Marc Hammerton
+ * 
  */
 public class Sensor extends HorizontalPanel {
 	
@@ -20,6 +20,9 @@ public class Sensor extends HorizontalPanel {
 	private SensorListPanel sensorListPanel;
 	private CommandListPanel commandListPanel;
 
+	/**
+	 * Initialize the sensor-panel.
+	 */
 	public Sensor() {
 		this.setStyleName("sensorPanel");
 		sensorDisplayPanel = new SensorDisplayPanel();
@@ -28,6 +31,11 @@ public class Sensor extends HorizontalPanel {
 		this.buildPanel();
 	}
 	
+	
+	/**
+	 * Build the components for the sensor-panel. It consists of the
+	 * sensor-list-panel, sensor-display-panel and the command-list-panel.
+	 */
 	public void buildPanel() {
 		
 		// Sensor list
@@ -44,6 +52,7 @@ public class Sensor extends HorizontalPanel {
 		sensorDisplayPanel.setStyleName("sensorDisplayPanel");
 		rightMiddlePanel.add(sensorDisplayPanel);
 
+		// Command list
 		commandListPanel.setWidth("700px");
 		commandListPanel.setHeight("200px");
 		commandListPanel.setStyleName("commandListPanel");

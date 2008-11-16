@@ -12,26 +12,36 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.jcu.sali.index.client.sensor.SensorService;
 import edu.sal.sali.ejb.ClientLocal;
 
+/**
+ * Implementation of the sensor service. Communicates with the SAL-client.
+ * 
+ * @author Marc Hammerton
+ * 
+ */
 public class SensorServiceImpl extends RemoteServiceServlet implements
 		SensorService {
 
-	 @EJB
-	 ClientLocal client;
+	@EJB
+	ClientLocal client;
 
-//	private TestClient client;
+	// private TestClient client;
 
 	public SensorServiceImpl() {
-//		client = new TestClient();
+		// client = new TestClient();
 	}
 
 	/**
-	 * 
+	 * Serial-Version UID
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see edu.jcu.sali.index.client.sensor.SensorService#getSensorList()
+	 */
 	public ArrayList<ArrayList<String>> getSensorList() throws Exception {
 		ArrayList<ArrayList<String>> sensorList = new ArrayList<ArrayList<String>>();
 
+		// add sensors to the arraylist
 		try {
 			SMLDescriptions listDesc = client.getSensorListActive();
 			if (listDesc != null) {
@@ -54,9 +64,11 @@ public class SensorServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return sensorList;
-
 	}
 
+	/**
+	 * @see edu.jcu.sali.index.client.sensor.SensorService#addSensor(String)
+	 */
 	public void addSensor(String newSensor) throws Exception {
 		try {
 			client.addSensor(newSensor);

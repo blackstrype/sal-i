@@ -14,23 +14,35 @@ import edu.jcu.sali.index.client.protocol.ProtocolService;
 import edu.jcu.sali.index.client.protocol.ProtocolServiceAsync;
 
 /**
- * @author Marc
+ * A pop-up for adding a protocol.
+ * 
+ * @author Marc Hammerton
  * 
  */
 public class AddProtocolPopup extends DialogBox {
-	
+
 	private TextArea textarea;
 
+	/**
+	 * Initializes the pop-up.
+	 */
 	public AddProtocolPopup() {
-		// Set the dialog box's caption.
 		setText("Add new Protocol");
 		setWidget(getInputFormPanel());
 	}
 
+	/**
+	 * Creates the input-form to get all the information for the new protocol.
+	 * It contains of text-area for the XML for the new protocol and two buttons
+	 * to add the protocol or to cancel the action.
+	 * 
+	 * @return inputFormPanel
+	 */
 	public VerticalPanel getInputFormPanel() {
 		VerticalPanel inputFormPanel = new VerticalPanel();
 		inputFormPanel.setStyleName("dialogInputForm");
 
+		// XML-Structure
 		Label la_textarea = new Label(
 				"Please enter the new protocol in XML format");
 		inputFormPanel.add(la_textarea);
@@ -41,6 +53,7 @@ public class AddProtocolPopup extends DialogBox {
 		textarea.setCharacterWidth(80);
 		inputFormPanel.add(textarea);
 
+		// Buttons
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		Button b_add = new Button("Add");
@@ -51,7 +64,7 @@ public class AddProtocolPopup extends DialogBox {
 				instance.addProtocol(textarea.getText(), new AsyncCallback() {
 
 					public void onFailure(Throwable error) {
-						
+
 					}
 
 					public void onSuccess(Object retValue) {

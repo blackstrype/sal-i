@@ -14,23 +14,36 @@ import edu.jcu.sali.index.client.sensor.SensorService;
 import edu.jcu.sali.index.client.sensor.SensorServiceAsync;
 
 /**
- * @author Marc
+ * A pop-up for adding a sensor.
+ * 
+ * @author Marc Hammerton
  * 
  */
 public class AddSensorPopup extends DialogBox {
 	
 	private TextArea textarea;
 
+	/**
+	 * Initializes the pop-up.
+	 */
 	public AddSensorPopup() {
-		// Set the dialog box's caption.
 		setText("Add new Sensor");
 		setWidget(getInputFormPanel());
 	}
 
+	/**
+	 * Creates the input-form to get all the information for the new sensor.
+	 * It contains of text-area for the XML for the new sensor and two buttons
+	 * to add the sensor or to cancel the action.
+	 * 
+	 * @return inputFormPanel
+	 */
+	
 	public VerticalPanel getInputFormPanel() {
 		VerticalPanel inputFormPanel = new VerticalPanel();
 		inputFormPanel.setStyleName("dialogInputForm");
 
+		// XML-structure
 		Label la_textarea = new Label(
 				"Please enter the new sensor in XML format");
 		inputFormPanel.add(la_textarea);
@@ -41,6 +54,7 @@ public class AddSensorPopup extends DialogBox {
 		textarea.setCharacterWidth(80);
 		inputFormPanel.add(textarea);
 
+		// Buttons
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		Button b_add = new Button("Add");

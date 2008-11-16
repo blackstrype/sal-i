@@ -13,8 +13,13 @@ import com.google.gwt.user.client.ui.Widget;
 import edu.jcu.sali.index.client.protocol.Protocol;
 import edu.jcu.sali.index.client.sensor.Sensor;
 
-
-
+/**
+ * Base class for the module. It initializes the contents for the
+ * application.
+ * 
+ * @author Marc Hammerton
+ *
+ */
 public class Index implements EntryPoint {
 	
 	private VerticalPanel wrapperPanel;
@@ -22,11 +27,14 @@ public class Index implements EntryPoint {
 	private Sensor sensor;
 	private Protocol protocol;
 	
+	/**
+	 * Initialize the components.
+	 */
 	public void onModuleLoad() {
 		wrapperPanel = new VerticalPanel();
 		wrapperPanel.setStyleName("wrapperPanel");
 
-		// Title of header panel
+		// Header panel
 		VerticalPanel headerPanel = new VerticalPanel();
 		headerPanel.setStyleName("headerPanel");
 		headerPanel.add(new HTML("<h1>SAL-I</h1><h2>Sensor Networks Interface</h2>"));
@@ -72,6 +80,10 @@ public class Index implements EntryPoint {
 		RootPanel.get("wrapperDiv").add(wrapperPanel);
 	}
 	
+	/**
+	 * Sets the contents of the main panel.
+	 * @param newPanel
+	 */
 	public void setMainPanel(Panel newPanel) {
 		wrapperPanel.remove(wrapperPanel.getWidgetCount()-1);
 		wrapperPanel.add(newPanel);

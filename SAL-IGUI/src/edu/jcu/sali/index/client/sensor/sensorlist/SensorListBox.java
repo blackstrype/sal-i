@@ -19,6 +19,12 @@ import edu.jcu.sali.index.client.sensor.commandlist.CommandListService;
 import edu.jcu.sali.index.client.sensor.commandlist.CommandListServiceAsync;
 import edu.jcu.sali.index.client.sensor.sensordisplay.SensorDisplayPanel;
 
+/**
+ * Display the sensors in a list box.
+ * 
+ * @author Marc Hammerton, Scott Messner
+ * 
+ */
 public class SensorListBox extends Composite implements TableListener,
 		ClickListener {
 
@@ -33,8 +39,18 @@ public class SensorListBox extends Composite implements TableListener,
 
 	private Timer updateTimer;
 
-	// constructor
-	public SensorListBox(SensorListPanel sensorListPanel, CommandListPanel commandListPanel,
+	/**
+	 * Initialize the list-box. Sets a timer to update the list every 10 sec.
+	 * 
+	 * @param sensorListPanel
+	 *            Reference to the sensor-list-panel.
+	 * @param commandListPanel
+	 *            Reference to the command-list-panel.
+	 * @param sensorDisplayPanel
+	 *            Reference to the sensor-display-panel.
+	 */
+	public SensorListBox(SensorListPanel sensorListPanel,
+			CommandListPanel commandListPanel,
 			SensorDisplayPanel sensorDisplayPanel) {
 		this.sensorListPanel = sensorListPanel;
 		this.commandListPanel = commandListPanel;
@@ -53,7 +69,8 @@ public class SensorListBox extends Composite implements TableListener,
 		setStyleName("sensor-List");
 
 		initList();
-		// update();
+
+		// Set timer for list-update
 		updateTimer = new Timer() {
 			public void run() {
 				update();
@@ -62,8 +79,11 @@ public class SensorListBox extends Composite implements TableListener,
 		updateTimer.scheduleRepeating(10000);
 	}
 
+	/**
+	 * When a sensor is selected, get sensor-id and update the
+	 * sensor-display-panel and the command-list.
+	 */
 	public void onCellClicked(SourcesTableEvents sender, int row, int cell) {
-		// TODO Auto-generated method stub
 
 		// Fetch Sensor details (commands, sensor display)
 		// populate command list for selected item (row)
@@ -74,11 +94,14 @@ public class SensorListBox extends Composite implements TableListener,
 			// row
 			styleRow(row, true); // set the clicked row to 'selected'
 			selectedRow = row;
+
+			// Sensor-id
 			sid = sensorListTable.getText(row, 1);
 
-			// sensorDisplayPanel.displaySensorData(sensorList.get(row-1));
+			// Update the sensor-display-panel
 			sensorDisplayPanel.displaySensorTabPanel(sensorList.get(row - 1));
 
+			// Update the command-list
 			commandListPanel.toggleLoaderPanel();
 			CommandListServiceAsync instance = CommandListService.Util
 					.getInstance();
@@ -99,9 +122,16 @@ public class SensorListBox extends Composite implements TableListener,
 	}
 
 	public void onClick(Widget sender) {
-		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Set the row-style.
+	 * 
+	 * @param row
+	 *            Row to get style
+	 * @param selected
+	 *            If the row is selected
+	 */
 	private void styleRow(int row, boolean selected) {
 		if (row != -1) {
 			if (selected) {
@@ -114,7 +144,9 @@ public class SensorListBox extends Composite implements TableListener,
 		}
 	}
 
-	// Initialize the flex table for the sensor list
+	/**
+	 * Initialize the flex table for the sensor list
+	 */
 	private void initList() {
 		// Create the header row.
 		sensorListTable.setText(0, 0, "#");
@@ -125,6 +157,9 @@ public class SensorListBox extends Composite implements TableListener,
 		update();
 	}
 
+	/**
+	 * Update the senor-list.
+	 */
 	public void update() {
 		sensorListPanel.toggleLoaderPanel();
 		SensorServiceAsync instance = SensorService.Util.getInstance();
@@ -144,8 +179,15 @@ public class SensorListBox extends Composite implements TableListener,
 		});
 	}
 
-	// Set sensor-list
+	/**
+	 * Set sensor-list. First delete all entries and than fill the list-box with
+	 * the sensors.
+	 * 
+	 * @param sensorList
+	 *            List of sensors.
+	 */
 	public void setSensorList(ArrayList<ArrayList<String>> sensorList) {
+		// Clear list-box
 		sensorListPanel.toggleLoaderPanel();
 		for (int i = sensorListTable.getRowCount() - 1; i >= 1; i--) {
 			sensorListTable.removeRow(i);
@@ -161,8 +203,8 @@ public class SensorListBox extends Composite implements TableListener,
 			sensorListTable.getCellFormatter().setWordWrap(i + 1, 1, false);
 			sensorListTable.getCellFormatter().setWordWrap(i + 1, 2, false);
 		}
-		
-		if(selectedRow > 0) {
+
+		if (selectedRow > 0) {
 			styleRow(selectedRow, true); // set the clicked row to 'selected'
 		}
 	}
