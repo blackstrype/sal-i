@@ -6,16 +6,24 @@
 		<servlet-class>edu.jcu.sali.index.server.commandlist.CommandListServiceImpl</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>SensorListService</servlet-name>
-		<servlet-class>edu.jcu.sali.index.server.sensorlist.SensorListServiceImpl</servlet-class>
+		<servlet-name>SensorService</servlet-name>
+		<servlet-class>edu.jcu.sali.index.server.sensor.SensorServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProtocolService</servlet-name>
+		<servlet-class>edu.jcu.sali.index.server.protocol.ProtocolServiceImpl</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CommandListService</servlet-name>
 		<url-pattern>/commandlistservice</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>SensorListService</servlet-name>
-		<url-pattern>/sensorlistservice</url-pattern>
+		<servlet-name>SensorService</servlet-name>
+		<url-pattern>/sensorservice</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProtocolService</servlet-name>
+		<url-pattern>/protocolservice</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
