@@ -117,7 +117,7 @@ public class TestClient implements ClientLocal {
 	 * 
 	 * @see edu.sal.sali.ejb.ClientLocal#removeProtocol(int, boolean)
 	 */
-	public void removeProtocol(int pid, boolean remAssociate) {
+	public void removeProtocol(String pid, boolean remAssociate) {
 	}
 
 	/*

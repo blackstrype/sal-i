@@ -68,7 +68,7 @@ public class RemoveProtocolPopup extends DialogBox {
 
 				ProtocolServiceAsync instance = ProtocolService.Util
 						.getInstance();
-				instance.removeProtocol(Integer.parseInt(pidInput.getText()),
+				instance.removeProtocol(pidInput.getText(),
 						checked, new AsyncCallback() {
 
 							public void onFailure(Throwable error) {

@@ -36,6 +36,6 @@ public interface ProtocolServiceAsync {
 	 * @param remAssociate
 	 *            If the associated sensors should be removed.
 	 */
-	public void removeProtocol(int pid, boolean remAssociate, AsyncCallback<?> callback);
+	public void removeProtocol(String pid, boolean remAssociate, AsyncCallback<?> callback);
 
 }

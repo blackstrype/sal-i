@@ -197,6 +197,7 @@ public class CommandListPanel extends DockPanel {
 	 * Sets the failure text, in case something goes wrong.
 	 */
 	public void setFailureText() {
+		clTree.clear();
 		clTree.addItem("No commandlist available");
 	}
 
