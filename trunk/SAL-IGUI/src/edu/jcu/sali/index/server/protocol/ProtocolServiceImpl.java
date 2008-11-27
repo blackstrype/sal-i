@@ -62,7 +62,7 @@ public class ProtocolServiceImpl extends RemoteServiceServlet implements
 	 * @see edu.jcu.sali.index.client.protocol.ProtocolService#removeProtocol(int,
 	 *      boolean)
 	 */
-	public void removeProtocol(int pid, boolean remAssociate) {
+	public void removeProtocol(String pid, boolean remAssociate) {
 		try {
 			client.removeProtocol(pid, remAssociate);
 		} catch (SALException e) {

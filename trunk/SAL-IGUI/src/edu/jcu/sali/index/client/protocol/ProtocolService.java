@@ -39,7 +39,7 @@ public interface ProtocolService extends RemoteService {
 	 * @param remAssociate
 	 *            If the associated sensors should be removed.
 	 */
-	public void removeProtocol(int pid, boolean remAssociate);
+	public void removeProtocol(String pid, boolean remAssociate);
 
 	/**
 	 * Inner-class to return an instance of the service.
