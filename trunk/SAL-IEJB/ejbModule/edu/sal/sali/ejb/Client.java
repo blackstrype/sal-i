@@ -25,9 +25,9 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	//TODO export connection settings
 	private static final String RMI_NAME = "SAL-I";
 //	private static final String AGENT_RMI_REG_IP = "137.219.45.117";
-//	private static final String OUR_IP = "137.219.45.129";
-	private static final String AGENT_RMI_REG_IP = "10.12.170.230";
-	private static final String OUR_IP = "10.12.170.82";
+//	private static final String OUR_IP = "137.219.45.222";
+	private static final String AGENT_RMI_REG_IP = "10.1.1.4";
+	private static final String OUR_IP = "10.1.1.3";
 	
 	private static final ClientMode mode = ClientMode.CACHE;
 	private static final SALI_CacheMode MODE = SALI_CacheMode.EVENT;
@@ -199,9 +199,9 @@ public class Client implements ClientRemote, ClientLocal, SALAgentEventHandler {
 	}
 	
 	@Override
-	public void removeProtocol(int pid, boolean remAssociate) throws SALException, TechnicalException{
+	public void removeProtocol(String pid, boolean remAssociate) throws SALException, TechnicalException{
 		printCltMsg("removeProtocol, PID: " + pid + "remAssociate: " + remAssociate);
-		salCon.removeProtocol(Integer.toString(pid), remAssociate);
+		salCon.removeProtocol(pid, remAssociate);
 		updateCache();
 	}
 	

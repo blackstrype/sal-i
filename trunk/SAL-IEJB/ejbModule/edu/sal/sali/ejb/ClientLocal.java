@@ -19,7 +19,7 @@ public interface ClientLocal {
 
 	Set<CMLDescription> getCommands(int sid) throws SALException, TechnicalException;
 
-	void removeProtocol(int pid, boolean remAssociate) throws SALException, TechnicalException;
+	void removeProtocol(String pid, boolean remAssociate) throws SALException, TechnicalException;
 
 	void addProtocol(String xmlDoc, boolean doAssociate) throws SALException, TechnicalException;
 
